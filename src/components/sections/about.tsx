@@ -1,10 +1,5 @@
-import { Inter, Playfair_Display } from 'next/font/google';
-import { cn } from '@/lib/utils';
 import { SectionHeading } from "../ui/section-heading";
 import Image from "next/image";
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const playfairDisplay = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair-display' });
 
 export default function About() {
   return (
@@ -65,18 +60,5 @@ export default function About() {
         </div>
       </div>
     </section>
-  );
-}
-
-export function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <head>
-        {/* Remove Google Fonts <link> if using next/font */}
-      </head>
-      <body className={cn('font-body bg-background text-foreground antialiased', inter.variable, playfairDisplay.variable)}>
-        {children}
-      </body>
-    </html>
   );
 }

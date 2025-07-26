@@ -27,6 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>{/* ... */}</head>
       <body className={cn('font-body bg-background text-foreground antialiased', inter.variable, playfairDisplay.variable)}>
         <ThemeProvider
           attribute="class"
