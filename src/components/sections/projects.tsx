@@ -21,7 +21,7 @@ const projectData = [
       "Optimized the report generation process, reducing turnaround time from hours to minutes without compromising quality.",
     ],
     tags: ["FastAPI", "HTML5", "TailwindCSS", "Automation"],
-    link: "https://github.com/rdnk2004/AI-Powered-Event-Report-Generator",
+    link: "https://github.com/rdnk2004/Report",
     institution: "Kumaraguru College of Liberal Arts and College",
     dates: "02/2025 - 04/2025"
   },
@@ -36,7 +36,7 @@ const projectData = [
         "Designed and deployed a Flask-based web application with a highly responsive UI for real-time defect classification and visualization.",
     ],
     tags: ["ResNet-50", "Flask", "AI", "Deep Learning", "PyTorch"],
-    link: "https://github.com/rdnk2004/Anomaly-Detection-Using-ResNet-50",
+    link: "https://github.com/rdnk2004/Anomaly-Det",
     institution: "Capstone Project",
     dates: "12/2024 - 03/2025"
   },
@@ -53,7 +53,7 @@ const projectData = [
       "Developed a fast and intuitive UI using Flask, enabling smooth operation and accessibility for academic users.",
     ],
     tags: ["Flask", "Automation", "Admin Panel", "Access Control"],
-    link: "https://github.com/rdnk2004/Smart-Academic-Documentation-Result-Analysis-Automation",
+    link: "https://github.com/rdnk2004/College-Website",
     institution: "Kumaraguru College",
     dates: "12/2024 - 03/2025"
   },
@@ -67,7 +67,7 @@ const projectData = [
       "Enabled efficient data analysis and archival by producing clean, analytics-ready datasets for administrative and academic review."
     ],
     tags: ["Streamlit", "Pandas", "Data Processing", "Automation"],
-    link: "https://github.com/rdnk2004/Automated-Semester-Marklist-Processor",
+    link: "https://github.com/rdnk2004/Mark-Splitting",
     institution: "Controller of Examinations (In House)",
     dates: "03/2025 - 03/2025"
   },
