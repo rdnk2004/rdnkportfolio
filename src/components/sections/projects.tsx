@@ -36,7 +36,7 @@ const projectData = [
         "Designed and deployed a Flask-based web application with a highly responsive UI for real-time defect classification and visualization.",
     ],
     tags: ["ResNet-50", "Flask", "AI", "Deep Learning", "PyTorch"],
-    link: "https://github.com/rdnk2004/Anomaly-Det",
+    link: "https://github.com/rdnk2004/anomaly-detection",
     institution: "Capstone Project",
     dates: "12/2024 - 03/2025"
   },
