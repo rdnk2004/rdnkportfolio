@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
+import { SpeedInsights } from '@vercel/speed-insights/next'; // ✅ Step 1: Import
 
 const inter = Inter({
   subsets: ['latin'],
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>{/* ... */}</head>
+      <head>{/* You can add meta tags here */}</head>
       <body className={cn('font-body bg-background text-foreground antialiased', inter.variable, playfairDisplay.variable)}>
         <ThemeProvider
           attribute="class"
@@ -36,6 +37,7 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
+          <SpeedInsights /> {/* ✅ Step 2: Add SpeedInsights here */}
         </ThemeProvider>
       </body>
     </html>
