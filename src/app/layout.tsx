@@ -4,7 +4,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
-import { SpeedInsights } from '@vercel/speed-insights/next'; // ✅ Step 1: Import
+import { SpeedInsights } from '@vercel/speed-insights/next';// ✅ Step 1: Import
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function RootLayout({
           {children}
           <Toaster />
           <SpeedInsights /> {/* ✅ Step 2: Add SpeedInsights here */}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
