@@ -14,7 +14,7 @@ const educationData = [
     degree: "Bachelor of Science in Data Science",
     institution: "Kumaraguru College of Liberal Arts and Science",
     duration: "Graduation: 06/2025",
-    details: "CGPA: 8.9",
+    details: "CGPA: 9.022",
   },
   {
     degree: "High School Education",
