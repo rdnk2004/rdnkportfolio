@@ -6,7 +6,7 @@ const awardsData = [
   {
     name: "University 3rd Rank",
     institution: "Bharathiar University",
-    date: 10/2025,
+    date: "10/2025",
   },
   {
     name: "Champ of Data Science",
