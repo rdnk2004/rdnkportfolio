@@ -5,6 +5,10 @@ import { SectionHeading } from "../ui/section-heading";
 
 const certificationData = [
   {
+    name: "Oracle Certification - Data Science Professional 2025",
+    provider: "Oracle",
+  },
+  {
     name: "Introduction to Python",
     provider: "IBM Career Education Program",
   },
