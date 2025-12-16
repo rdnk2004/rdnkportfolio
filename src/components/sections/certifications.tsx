@@ -9,6 +9,10 @@ const certificationData = [
     provider: "Oracle",
   },
   {
+    name: "Applied Data Science with Python - Level 2",
+    provider: "IBM",
+  },
+  {
     name: "Introduction to Python",
     provider: "IBM Career Education Program",
   },
