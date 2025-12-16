@@ -3,14 +3,16 @@ import { SectionHeading } from "../ui/section-heading";
 
 const experienceData = [
   {
-    role: "Project Lead - University Academic Portal (Capstone Project)",
+    role: "Automation and Platform Developer",
     company: "Kumaraguru College of Liberal Arts and Science",
-    duration: "03/2024 - 09/2024",
+    duration: "12/2024 - 03/2025",
     tasks: [
-      "Selected and led a cross-batch team to develop a full-stack academic portal for the entire college.",
-      "Coordinated sprint planning, development cycles, and cross-functional collaboration.",
-      "Built Excel-style modals for internal mark entry with dynamic batch/subject filtering and automated mark conversion logic.",
-      "Developed detailed admin dashboards for real-time result analysis, including top scorers and subject-wise performance.",
+      "Designed and developed an integrated academic automation platform combining multiple internal tools into a single role-based system.",
+      "Built end-to-end automation for documentation, result processing, and report generation, significantly reducing manual administrative effort.",
+      "Integrated high-volume Excel data processing pipelines with secure role-based access for Admin, HOD, and Faculty users.",
+      "Developed real-time result analysis dashboards, faculty management workflows, and structured reporting modules.",
+      "Unified previously independent automation tools into a centralised web interface, improving usability and operational consistency.",
+      "Delivered a deployment-ready system used in real academic workflows, ensuring scalability and minimal manual intervention.",
     ],
   },
   {
