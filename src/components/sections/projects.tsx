@@ -4,92 +4,85 @@
 import { useState } from "react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { SectionHeading } from "../ui/section-heading";
-import { Github } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 
 const projectData = [
   {
-    title: "Event Report Automated Generator",
-    shortDescription: "Designed and deployed a university event report generation system, actively used by faculty and staff across departments. Reduced turnaround time from hours to minutes.",
-    longDescription: [
-      "Designed and deployed a university event report generation system, actively used by faculty and staff across departments.",
-      "Developed a dynamic, real-time form builder with live preview functionality using FastAPI and HTML5.",
-      "Integrated DOCX document processing to generate professional-grade reports adhering to university formatting standards.",
-      "Built a fully responsive UI with TailwindCSS, ensuring seamless device usability.",
-      "Optimized the report generation process, reducing turnaround time from hours to minutes without compromising quality.",
+    title: "Automated Semester Marklist Processing System",
+    metadata: "Controller of Examinations | In-House | Active",
+    oneLiner: "Automated semester marklist processing for 1,400+ students, reducing manual effort from 2+ hours to under 2 minutes.",
+    skills: ["Python", "Excel Automation", "Data Cleaning", "Streamlit", "Workflow Automation"],
+    problem: "Semester marklists were received as large, unstructured Excel files that required manual cleaning, header insertion, and department-wise splitting. This process was repetitive, error-prone, and took over 2 hours per cycle, slowing academic review and reporting.",
+    solution: "Built a Streamlit-based automation platform that ingests raw Excel files, cleans inconsistencies, inserts missing headers, and intelligently splits data by department and batch. The system generates clean, analytics-ready Excel files and packages them as a structured ZIP output.",
+    impact: [
+      "Reduced processing time from 2+ hours to < 2 minutes",
+      "Processed 1,400+ student records across 14+ departments and 3 batches",
+      "Eliminated manual errors and enabled faster academic review and archival"
     ],
-    tags: ["FastAPI", "HTML5", "TailwindCSS", "Automation"],
-    link: "https://github.com/rdnk2004/Report",
-    institution: "Kumaraguru College of Liberal Arts and College",
-    dates: "02/2025 - 04/2025"
-  },
-  {
-    title: "Anomaly Detection Using ResNet-50",
-    shortDescription: "Developed an AI-powered anomaly detection system for defect classification, achieving up to 94% accuracy. Deployed with a Flask-based web application.",
-    longDescription: [
-        "Developed an AI-powered anomaly detection system for defect classification in bottles and hazelnuts using ResNet-50, a deep learning model pretrained on ImageNet.",
-        "Achieved 87% accuracy for bottles and 94% accuracy for hazelnuts, improving defect detection efficiency in industrial settings.",
-        "Implemented data balancing techniques, improving anomaly classification by reducing bias towards normal samples.",
-        "Fine-tuned model performance using Adam optimizer, early stopping, and learning rate scheduling to enhance generalization.",
-        "Designed and deployed a Flask-based web application with a highly responsive UI for real-time defect classification and visualization.",
-    ],
-    tags: ["ResNet-50", "Flask", "AI", "Deep Learning", "PyTorch"],
-    link: "https://github.com/rdnk2004/anomaly-detection",
-    institution: "Capstone Project",
-    dates: "12/2024 - 03/2025"
+    link: "https://github.com/rdnk2004/Mark-Splitting"
   },
   {
     title: "Smart Academic Documentation & Result Analysis Automation",
-    shortDescription: "Built a report generator automating event documentation in under 30 seconds and an Admin Panel for managing faculty workloads and analyzing results in real-time.",
-    longDescription: [
-      "Developed an algorithm-driven report generator, automating the creation of event documentation (workshops, field visits, masterclasses) in under 30 seconds (previously taking 1–2 hours manually).",
-      "Built an Admin Panel for managing departments, faculty assignments, and workload distribution.",
-      "Optimized mark-splitting operations, reducing a 2–3 hour manual process to just 1–2 minutes using efficient batch processing.",
-      "Designed dedicated HOD and Faculty pages to generate real-time result analysis and structured reports with minimal input.",
-      "Ensured seamless data management with structured workflows for academic record-keeping, reducing errors and improving efficiency.",
-      "Implemented role-based access control to enhance security and ensure user-specific functionalities.",
-      "Developed a fast and intuitive UI using Flask, enabling smooth operation and accessibility for academic users.",
+    metadata: "University Academic Portal | Capstone Project",
+    oneLiner: "Built and led the development of an academic portal enabling real-time result analysis and automated faculty workflows.",
+    skills: ["Flask", "MongoDB", "Data Analysis", "Role-Based Access Control", "Team Leadership", "Automation"],
+    problem: "Academic workflows such as mark entry, documentation, and result analysis relied on disconnected tools and manual reporting, leading to delays, inconsistencies, and limited analytical visibility.",
+    solution: "Led a cross-batch team to develop a full-stack academic portal with Excel-style mark entry, automated mark conversion, and dynamic subject/batch filtering. Designed admin dashboards providing live insights into subject-wise performance, top scorers, and arrear statistics, with role-based access for faculty, HODs, and admins.",
+    impact: [
+      "Enabled real-time academic performance analysis",
+      "Improved data integrity using structured workflows and RBAC",
+      "Reduced documentation and reporting effort across faculty and admin users"
     ],
-    tags: ["Flask", "Automation", "Admin Panel", "Access Control"],
-    link: "https://github.com/rdnk2004/College-Website",
-    institution: "Kumaraguru College",
-    dates: "12/2024 - 03/2025"
+    link: "https://github.com/rdnk2004/College-Website"
   },
   {
-    title: "Automated Semester Marklist Processor",
-    shortDescription: "Created a Streamlit app to process 1,400+ student records, cutting processing time from 2+ hours to under 2 minutes with a custom data cleaning algorithm.",
-    longDescription: [
-      "Designed and deployed a Streamlit-based web platform for the Controller of Examinations to process semester marklists of 1,400+ students across 14+ departments and 3 academic batches.",
-      "Developed a custom algorithm to clean raw, unstructured Excel datasets, insert headers, and automatically split data departments- and batch-wise, eliminating manual intervention.",
-      "Reduced data processing time from 2+ hours to under 2 minutes, with output delivered as a structured ZIP file containing formatted Excel documents.",
-      "Enabled efficient data analysis and archival by producing clean, analytics-ready datasets for administrative and academic review."
+    title: "Event Report Automated Generator",
+    metadata: "In-House | Actively Used by Faculty",
+    oneLiner: "Automated academic event report creation, cutting documentation time from hours to minutes.",
+    skills: ["Streamlit", "Python", "DOCX Automation", "HTML5", "TailwindCSS", "UI/UX Design"],
+    problem: "Faculty spent significant time manually creating event reports, repeatedly formatting documents and ensuring compliance with institutional standards.",
+    solution: "Developed a Streamlit-based report generation system with a dynamic form builder and live preview. Integrated automated DOCX generation to produce professionally formatted reports aligned with university guidelines.",
+    impact: [
+      "Reduced report creation time from hours to minutes",
+      "Enabled non-technical users to generate standardized reports independently",
+      "Improved consistency and quality of academic documentation"
     ],
-    tags: ["Streamlit", "Pandas", "Data Processing", "Automation"],
-    link: "https://github.com/rdnk2004/Mark-Splitting",
-    institution: "Controller of Examinations (In House)",
-    dates: "03/2025 - 03/2025"
+    link: "https://github.com/rdnk2004/Report"
   },
   {
-    title: "Data-Driven Bliss: Analyzing Wellness of Yoga",
-    shortDescription: "Conducted in-depth data analysis on the impact of yoga on mental and physical well-being, identifying key factors and barriers to adoption.",
-    longDescription: [
-      "Conducted in-depth data analysis on the impact of yoga on mental and physical well-being, focusing on both experienced practitioners and nonpractitioners.",
-      "Identified key factors such as mental clarity, stress reduction, and flexibility improvements associated with regular yoga practice.",
-      "Presented insights on barriers to yoga adoption, highlighting the need for tailored awareness and education programs to encourage broader participation.",
-      "Demonstrated multifaceted approaches to enhancing well-being, promoting yoga as a solution while recognizing the importance of alternative wellness paths."
+    title: "Anomaly Detection System for Industrial Defect Classification",
+    metadata: "Deep Learning | ResNet-50",
+    oneLiner: "Developed a deep learning–based defect detection system achieving up to 94% classification accuracy.",
+    skills: ["Deep Learning", "ResNet-50", "Computer Vision", "Model Optimization", "Flask", "Data Balancing"],
+    problem: "Industrial defect datasets often contain highly imbalanced samples, making anomaly detection unreliable and prone to bias toward normal cases.",
+    solution: "Fine-tuned a ResNet-50 model pretrained on ImageNet, applying data balancing techniques and training optimizations such as Adam optimizer, early stopping, and learning rate scheduling. Deployed the model via a Flask web application for real-time prediction and visualization.",
+    impact: [
+      "Achieved 87% accuracy on bottle defects and 94% accuracy on hazelnut defects",
+      "Reduced bias toward normal samples through balanced training",
+      "Enabled real-time inference via a user-friendly web interface"
     ],
-    tags: ["Data Analysis", "Wellness", "Yoga"],
-    link: "#",
-    institution: "Personal Project",
-    dates: "07/2023 - 10/2023"
+    link: "https://github.com/rdnk2004/anomaly-detection"
   },
+  {
+    title: "Data-Driven Wellness Analysis: Impact of Yoga Practice",
+    metadata: "Exploratory Data Analysis",
+    oneLiner: "Analyzed wellness survey data to identify measurable mental and physical benefits of yoga practice.",
+    skills: ["Exploratory Data Analysis", "Pandas", "NumPy", "Data Visualization", "Statistical Analysis"],
+    problem: "While yoga is widely recommended for wellness, measurable data-driven insights on its mental and physical benefits were limited.",
+    solution: "Performed data cleaning, exploratory analysis, and visualization to compare wellness indicators between yoga practitioners and non-practitioners. Examined stress levels, mental clarity, flexibility, and participation barriers.",
+    impact: [
+      "Identified key wellness improvements linked to regular yoga practice",
+      "Highlight barriers to adoption using data-backed insights",
+      "Demonstrated data’s role in understanding human behavior and well-being"
+    ],
+    link: "#"
+  }
 ];
 
 export default function Projects() {
-  const [openProject, setOpenProject] = useState<typeof projectData[0] | null>(null);
-
   return (
     <section id="projects" className="py-24 sm:py-32">
       <SectionHeading>Projects</SectionHeading>
@@ -97,47 +90,86 @@ export default function Projects() {
         {projectData.map((project, index) => (
           <Dialog key={index}>
             <DialogTrigger asChild>
-              <Card className="bg-card/70 backdrop-blur-sm border-secondary/20 h-full transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 cursor-pointer group">
-                <CardHeader>
-                    <CardTitle className="text-primary">{project.title}</CardTitle>
-                  <CardDescription>{project.shortDescription}</CardDescription>
-                </CardHeader>
-                <CardContent>
+              <Card className="bg-card/70 backdrop-blur-sm border-secondary/20 h-full transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 cursor-pointer group flex flex-col justify-between">
+                <div>
+                  <CardHeader>
+                    <div className="text-xs font-mono text-primary/80 mb-2 tracking-wider">{project.metadata}</div>
+                    <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{project.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed">{project.oneLiner}</p>
+                  </CardContent>
+                </div>
+                <CardFooter>
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary">{tag}</Badge>
+                    {project.skills.map((tag) => (
+                      <Badge key={tag} variant="secondary" className="bg-secondary/50 hover:bg-secondary/80 transition-colors">{tag}</Badge>
                     ))}
                   </div>
-                </CardContent>
+                </CardFooter>
               </Card>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-3xl bg-card/80 backdrop-blur-lg border-primary/30">
+            <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto bg-card/95 backdrop-blur-xl border-primary/20">
               <DialogHeader>
-                <DialogTitle className="text-primary text-2xl">{project.title}</DialogTitle>
-                <DialogDescription className="text-muted-foreground pt-2">
-                  <span className="font-semibold text-foreground/90">{project.institution}</span> | <span className="text-sm">{project.dates}</span>
+                <div className="text-sm font-mono text-primary mb-2">{project.metadata}</div>
+                <DialogTitle className="text-2xl font-bold">{project.title}</DialogTitle>
+                <DialogDescription className="text-lg pt-2 text-foreground/80">
+                  {project.oneLiner}
                 </DialogDescription>
               </DialogHeader>
-              <div className="py-4 space-y-4">
-                <ul className="list-disc list-inside space-y-2 text-foreground/90">
-                  {project.longDescription.map((point, i) => <li key={i}>{point}</li>)}
-                </ul>
-                <div className="flex flex-wrap gap-2 pt-4">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">{tag}</Badge>
-                  ))}
+
+              <div className="space-y-6 py-4">
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
+                    ⚠️ Problem
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
+                    {project.problem}
+                  </p>
                 </div>
-              </div>
-              {project.link !== "#" && (
-                <div className="flex justify-end">
-                    <Button asChild>
-                        <a href={project.link} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2 h-4 w-4" />
-                            View on GitHub
-                        </a>
+
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
+                    💡 Solution
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
+                    {project.solution}
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
+                    🚀 Impact
+                  </h3>
+                  <ul className="space-y-2 pl-6">
+                    {project.impact.map((item, i) => (
+                      <li key={i} className="text-muted-foreground flex gap-2">
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-4 border-t border-border/50">
+                  <h4 className="text-sm font-semibold mb-3 text-muted-foreground">Technologies Used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.skills.map((tag) => (
+                      <Badge key={tag} variant="outline" className="border-primary/20 bg-primary/5">{tag}</Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {project.link !== "#" && (
+                  <div className="flex justify-end pt-2">
+                    <Button asChild className="gap-2">
+                      <a href={project.link} target="_blank" rel="noopener noreferrer">
+                        {project.link.includes("github") ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
+                        View Project
+                      </a>
                     </Button>
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
             </DialogContent>
           </Dialog>
         ))}
