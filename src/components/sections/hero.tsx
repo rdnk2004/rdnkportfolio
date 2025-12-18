@@ -10,15 +10,15 @@ export default function Hero() {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  
+
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center py-20">
       <div className="grid grid-cols-1 items-center gap-16">
         <div className={cn("text-center lg:text-left space-y-6 transition-all duration-1000", isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
           <p className="text-primary font-medium text-lg dark:text-primary light-gradient-text">Hello, I'm</p>
           <div className="group relative h-20 sm:h-24" aria-label="R.D.N.K expands to R.D.Nikhil Krishna on hover">
-              <h1 className="absolute inset-0 flex items-center justify-center lg:justify-start text-5xl sm:text-6xl lg:text-7xl font-headline tracking-widest transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:scale-95">R.D.N.K</h1>
-              <h1 className="absolute inset-0 flex items-center justify-center lg:justify-start text-5xl sm:text-6xl lg:text-7xl font-headline tracking-normal opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-100">R.D.Nikhil Krishna</h1>
+            <h1 className="absolute inset-0 flex items-center justify-center lg:justify-start text-5xl sm:text-6xl lg:text-7xl font-headline tracking-widest transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:scale-95">R.D.N.K</h1>
+            <h1 className="absolute inset-0 flex items-center justify-center lg:justify-start text-5xl sm:text-6xl lg:text-7xl font-headline tracking-normal opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-100">R.D.Nikhil Krishna</h1>
           </div>
           <h2 className="text-2xl sm:text-3xl font-medium text-foreground/90">
             Data Analyst | Automation and Insights Specialist
@@ -36,18 +36,13 @@ export default function Hero() {
               </Button>
             </div>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                <Button asChild variant="outline">
-                    <a href="/resume.pdf" download>
-                        <FileDown className="mr-2 h-4 w-4" />
-                        Download Resume
-                    </a>
-                </Button>
-                <Button asChild variant="outline">
-                    <a href="/cv.pdf" download>
-                        <FileDown className="mr-2 h-4 w-4" />
-                        Download CV
-                    </a>
-                </Button>
+              <Button asChild variant="outline">
+                <a href="/resume.pdf" download>
+                  <FileDown className="mr-2 h-4 w-4" />
+                  Download Resume
+                </a>
+              </Button>
+
             </div>
           </div>
         </div>
