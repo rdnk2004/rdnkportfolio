@@ -1,13 +1,13 @@
-
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useOutsideClick } from "@/hooks/use-outside-click";
 
 const projectData = [
   {
@@ -42,7 +42,7 @@ const projectData = [
     title: "Event Report Automated Generator",
     metadata: "In-House | Actively Used by Faculty",
     oneLiner: "Automated academic event report creation, cutting documentation time from hours to minutes.",
-    skills: ["Streamlit", "Python", "DOCX Automation", "HTML5", "TailwindCSS", "UI/UX Design"],
+    skills: ["Streamlit", "Python", "DOCX Automation"],
     problem: "Faculty spent significant time manually creating event reports, repeatedly formatting documents and ensuring compliance with institutional standards.",
     solution: "Developed a Streamlit-based report generation system with a dynamic form builder and live preview. Integrated automated DOCX generation to produce professionally formatted reports aligned with university guidelines.",
     impact: [
@@ -83,97 +83,182 @@ const projectData = [
 ];
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState<typeof projectData[0] | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(ref, () => setSelectedProject(null));
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setSelectedProject(null);
+      }
+    }
+
+    const header = document.querySelector('header');
+
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+      if (header) {
+        header.style.transition = 'transform 0.3s ease-in-out';
+        header.style.transform = 'translateY(-100%)';
+      }
+    } else {
+      document.body.style.overflow = "auto";
+      if (header) {
+        header.style.transform = 'translateY(0)';
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      // Ensure header is reset on unmount
+      if (header) header.style.transform = 'translateY(0)';
+    };
+  }, [selectedProject]);
+
+
   return (
-    <section id="projects" className="py-24 sm:py-32">
+    <section id="projects" className="py-24 sm:py-32 relative">
       <SectionHeading>Projects</SectionHeading>
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
         {projectData.map((project, index) => (
-          <Dialog key={index}>
-            <DialogTrigger asChild>
-              <Card className="bg-card/70 backdrop-blur-sm border-secondary/20 h-full transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 cursor-pointer group flex flex-col justify-between">
-                <div>
-                  <CardHeader>
-                    <div className="text-xs font-mono text-primary/80 mb-2 tracking-wider">{project.metadata}</div>
-                    <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{project.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">{project.oneLiner}</p>
-                  </CardContent>
-                </div>
-                <CardFooter>
-                  <div className="flex flex-wrap gap-2">
-                    {project.skills.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="bg-secondary/50 hover:bg-secondary/80 transition-colors">{tag}</Badge>
-                    ))}
-                  </div>
-                </CardFooter>
-              </Card>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto bg-card/95 backdrop-blur-xl border-primary/20">
-              <DialogHeader>
-                <div className="text-sm font-mono text-primary mb-2">{project.metadata}</div>
-                <DialogTitle className="text-2xl font-bold">{project.title}</DialogTitle>
-                <DialogDescription className="text-lg pt-2 text-foreground/80">
-                  {project.oneLiner}
-                </DialogDescription>
-              </DialogHeader>
-
-              <div className="space-y-6 py-4">
-                <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                    ⚠️ Problem
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
-                    {project.problem}
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                    💡 Solution
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
-                    {project.solution}
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                    🚀 Impact
-                  </h3>
-                  <ul className="space-y-2 pl-6">
-                    {project.impact.map((item, i) => (
-                      <li key={i} className="text-muted-foreground flex gap-2">
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="pt-4 border-t border-border/50">
-                  <h4 className="text-sm font-semibold mb-3 text-muted-foreground">Technologies Used</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.skills.map((tag) => (
-                      <Badge key={tag} variant="outline" className="border-primary/20 bg-primary/5">{tag}</Badge>
-                    ))}
-                  </div>
-                </div>
-
-                {project.link !== "#" && (
-                  <div className="flex justify-end pt-2">
-                    <Button asChild className="gap-2">
-                      <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        {project.link.includes("github") ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
-                        View Project
-                      </a>
-                    </Button>
-                  </div>
-                )}
+          <motion.div
+            key={index}
+            layoutId={`card-${project.title}`}
+            onClick={() => setSelectedProject(project)}
+            className="cursor-pointer"
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          >
+            <Card className="bg-card/70 backdrop-blur-sm border-secondary/20 h-full hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 flex flex-col justify-between">
+              <div>
+                <CardHeader>
+                  <motion.div layoutId={`metadata-${project.title}`} className="text-xs font-mono text-primary/80 mb-2 tracking-wider">{project.metadata}</motion.div>
+                  <motion.div layoutId={`title-${project.title}`} className="font-bold text-xl mb-0 text-foreground">{project.title}</motion.div>
+                </CardHeader>
+                <CardContent>
+                  <motion.p layoutId={`oneliner-${project.title}`} className="text-muted-foreground leading-relaxed">{project.oneLiner}</motion.p>
+                </CardContent>
               </div>
-            </DialogContent>
-          </Dialog>
+              <CardFooter>
+                <div className="flex flex-wrap gap-2">
+                  {project.skills.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="bg-secondary/50 hover:bg-secondary/80 transition-colors">{tag}</Badge>
+                  ))}
+                </div>
+              </CardFooter>
+            </Card>
+          </motion.div>
         ))}
       </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              // Increased z-index to 100 to stay above navbar (z-50)
+              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[100]"
+            />
+            <div className="fixed inset-0 flex items-center justify-center z-[100] p-4 pointer-events-none">
+              <motion.div
+                layoutId={`card-${selectedProject.title}`}
+                ref={ref}
+                className="w-full max-w-3xl bg-card border border-primary/20 shadow-2xl overflow-hidden rounded-xl pointer-events-auto flex flex-col max-h-[90vh]"
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                {/* Added overflow-y-auto and scrollbar styling to ensure content is accessible */}
+                <div className="relative flex-1 overflow-y-auto custom-scrollbar">
+
+                  <div className="p-6 md:p-8">
+                    <motion.button
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProject(null);
+                      }}
+                      className="absolute top-4 right-4 p-2 bg-secondary/50 hover:bg-destructive/20 rounded-full transition-colors z-10"
+                    >
+                      <X className="h-4 w-4" />
+                    </motion.button>
+
+                    {/* layoutId ensures these elements morph smoothly from their card position */}
+                    <motion.div layoutId={`metadata-${selectedProject.title}`} className="text-sm font-mono text-primary mb-2">{selectedProject.metadata}</motion.div>
+                    <motion.h2 layoutId={`title-${selectedProject.title}`} className="text-2xl md:text-3xl font-bold mb-4">{selectedProject.title}</motion.h2>
+                    <motion.p layoutId={`oneliner-${selectedProject.title}`} className="text-lg text-foreground/80 mb-8 border-b border-border/50 pb-6">
+                      {selectedProject.oneLiner}
+                    </motion.p>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="space-y-8"
+                    >
+                      <div className="space-y-3">
+                        <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
+                          ⚠️ Problem
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
+                          {selectedProject.problem}
+                        </p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
+                          💡 Solution
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
+                          {selectedProject.solution}
+                        </p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
+                          🚀 Impact
+                        </h3>
+                        <ul className="space-y-2 pl-6">
+                          {selectedProject.impact.map((item, i) => (
+                            <li key={i} className="text-muted-foreground flex gap-2 text-sm md:text-base">
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="pt-6 border-t border-border/50">
+                        <h4 className="text-sm font-semibold mb-3 text-muted-foreground">Technologies Used</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedProject.skills.map((tag) => (
+                            <Badge key={tag} variant="outline" className="border-primary/20 bg-primary/5">{tag}</Badge>
+                          ))}
+                        </div>
+                      </div>
+
+                      {selectedProject.link !== "#" && (
+                        <div className="flex justify-end pt-4">
+                          <Button asChild className="gap-2">
+                            <a href={selectedProject.link} target="_blank" rel="noopener noreferrer">
+                              {selectedProject.link.includes("github") ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
+                              View Project
+                            </a>
+                          </Button>
+                        </div>
+                      )}
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
