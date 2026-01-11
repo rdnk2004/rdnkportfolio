@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>{/* You can add meta tags here */}</head>
-      <body className={cn('font-body bg-background text-foreground antialiased', inter.variable, playfairDisplay.variable)}>
+      <body className={cn('font-body bg-background text-foreground antialiased', inter.variable, playfairDisplay.variable)} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

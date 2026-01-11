@@ -11,7 +11,7 @@ export default function Publications() {
         <Card className="bg-card/70 backdrop-blur-sm border-secondary/20">
           <CardHeader>
             <CardTitle className="flex items-start gap-3">
-              <BookOpen className="text-primary w-6 h-6 flex-shrink-0 mt-1"/>
+              <BookOpen className="text-primary w-6 h-6 flex-shrink-0 mt-1" />
               <span>AIEDUDOCS: AN INTELLIGENT FRAMEWORK FOR AUTOMATED ACADEMIC DOCUMENTATION AND ASSESSMENT ANALYTICS</span>
             </CardTitle>
           </CardHeader>
@@ -22,13 +22,22 @@ export default function Publications() {
             <p className="text-muted-foreground">
               <span className="font-semibold text-foreground/90">Date:</span> 05/2025
             </p>
-            <div className="flex justify-start pt-2">
-                <Button asChild variant="outline">
-                    <a href="/research-paper.pdf" download>
-                        <FileDown className="mr-2 h-4 w-4" />
-                        Download Paper
-                    </a>
-                </Button>
+            <div className="flex flex-col gap-2 pt-2">
+              <Button asChild variant="outline" className="w-fit">
+                <a href="/research-paper.pdf" download>
+                  <FileDown className="mr-2 h-4 w-4" />
+                  Download Paper
+                </a>
+              </Button>
+
+              <a
+                href="https://www.linkedin.com/posts/nikhil-krishna-r-d-773b84259_aiineducation-academicinnovation-facultyfirst-activity-7328044400041693184-KLt9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-muted-foreground hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4 w-fit"
+              >
+                Why this work mattered →
+              </a>
             </div>
           </CardContent>
         </Card>
