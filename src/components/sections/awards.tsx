@@ -18,6 +18,10 @@ const awardsData = [
     image: "/awards/mahatma-gandhi-scholarship.jpeg",
     link: "https://www.linkedin.com/posts/nikhil-krishna-r-d-773b84259_gratitude-scholarship-mahatmagandhimeritscholarship-activity-7312838333280227328-C92W",
     linkText: "Context behind this recognition →",
+    imageProps: {
+      sizes: "100vw", // Force browser to fetch the largest variant regardless of container size
+      style: { objectPosition: "center 30%" } // Adjust focus if needed
+    }
   },
   {
     name: "Champ of Data Science",
@@ -94,8 +98,10 @@ export default function Awards() {
                     alt={award.name}
                     fill
                     quality={100}
-                    unoptimized
+                    sizes="(max-width: 768px) 100vw, 40vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    // @ts-ignore
+                    {...award.imageProps}
                   />
                   {/* Very subtle inner shadow for depth, no dark overlay */}
                   <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]" />

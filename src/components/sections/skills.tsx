@@ -123,7 +123,7 @@ export default function Skills() {
     const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
     return (
-        <section id="skills" className="py-24 sm:py-32 relative overflow-hidden">
+        <section id="skills" className="py-16 sm:py-24 relative overflow-hidden">
             {/* Background Decorative Elements */}
             <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none select-none">
                 <Cpu size={400} />
@@ -132,7 +132,7 @@ export default function Skills() {
             <div className="container px-4 md:px-6 relative z-10" ref={containerRef}>
                 <SectionHeading>Technical Expertise</SectionHeading>
 
-                <p className="max-w-2xl text-muted-foreground mt-4 mb-12 text-lg">
+                <p className="max-w-2xl text-muted-foreground mt-4 mb-8 text-lg">
                     Building scalable automation systems and robust data pipelines.
                     Focusing on clarity, efficiency, and impact.
                 </p>

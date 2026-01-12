@@ -120,9 +120,9 @@ export default function Projects() {
 
 
   return (
-    <section id="projects" className="py-24 sm:py-32 relative">
+    <section id="projects" className="py-16 sm:py-24 relative">
       <SectionHeading>Projects</SectionHeading>
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
         {projectData.map((project, index) => (
           <motion.div
             key={index}
@@ -131,20 +131,20 @@ export default function Projects() {
             className="cursor-pointer"
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
-            <Card className="bg-card/70 backdrop-blur-sm border-secondary/20 h-full hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 flex flex-col justify-between">
+            <Card className="bg-card border border-white/10 h-full transition-all duration-500 hover:border-primary/20 hover:shadow-sm flex flex-col justify-between group-hover:bg-white/5">
               <div>
                 <CardHeader>
-                  <motion.div layoutId={`metadata-${project.title}`} className="text-xs font-mono text-primary/80 mb-2 tracking-wider">{project.metadata}</motion.div>
-                  <motion.div layoutId={`title-${project.title}`} className="font-bold text-xl mb-0 text-foreground">{project.title}</motion.div>
+                  <motion.div layoutId={`metadata-${project.title}`} className="text-xs font-mono text-muted-foreground mb-3 tracking-wide border-l-2 border-primary/20 pl-2">{project.metadata}</motion.div>
+                  <motion.div layoutId={`title-${project.title}`} className="font-bold text-xl mb-1 text-foreground group-hover:text-primary transition-colors">{project.title}</motion.div>
                 </CardHeader>
                 <CardContent>
-                  <motion.p layoutId={`oneliner-${project.title}`} className="text-muted-foreground leading-relaxed">{project.oneLiner}</motion.p>
+                  <motion.p layoutId={`oneliner-${project.title}`} className="text-muted-foreground text-sm leading-relaxed">{project.oneLiner}</motion.p>
                 </CardContent>
               </div>
               <CardFooter>
                 <div className="flex flex-wrap gap-2">
                   {project.skills.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="bg-secondary/50 hover:bg-secondary/80 transition-colors">{tag}</Badge>
+                    <Badge key={tag} variant="outline" className="text-xs font-normal text-muted-foreground border-white/10 bg-transparent">{tag}</Badge>
                   ))}
                 </div>
               </CardFooter>

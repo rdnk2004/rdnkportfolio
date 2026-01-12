@@ -34,31 +34,23 @@ export default function Education() {
   return (
     <section id="education" className="py-24 sm:py-32">
       <SectionHeading>Education</SectionHeading>
-      <div className="relative mt-16 pl-6">
-        {/* Vertical Timeline Line */}
-        <div className="absolute left-6 top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
-        
-        <div className="space-y-12">
-          {educationData.map((edu, index) => (
-            <div key={index} className="relative pl-8">
-               {/* Timeline Dot */}
-               <div className="absolute -left-2.5 top-1 h-5 w-5 rounded-full bg-primary border-4 border-background flex items-center justify-center">
-                <GraduationCap className="w-3 h-3 text-primary-foreground" />
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {educationData.map((edu, index) => (
+          <Card key={index} className="bg-card border border-white/5 hover:border-primary/20 transition-all duration-300">
+            <CardHeader className="pb-2">
+              <div className="flex flex-col gap-1">
+                <CardTitle className="text-lg font-bold text-foreground">{edu.degree}</CardTitle>
+                <CardDescription className="text-primary font-medium">{edu.institution}</CardDescription>
               </div>
-
-              <Card className="bg-card/70 backdrop-blur-sm border-secondary/20 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10">
-                <CardHeader>
-                  <CardTitle className="text-primary">{edu.degree}</CardTitle>
-                  <CardDescription>{edu.institution}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{edu.duration}</p>
-                  {edu.details && <p className="text-sm text-foreground/80 mt-1">{edu.details}</p>}
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-between items-end">
+                <p className="text-sm text-muted-foreground font-mono">{edu.duration}</p>
+                {edu.details && <p className="text-sm text-foreground/80 font-medium bg-secondary/10 px-2 py-0.5 rounded">{edu.details}</p>}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </section>
   );

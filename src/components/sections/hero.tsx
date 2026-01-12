@@ -12,7 +12,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center py-20">
+    <section id="hero" className="min-h-screen flex items-center justify-center py-12">
       <div className="grid grid-cols-1 items-center gap-16">
         <div className={cn("text-center lg:text-left space-y-6 transition-all duration-1000", isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
           <p className="text-primary font-medium text-lg dark:text-primary light-gradient-text">Hello, I'm</p>

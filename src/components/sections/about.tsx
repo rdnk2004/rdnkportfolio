@@ -2,18 +2,18 @@ import { SectionHeading } from "../ui/section-heading";
 
 export default function About() {
   return (
-    <section id="about" className="py-24 sm:py-32">
+    <section id="about" className="py-16 sm:py-24">
       <SectionHeading>How I Work</SectionHeading>
 
       {/* Intro */}
-      <div className="mt-10 max-w-3xl mx-auto text-center text-lg text-foreground/90 leading-relaxed">
+      <div className="mt-8 max-w-3xl mx-auto text-center text-lg text-foreground/90 leading-relaxed">
         <p>
           I build software with the assumption that reality will challenge it.
         </p>
       </div>
 
       {/* Principles Grid */}
-      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <Principle
           title="Design for real users"
           description="Many of the systems I’ve built are used daily by non-technical users. I prioritize clarity, guardrails, and predictable behavior over clever abstractions."

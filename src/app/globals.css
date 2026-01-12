@@ -1,10 +1,46 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    /* Warm Off-White Background (Editorial feel) */
+    --background: 30 15% 97%;
+    /* Deep Charcoal Foreground (High contrast) */
+    --foreground: 240 5% 10%;
+
+    /* Pure White Cards (clean elevation) */
+    --card: 0 0% 100%;
+    --card-foreground: 240 5% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 5% 15%;
+
+    /* Deep Indigo (Trust/Intelligence) */
+    --primary: 235 50% 30%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Muted Violet (Human warmth) */
+    --secondary: 270 30% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Warm Greys for borders/muted components */
+    --muted: 30 10% 92%;
+    --muted-foreground: 240 4% 40%;
+
+    --accent: 30 10% 94%;
+    --accent-foreground: 235 50% 30%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 30 10% 85%;
+    --input: 30 10% 85%;
+    --ring: 235 50% 30%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
     --background: 0 0% 8%;
     --foreground: 215 20% 85%;
 
@@ -32,37 +68,6 @@
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 204 96% 59%;
-    --radius: 0.5rem;
-  }
-
-  .light {
-    --background: 0 0% 96%;
-    --foreground: 240 10% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --primary: 204 96% 49%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 262 84% 59%;
-    --secondary-foreground: 210 40% 98%;
-    
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
   }
 }
 
@@ -70,12 +75,14 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
   html {
     scroll-behavior: smooth;
   }
@@ -86,7 +93,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 4000px; /* Taller for slower perceived speed */
+  height: 4000px;
+  /* Taller for slower perceived speed */
   background-repeat: repeat;
   background-position: center;
   will-change: transform;
@@ -95,13 +103,28 @@
 
 /* --- Dark Mode: Starry Night --- */
 @keyframes animate-stars {
-  from { transform: translateY(0px); }
-  to { transform: translateY(-2000px); }
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-2000px);
+  }
 }
 
+/* Apply bubbles as default (Light Mode) or when .light is explicitly present */
+.star-layer,
+.light .star-layer {
+  animation: animate-bubbles 120s linear infinite;
+  opacity: 0.8;
+  filter: blur(12px);
+}
+
+/* Ensure Dark Mode overrides it */
 .dark .star-layer {
   animation: animate-stars 150s linear infinite;
   opacity: 0.7;
+  filter: none;
 }
 
 .dark .stars1 {
@@ -122,45 +145,52 @@
   animation-duration: 300s;
 }
 
-/* --- Light Mode: Floating Bubbles --- */
+/* --- Light Mode: Floating Bubbles (Default) --- */
 @keyframes animate-bubbles {
-  from { transform: translateY(0px); }
-  to { transform: translateY(-1000px); }
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-1000px);
+  }
 }
 
-.light .star-layer {
-  animation: animate-bubbles 120s linear infinite;
-  opacity: 0.8;
-  filter: blur(12px);
-}
 
+
+.stars1,
 .light .stars1 {
-  background-image: 
-    radial-gradient(circle at 20px 30px, hsl(var(--primary) / 0.15), transparent 70%),
-    radial-gradient(circle at 80% 10%, hsl(var(--secondary) / 0.15), transparent 60%);
+  background-image:
+    radial-gradient(circle at 20px 30px, hsl(var(--primary) / 0.1), transparent 70%),
+    radial-gradient(circle at 80% 10%, hsl(var(--secondary) / 0.1), transparent 60%);
   background-size: 400px 400px;
   animation-duration: 80s;
 }
 
+.stars2,
 .light .stars2 {
-  background-image: 
-    radial-gradient(circle at 60% 70%, hsl(var(--primary) / 0.2), transparent 70%),
-    radial-gradient(circle at 20% 90%, hsl(var(--secondary) / 0.2), transparent 60%);
+  background-image:
+    radial-gradient(circle at 60% 70%, hsl(var(--primary) / 0.15), transparent 70%),
+    radial-gradient(circle at 20% 90%, hsl(var(--secondary) / 0.15), transparent 60%);
   background-size: 500px 500px;
   animation-duration: 150s;
 }
 
+.stars3,
 .light .stars3 {
-  background-image: 
-    radial-gradient(circle at 90% 80%, hsl(var(--primary) / 0.15), transparent 75%),
-    radial-gradient(circle at 40% 20%, hsl(var(--secondary) / 0.15), transparent 70%);
+  background-image:
+    radial-gradient(circle at 90% 80%, hsl(var(--primary) / 0.1), transparent 75%),
+    radial-gradient(circle at 40% 20%, hsl(var(--secondary) / 0.1), transparent 70%);
   background-size: 600px 600px;
   animation-duration: 220s;
 }
 
 
+
+
 .light-gradient-text {
   background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

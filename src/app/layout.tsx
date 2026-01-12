@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display, Cinzel } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,11 @@ const playfairDisplay = Playfair_Display({
   variable: '--font-playfair-display',
 });
 
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  variable: '--font-cinzel',
+});
+
 export const metadata: Metadata = {
   title: 'Cosmic Folio | Nikhil Krishna R D',
   description: 'The personal portfolio of Nikhil Krishna R D, a Data Analyst and Automation Specialist.',
@@ -30,10 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>{/* You can add meta tags here */}</head>
-      <body className={cn('font-body bg-background text-foreground antialiased', inter.variable, playfairDisplay.variable)} suppressHydrationWarning>
+      <body className={cn('font-body bg-background text-foreground antialiased', inter.variable, playfairDisplay.variable, cinzel.variable)} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           disableTransitionOnChange
         >
           {children}
