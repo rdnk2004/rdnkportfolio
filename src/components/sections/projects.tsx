@@ -120,9 +120,9 @@ export default function Projects() {
 
 
   return (
-    <section id="projects" className="py-16 sm:py-24 relative">
+    <section id="projects" className="py-10 sm:py-12 lg:py-16 relative">
       <SectionHeading>Projects</SectionHeading>
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
         {projectData.map((project, index) => (
           <motion.div
             key={index}
@@ -131,7 +131,7 @@ export default function Projects() {
             className="cursor-pointer"
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
-            <Card className="bg-card border border-white/10 h-full transition-all duration-500 hover:border-primary/20 hover:shadow-sm flex flex-col justify-between group-hover:bg-white/5">
+            <Card className="bg-card/50 border border-border/40 h-full shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 flex flex-col justify-between">
               <div>
                 <CardHeader>
                   <motion.div layoutId={`metadata-${project.title}`} className="text-xs font-mono text-muted-foreground mb-3 tracking-wide border-l-2 border-primary/20 pl-2">{project.metadata}</motion.div>

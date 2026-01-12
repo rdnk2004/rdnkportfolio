@@ -1,5 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+"use client";
+
+import { motion } from "framer-motion";
 import { SectionHeading } from "../ui/section-heading";
+import { fadeInUp, staggerContainer } from "@/lib/motion";
 
 const learningData = [
   {
@@ -32,21 +35,27 @@ const learningData = [
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-24 sm:py-32">
+    <section id="certifications" className="py-10 sm:py-12 lg:py-16">
       <SectionHeading>Learning & Credentials</SectionHeading>
 
-      <div className="mt-12 max-w-4xl mx-auto space-y-12">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        className="max-w-4xl mx-auto space-y-10"
+      >
         {learningData.map((group, groupIndex) => (
-          <div key={groupIndex} className="space-y-6">
-            <h3 className="text-lg font-medium text-foreground/80 pl-1 border-l-2 border-primary/20">{group.category}</h3>
+          <motion.div key={groupIndex} variants={fadeInUp} className="space-y-4">
+            <h3 className="text-base font-medium text-foreground/80 pl-1 border-l-2 border-primary/20">{group.category}</h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {group.items.map((cert, index) => (
                 <div
                   key={index}
-                  className="group flex flex-col p-4 rounded-lg bg-card/40 border border-white/5 hover:bg-card/60 hover:border-primary/10 transition-all duration-300"
+                  className="group flex flex-col p-4 rounded-lg border border-border/30 bg-card/40 transition-all duration-300 hover:bg-card/60 hover:border-primary/20 hover:-translate-y-0.5"
                 >
-                  <span className="text-foreground font-medium group-hover:text-primary transition-colors">
+                  <span className="text-sm text-foreground font-medium group-hover:text-primary transition-colors">
                     {cert.name}
                   </span>
                   <span className="text-xs text-muted-foreground mt-1">
@@ -55,9 +64,10 @@ export default function Certifications() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
+

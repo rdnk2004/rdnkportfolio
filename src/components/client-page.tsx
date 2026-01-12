@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTheme } from "next-themes";
 import { AnimatePresence } from "framer-motion";
 import Loader from '@/components/loader';
@@ -18,6 +18,7 @@ import Publications from '@/components/sections/publications';
 import Contact from '@/components/sections/contact';
 import Certifications from '@/components/sections/certifications';
 import Awards from '@/components/sections/awards';
+import { SectionDivider } from '@/components/ui/section-divider';
 import { Inter, Playfair_Display } from 'next/font/google';
 import { cn } from '@/lib/utils';
 
@@ -32,13 +33,23 @@ function MainContent() {
       <div className="relative z-10">
         <main className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Hero />
+          {/* Gradient: Signals "start of real content" */}
+          <SectionDivider variant="gradient" />
           <About />
           <Experience />
           <Projects />
+          {/* Gradient: Major portfolio boundary → Skills */}
+          <SectionDivider variant="gradient" />
           <Skills />
+          {/* Dot: Transition to credentials section */}
+          <SectionDivider variant="dot" />
           <Education />
+          {/* Line: Subtle flow within credentials */}
+          <SectionDivider variant="line" />
           <Certifications />
           <Awards />
+          {/* Dot: Before publications */}
+          <SectionDivider variant="dot" />
           <Publications />
           <Contact />
         </main>
@@ -53,37 +64,34 @@ export default function ClientPage() {
   const [showDarkLoader, setShowDarkLoader] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const { theme } = useTheme();
-  // Track previous theme to detect switches
-  const [prevTheme, setPrevTheme] = useState<string | undefined>(undefined);
 
+  // Track if dark loader has been shown (persists across re-renders, doesn't trigger re-render)
+  const darkLoaderShownRef = useRef(false);
+  // Track previous theme for detecting changes
+  const prevThemeRef = useRef<string | undefined>(undefined);
+
+  // Initial load - show light mode loader
   useEffect(() => {
     setIsClient(true);
-    // Initial Load Logic
-    if (theme === 'dark') {
-      setShowDarkLoader(true);
-      setLoading(false); // Disable standard loader logic effectively for dark mode
-    } else {
-      // Standard Light Mode Loader
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, []); // Run once on mount
+    // Always start with light mode loader (since defaultTheme is light)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // Watch for Theme Switch (Light -> Dark)
+  // Watch for theme changes
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient || loading) return;
 
-    // Only trigger if we are switching FROM light TO dark
-    // And it's not the initial mount (handled above)
-    if (prevTheme === 'light' && theme === 'dark') {
+    // Only show dark loader on FIRST switch to dark mode
+    if (prevThemeRef.current === 'light' && theme === 'dark' && !darkLoaderShownRef.current) {
       setShowDarkLoader(true);
+      darkLoaderShownRef.current = true; // Mark as shown - won't show again
     }
 
-    setPrevTheme(theme);
-  }, [theme, isClient, prevTheme]);
-
+    prevThemeRef.current = theme;
+  }, [theme, isClient, loading]);
 
   if (!isClient) {
     return <Loader onFinished={() => { }} />;
@@ -91,7 +99,7 @@ export default function ClientPage() {
 
   return (
     <>
-      {/* Dark Mode Loader Overlay */}
+      {/* Dark Mode Loader Overlay - Only shows once */}
       <AnimatePresence>
         {showDarkLoader && (
           <div className="fixed inset-0 z-[200]">
@@ -100,8 +108,8 @@ export default function ClientPage() {
         )}
       </AnimatePresence>
 
-      {/* Standard Loader (Light Mode only) */}
-      {loading && theme !== 'dark' ? (
+      {/* Standard Loader (Light Mode - initial load only) */}
+      {loading ? (
         <Loader onFinished={() => setLoading(false)} />
       ) : (
         <MainContent />

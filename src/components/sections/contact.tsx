@@ -4,12 +4,12 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-16 sm:py-24 text-center">
+    <section id="contact" className="py-10 sm:py-12 lg:py-16 text-center">
       <SectionHeading>Get In Touch</SectionHeading>
       <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
         I'm currently seeking new opportunities and am open to collaboration. Feel free to reach out if you have a project in mind or just want to connect! My location is Coimbatore, Tamil Nadu.
       </p>
-      <div className="mt-8 flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-4">
         <Button asChild size="lg" variant="outline" className="border-primary/20 hover:bg-primary/5 hover:border-primary/40 transition-all text-primary">
           <a href="mailto:rdnikhilkrishna2004@gmail.com">
             <Mail className="mr-2 h-4 w-4" />

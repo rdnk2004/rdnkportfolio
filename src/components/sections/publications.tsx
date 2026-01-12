@@ -5,14 +5,16 @@ import { BookOpen, FileDown } from "lucide-react";
 
 export default function Publications() {
   return (
-    <section id="publications" className="py-16 sm:py-24">
+    <section id="publications" className="py-10 sm:py-12 lg:py-16">
       <SectionHeading>Publications</SectionHeading>
-      <div className="mt-8 max-w-3xl mx-auto">
-        <Card className="bg-card/70 backdrop-blur-sm border-secondary/20">
+      <div className="max-w-3xl mx-auto">
+        <Card className="bg-card/50 backdrop-blur-sm border-border/40 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-start gap-3">
-              <BookOpen className="text-primary w-6 h-6 flex-shrink-0 mt-1" />
-              <span>AIEDUDOCS: AN INTELLIGENT FRAMEWORK FOR AUTOMATED ACADEMIC DOCUMENTATION AND ASSESSMENT ANALYTICS</span>
+            <CardTitle className="flex items-start gap-4">
+              <div className="p-2.5 rounded-lg bg-muted text-primary flex-shrink-0">
+                <BookOpen className="w-5 h-5" />
+              </div>
+              <span className="text-lg leading-snug">AIEDUDOCS: AN INTELLIGENT FRAMEWORK FOR AUTOMATED ACADEMIC DOCUMENTATION AND ASSESSMENT ANALYTICS</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">

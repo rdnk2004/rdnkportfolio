@@ -66,14 +66,14 @@ const PrimarySkillCard = ({ name, detail, index }: { name: string; detail: strin
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: index * 0.1 }}
-        className="group relative overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
+        className="group relative overflow-hidden rounded-lg border border-border/40 bg-card/50 p-5 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
     >
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
         <div className="relative z-10">
-            <h3 className="text-xl font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors">
+            <h3 className="text-lg font-semibold leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors">
                 {name}
             </h3>
-            <p className="mt-2 text-sm text-muted-foreground font-mono">
+            <p className="mt-1.5 text-sm text-muted-foreground font-mono leading-snug">
                 {detail}
             </p>
         </div>
@@ -86,19 +86,19 @@ const SecondaryCategory = ({ title, icon: Icon, skills, delay }: { title: string
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay }}
-        className="flex flex-col space-y-4 rounded-xl border border-border/50 bg-background/50 p-6 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow"
+        className="flex flex-col space-y-3 rounded-lg border border-border/40 bg-card/50 p-5 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
     >
-        <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 rounded-md bg-muted text-primary">
-                <Icon size={20} />
+        <div className="flex items-center gap-2.5 mb-1">
+            <div className="p-1.5 rounded-md bg-muted text-primary">
+                <Icon size={18} />
             </div>
-            <h4 className="text-lg font-medium tracking-wide text-foreground">{title}</h4>
+            <h4 className="text-base font-medium tracking-wide text-foreground">{title}</h4>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
             {skills.map((skill) => (
                 <span
                     key={skill}
-                    className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-secondary/15 text-secondary dark:text-secondary-foreground/90 border border-secondary/20 hover:bg-secondary/25 transition-colors cursor-default"
+                    className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-secondary/15 text-secondary dark:text-secondary-foreground/90 border border-secondary/20 hover:bg-secondary/25 transition-colors cursor-default"
                 >
                     {skill}
                 </span>
@@ -123,7 +123,7 @@ export default function Skills() {
     const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
     return (
-        <section id="skills" className="py-16 sm:py-24 relative overflow-hidden">
+        <section id="skills" className="py-10 sm:py-12 lg:py-16 relative overflow-hidden">
             {/* Background Decorative Elements */}
             <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none select-none">
                 <Cpu size={400} />
@@ -132,13 +132,13 @@ export default function Skills() {
             <div className="container px-4 md:px-6 relative z-10" ref={containerRef}>
                 <SectionHeading>Technical Expertise</SectionHeading>
 
-                <p className="max-w-2xl text-muted-foreground mt-4 mb-8 text-lg">
+                <p className="max-w-2xl text-muted-foreground -mt-4 mb-8 text-lg">
                     Building scalable automation systems and robust data pipelines.
                     Focusing on clarity, efficiency, and impact.
                 </p>
 
                 {/* Primary Skills - High Visual Weight */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
                     {PRIMARY_SKILLS.map((skill, idx) => (
                         <PrimarySkillCard
                             key={skill.name}
@@ -161,7 +161,7 @@ export default function Skills() {
                 </div>
 
                 {/* Secondary Categories - Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-12">
                     {SECONDARY_CATEGORIES.map((cat, idx) => (
                         <SecondaryCategory
                             key={cat.id}

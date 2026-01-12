@@ -1,5 +1,9 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
+import { fadeInUp, staggerContainer } from "@/lib/motion";
 
 const experienceData = [
   {
@@ -34,19 +38,25 @@ const experienceData = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-16 sm:py-24">
+    <section id="experience" className="py-10 sm:py-12 lg:py-16">
       <SectionHeading>Work Experience</SectionHeading>
-      <div className="relative mt-8 pl-6">
+      <div className="relative pl-6">
         {/* Timeline line */}
         <div className="absolute left-6 top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
 
-        <div className="space-y-12">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="space-y-8"
+        >
           {experienceData.map((job, index) => (
-            <div key={index} className="relative pl-8">
+            <motion.div key={index} variants={fadeInUp} className="relative pl-8">
               {/* Timeline dot */}
               <div className="absolute -left-2.5 top-1 h-5 w-5 rounded-full bg-primary border-4 border-background"></div>
 
-              <Card className="bg-card/70 backdrop-blur-sm border-secondary/20 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10">
+              <Card className="bg-card/50 backdrop-blur-sm border-border/40 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
                 <CardHeader>
                   <div className="flex justify-between items-start flex-col sm:flex-row">
                     <CardTitle className="text-primary">{job.role}</CardTitle>
@@ -55,7 +65,7 @@ export default function Experience() {
                   <CardDescription>{job.company}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ul className="list-disc list-inside space-y-2 text-foreground/90">
+                  <ul className="list-disc list-inside space-y-1.5 text-foreground/90 text-sm leading-snug">
                     {job.tasks.map((task, i) => (
                       <li key={i}>{task}</li>
                     ))}
@@ -77,9 +87,9 @@ export default function Experience() {
                   )}
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
-import { SpeedInsights } from '@vercel/speed-insights/next';// ✅ Step 1: Import
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
@@ -39,11 +39,10 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          disableTransitionOnChange
         >
           {children}
           <Toaster />
-          <SpeedInsights /> {/* ✅ Step 2: Add SpeedInsights here */}
+          <SpeedInsights />
           <Analytics />
         </ThemeProvider>
       </body>

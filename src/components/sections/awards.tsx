@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
+import { fadeInUp, staggerContainer } from "@/lib/motion";
 
 const awardsData = [
   {
@@ -36,81 +40,88 @@ const awardsData = [
 
 export default function Awards() {
   return (
-    <section id="awards" className="py-24 sm:py-32">
+    <section id="awards" className="py-10 sm:py-12 lg:py-16">
       <SectionHeading>Honors & Recognition</SectionHeading>
 
-      <div className="mt-12 flex flex-col gap-8 max-w-5xl mx-auto">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        className="flex flex-col gap-6 max-w-5xl mx-auto"
+      >
         {awardsData.map((award, index) => (
-          <Card
-            key={index}
-            className="group relative overflow-hidden border border-white/10 bg-white/5 dark:bg-black/20 backdrop-blur-md transition-all duration-500 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5"
-          >
-            {/* Split Layout Container */}
-            <div className={`flex flex-col-reverse ${award.image ? 'md:grid md:grid-cols-5' : ''}`}>
+          <motion.div key={index} variants={fadeInUp}>
+            <Card
+              className="group relative overflow-hidden rounded-lg border border-border/40 bg-card/50 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1"
+            >
+              {/* Split Layout Container */}
+              <div className={`flex flex-col-reverse ${award.image ? 'md:grid md:grid-cols-5' : ''}`}>
 
-              {/* Text Section (Left / Full Width) */}
-              <div className={`p-6 flex flex-col justify-center ${award.image ? 'md:col-span-3' : 'w-full'}`}>
-                <CardHeader className="p-0 mb-4">
-                  <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                    {award.name}
-                  </CardTitle>
-                </CardHeader>
+                {/* Text Section (Left / Full Width) */}
+                <div className={`p-6 flex flex-col justify-center ${award.image ? 'md:col-span-3' : 'w-full'}`}>
+                  <CardHeader className="p-0 mb-4">
+                    <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                      {award.name}
+                    </CardTitle>
+                  </CardHeader>
 
-                <CardContent className="p-0 space-y-4 text-sm text-muted-foreground">
-                  <div className="grid grid-cols-[auto,1fr] gap-x-3 gap-y-1">
-                    <span className="font-medium text-foreground/80">Institution:</span>
-                    <span>{award.institution}</span>
+                  <CardContent className="p-0 space-y-4 text-sm text-muted-foreground">
+                    <div className="grid grid-cols-[auto,1fr] gap-x-3 gap-y-1">
+                      <span className="font-medium text-foreground/80">Institution:</span>
+                      <span>{award.institution}</span>
 
-                    <span className="font-medium text-foreground/80">Period:</span>
-                    <span>{award.date}</span>
-                  </div>
-
-                  {award.note && (
-                    <div className="pt-3 border-t border-border/30">
-                      <p className="italic leading-relaxed text-foreground/80">
-                        "{award.note}"
-                      </p>
+                      <span className="font-medium text-foreground/80">Period:</span>
+                      <span>{award.date}</span>
                     </div>
-                  )}
 
-                  {/* Contextual LinkedIn Link */}
-                  {/* @ts-ignore */}
-                  {award.link && (
-                    <div className="pt-4">
-                      <a
-                        href={award.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-muted-foreground hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4"
-                      >
-                        {award.linkText}
-                      </a>
-                    </div>
-                  )}
-                </CardContent>
-              </div>
+                    {award.note && (
+                      <div className="pt-3 border-t border-border/30">
+                        <p className="italic leading-relaxed text-foreground/80">
+                          "{award.note}"
+                        </p>
+                      </div>
+                    )}
 
-              {/* Image Section (Right Side) - Only if image exists */}
-              {award.image && (
-                <div className="relative h-48 md:h-auto md:col-span-2 overflow-hidden border-b md:border-b-0 md:border-l border-white/10 bg-black/20">
-                  <Image
-                    src={award.image}
-                    alt={award.name}
-                    fill
-                    quality={100}
-                    sizes="(max-width: 768px) 100vw, 40vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    // @ts-ignore
-                    {...award.imageProps}
-                  />
-                  {/* Very subtle inner shadow for depth, no dark overlay */}
-                  <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]" />
+                    {/* Contextual LinkedIn Link */}
+                    {/* @ts-ignore */}
+                    {award.link && (
+                      <div className="pt-4">
+                        <a
+                          href={award.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-muted-foreground hover:text-primary transition-colors hover:underline decoration-primary/30 underline-offset-4"
+                        >
+                          {award.linkText}
+                        </a>
+                      </div>
+                    )}
+                  </CardContent>
                 </div>
-              )}
-            </div>
-          </Card>
+
+                {/* Image Section (Right Side) - Only if image exists */}
+                {award.image && (
+                  <div className="relative h-48 md:h-auto md:col-span-2 overflow-hidden border-b md:border-b-0 md:border-l border-white/10 bg-black/20">
+                    <Image
+                      src={award.image}
+                      alt={award.name}
+                      fill
+                      quality={100}
+                      sizes="(max-width: 768px) 100vw, 40vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      // @ts-ignore
+                      {...award.imageProps}
+                    />
+                    {/* Very subtle inner shadow for depth, no dark overlay */}
+                    <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]" />
+                  </div>
+                )}
+              </div>
+            </Card>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
