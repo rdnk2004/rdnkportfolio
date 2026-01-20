@@ -23,7 +23,7 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: 'Cosmic Folio | Nikhil Krishna R D',
+  title: 'RDNK | Built with Intent',
   description: 'The personal portfolio of Nikhil Krishna R D, a Data Analyst and Automation Specialist.',
 };
 
