@@ -3,50 +3,274 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { FileDown } from 'lucide-react';
+import { FileText, ArrowUpRight, Github, Linkedin, Mail, Sparkles, Gamepad2, Users } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// ============================================================================
+// BENTO GRID HERO - v4
+// Updated: Resume button, Currently card with rotating content
+// ============================================================================
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.08, delayChildren: 0.1 }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number]
+        }
+    }
+};
+
+// Currently working on items
+const currentlyItems = [
+    {
+        icon: Sparkles,
+        title: "Building NLP systems with LLMs & RAG",
+        subtitle: "Leading a small team on applied NLP and retrieval-augmented projects",
+        highlight: null
+    },
+    {
+        icon: Gamepad2,
+        title: "CyberArcade",
+        subtitle: "A cyberpunk reimagining of classic games like Snake, Tetris, and Pong",
+        highlight: "cyber" // Special styling for this
+    },
+    {
+        icon: Users,
+        title: "Developing a team task tracker",
+        subtitle: "A lightweight internal tool to streamline collaboration and workflows",
+        highlight: null
+    }
+];
+
+// Bento Card wrapper
+function BentoCard({ children, className, hasGlow = false }: { children: React.ReactNode; className?: string; hasGlow?: boolean }) {
+    return (
+        <motion.div
+            variants={itemVariants}
+            className={cn(
+                "rounded-2xl border border-border/40 bg-card/40 backdrop-blur-sm",
+                "p-4 relative overflow-hidden",
+                "transition-all duration-300 hover:border-primary/20 hover:bg-card/60",
+                className
+            )}
+        >
+            {hasGlow && (
+                <div className="absolute inset-0 pointer-events-none">
+                    <motion.div
+                        className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-full blur-3xl"
+                        animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    <motion.div
+                        className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-secondary/5 via-transparent to-transparent rounded-full blur-3xl"
+                        animate={{ x: [0, -30, 0], y: [0, -50, 0] }}
+                        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                </div>
+            )}
+            <div className="relative z-10 h-full">{children}</div>
+        </motion.div>
+    );
+}
+
+// Social link
+function SocialLink({ href, icon: Icon, label }: { href: string; icon: any; label: string }) {
+    return (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center p-2.5 rounded-lg bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
+            aria-label={label}
+        >
+            <Icon className="h-4 w-4" />
+        </a>
+    );
+}
+
+// Currently Card with rotating items
+function CurrentlyCard() {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % currentlyItems.length);
+        }, 4000); // Rotate every 4 seconds
+        return () => clearInterval(interval);
+    }, []);
+
+    const item = currentlyItems[currentIndex];
+    const Icon = item.icon;
+
+    return (
+        <div className="h-full flex flex-col">
+            <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Currently</h3>
+            <div className="flex-1 flex items-center">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex items-start gap-3"
+                    >
+                        <div className={cn(
+                            "p-2 rounded-lg shrink-0",
+                            item.highlight === "cyber"
+                                ? "bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 text-cyan-400"
+                                : "bg-primary/10 text-primary"
+                        )}>
+                            <Icon className="h-4 w-4" />
+                        </div>
+                        <div className="min-w-0">
+                            {item.highlight === "cyber" ? (
+                                <p className="text-sm font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                                    {item.title}
+                                </p>
+                            ) : (
+                                <p className="text-sm font-medium text-foreground">{item.title}</p>
+                            )}
+                            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{item.subtitle}</p>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+            {/* Progress dots */}
+            <div className="flex gap-1.5 mt-2">
+                {currentlyItems.map((_, idx) => (
+                    <button
+                        key={idx}
+                        onClick={() => setCurrentIndex(idx)}
+                        className={cn(
+                            "h-1 rounded-full transition-all duration-300",
+                            idx === currentIndex ? "w-4 bg-primary" : "w-1 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                        )}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
+// ============================================================================
+// MAIN HERO
+// ============================================================================
 
 export default function Hero() {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    const [isMounted, setIsMounted] = useState(false);
 
-  return (
-    <section id="hero" className="min-h-screen flex items-center justify-center py-12">
-      <div className="grid grid-cols-1 items-center gap-16">
-        <div className={cn("text-center lg:text-left space-y-6 transition-all duration-1000", isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-          <p className="text-primary font-medium text-lg dark:text-primary light-gradient-text">Hello, I'm</p>
-          <div className="group relative h-20 sm:h-24" aria-label="R.D.N.K expands to R.D.Nikhil Krishna on hover">
-            <h1 className="absolute inset-0 flex items-center justify-center lg:justify-start text-5xl sm:text-6xl lg:text-7xl font-headline tracking-widest transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:scale-95">R.D.N.K</h1>
-            <h1 className="absolute inset-0 flex items-center justify-center lg:justify-start text-5xl sm:text-6xl lg:text-7xl font-headline tracking-normal opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-100">R.D.Nikhil Krishna</h1>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-medium text-foreground/90">
-            Data Analyst | Automation and Insights Specialist
-          </h2>
-          <p className="max-w-xl mx-auto lg:mx-0 text-muted-foreground leading-relaxed">
-            Innovative Data Analyst transforming complex data into actionable insights and building automated solutions to drive efficiency.
-          </p>
-          <div className="flex flex-col items-center lg:items-start gap-4 pt-4">
-            <div className="flex justify-center lg:justify-start space-x-4">
-              <Button asChild size="lg" className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity">
-                <a href="#projects">View My Work</a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground">
-                <a href="#contact">Contact Me</a>
-              </Button>
-            </div>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <Button asChild variant="outline">
-                <a href="/resume.pdf" download>
-                  <FileDown className="mr-2 h-4 w-4" />
-                  Download Resume
-                </a>
-              </Button>
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+    return (
+        <section id="hero" className="h-[calc(100vh-80px)] flex items-center py-4">
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate={isMounted ? "visible" : "hidden"}
+                className="w-full grid grid-cols-1 lg:grid-cols-12 gap-3 auto-rows-fr"
+            >
+                {/* ===== Main Name Card ===== */}
+                <BentoCard className="lg:col-span-8 lg:row-span-2 flex flex-col justify-between" hasGlow>
+                    <div>
+                        {/* Status */}
+                        <div className="flex items-center gap-2 mb-3">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span className="text-xs text-muted-foreground tracking-wide">Open to opportunities</span>
+                        </div>
+
+                        {/* Name - Original CSS hover effect */}
+                        <div
+                            className="group relative h-16 sm:h-20 lg:h-24"
+                            aria-label="R.D.N.K expands to R.D.Nikhil Krishna on hover"
+                        >
+                            <h1 className="absolute inset-0 flex items-center text-5xl sm:text-6xl lg:text-7xl font-headline tracking-widest transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:scale-95">
+                                R.D.N.K
+                            </h1>
+                            <h1 className="absolute inset-0 flex items-center text-5xl sm:text-6xl lg:text-7xl font-headline tracking-normal opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-100">
+                                R.D.Nikhil Krishna
+                            </h1>
+                        </div>
+                    </div>
+
+                    {/* Role & Description */}
+                    <div className="mt-3 space-y-2">
+                        <h2 className="text-lg sm:text-xl font-medium text-foreground/90">
+                            Data Analyst & Automation Specialist
+                        </h2>
+                        <p className="text-muted-foreground leading-relaxed max-w-lg text-sm">
+                            Transforming complex data into actionable insights. Building automated solutions that drive efficiency.
+                        </p>
+                    </div>
+                </BentoCard>
+
+                {/* ===== Currently Card (Rotating) ===== */}
+                <BentoCard className="lg:col-span-4">
+                    <CurrentlyCard />
+                </BentoCard>
+
+                {/* ===== CTA Card ===== */}
+                <BentoCard className="lg:col-span-4 flex flex-col justify-center">
+                    <div className="space-y-2">
+                        <Button asChild size="sm" className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity group">
+                            <a href="#projects" className="flex items-center justify-center gap-2">
+                                View My Work
+                                <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            </a>
+                        </Button>
+                        <div className="flex gap-2">
+                            <Button asChild variant="outline" size="sm" className="flex-1">
+                                <a href="#contact">Contact</a>
+                            </Button>
+                            <Button asChild variant="outline" size="sm" className="flex-1 hover:border-primary hover:text-primary">
+                                <a href="/resume.pdf" download className="flex items-center justify-center gap-1.5">
+                                    <FileText className="h-3.5 w-3.5" />
+                                    Resume
+                                </a>
+                            </Button>
+                        </div>
+                    </div>
+                </BentoCard>
+
+                {/* ===== Social Links Card ===== */}
+                <BentoCard className="lg:col-span-4 flex items-center">
+                    <div className="w-full">
+                        <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Connect</h3>
+                        <div className="flex gap-2">
+                            <SocialLink href="https://github.com/rdnk2004" icon={Github} label="GitHub" />
+                            <SocialLink href="https://linkedin.com/in/nikhil-krishna-r-d-773b84259" icon={Linkedin} label="LinkedIn" />
+                            <SocialLink href="mailto:rdnkpersonal2004@gmail.com" icon={Mail} label="Email" />
+                        </div>
+                    </div>
+                </BentoCard>
+
+                {/* ===== Quote Card ===== */}
+                <BentoCard className="lg:col-span-4 flex items-center">
+                    <div>
+                        <p className="text-sm sm:text-base font-headline italic text-foreground/80">
+                            "From complexity to clarity"
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">— My approach to every project</p>
+                    </div>
+                </BentoCard>
+
+            </motion.div>
+        </section>
+    );
 }
