@@ -19,11 +19,6 @@ import Contact from '@/components/sections/contact';
 import Certifications from '@/components/sections/certifications';
 import Awards from '@/components/sections/awards';
 import { SectionDivider } from '@/components/ui/section-divider';
-import { Inter, Playfair_Display } from 'next/font/google';
-import { cn } from '@/lib/utils';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const playfairDisplay = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair-display' });
 
 function MainContent() {
   return (

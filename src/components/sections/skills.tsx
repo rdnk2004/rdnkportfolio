@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import {
     Terminal,
     Database,
@@ -120,10 +120,9 @@ const StrengthItem = ({ text }: { text: string }) => (
 
 export default function Skills() {
     const containerRef = useRef(null);
-    const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
     return (
-        <section id="skills" className="py-10 sm:py-12 lg:py-16 relative overflow-hidden">
+        <section id="skills" className="py-6 sm:py-8 lg:py-10 relative overflow-hidden">
             {/* Background Decorative Elements */}
             <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none select-none">
                 <Cpu size={400} />

@@ -40,7 +40,7 @@ const awardsData = [
 
 export default function Awards() {
   return (
-    <section id="awards" className="py-10 sm:py-12 lg:py-16">
+    <section id="awards" className="py-6 sm:py-8 lg:py-10">
       <SectionHeading>Honors & Recognition</SectionHeading>
 
       <motion.div
@@ -107,7 +107,7 @@ export default function Awards() {
                       src={award.image}
                       alt={award.name}
                       fill
-                      quality={100}
+                      loading="lazy"
                       sizes="(max-width: 768px) 100vw, 40vw"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       // @ts-ignore

@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-10 sm:py-12 lg:py-16 text-center">
+    <section id="contact" className="py-6 sm:py-8 lg:py-10 text-center">
       <SectionHeading>Get In Touch</SectionHeading>
       <p className="mt-4 mb-8 max-w-2xl mx-auto text-lg text-muted-foreground">
         I'm currently seeking new opportunities and am open to collaboration. Feel free to reach out if you have a project in mind or just want to connect!

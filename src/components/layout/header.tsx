@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -17,6 +18,7 @@ const navLinks = [
 export default function Header() {
   const [activeSection, setActiveSection] = useState('');
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,21 +46,31 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   return (
     <header className={cn(
       "sticky top-0 z-50 transition-all duration-300",
-      hasScrolled ? "py-4 bg-background/80 backdrop-blur-md shadow-lg shadow-black/20" : "py-6"
+      hasScrolled ? "py-2 bg-background/80 backdrop-blur-md shadow-lg shadow-black/20" : "py-3"
     )}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-        <a href="#hero" className="flex items-center hover:opacity-80 transition-opacity">
-          <div className="relative h-16 w-16">
+        <a href="#hero" className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setMobileMenuOpen(false)}>
+          <div className="relative h-12 w-12">
             <Image
               src="/indigo.png"
               alt="RDNK Logo"
               fill
               className="object-contain block dark:hidden"
               priority
-              sizes="64px"
+              sizes="48px"
             />
             <Image
               src="/electricblue.png"
@@ -66,12 +78,14 @@ export default function Header() {
               fill
               className="object-contain hidden dark:block"
               priority
-              sizes="64px"
+              sizes="48px"
             />
           </div>
         </a>
-        <div className="flex items-center space-x-4 md:space-x-8">
-          <ul className="hidden md:flex items-center space-x-8">
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-8">
+          <ul className="flex items-center space-x-8">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
@@ -88,7 +102,46 @@ export default function Header() {
           </ul>
           <ThemeToggle />
         </div>
+
+        {/* Mobile Navigation Toggle */}
+        <div className="flex items-center md:hidden gap-4">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 -mr-2 text-foreground hover:text-primary transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div className={cn(
+        "fixed inset-0 top-[60px] z-40 bg-background/95 backdrop-blur-md md:hidden transition-all duration-300 ease-in-out",
+        mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+      )}>
+        <ul className="flex flex-col items-center justify-center h-[calc(100vh-80px)] space-y-8 p-8">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className={cn(
+                  "text-2xl font-medium text-foreground hover:text-primary transition-colors",
+                  activeSection === link.href ? 'text-primary' : ''
+                )}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 }

@@ -35,7 +35,7 @@ const learningData = [
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-10 sm:py-12 lg:py-16">
+    <section id="certifications" className="py-6 sm:py-8 lg:py-10">
       <SectionHeading>Learning & Credentials</SectionHeading>
 
       <motion.div

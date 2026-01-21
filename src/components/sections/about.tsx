@@ -33,7 +33,7 @@ const principles = [
 
 export default function About() {
   return (
-    <section id="about" className="py-10 sm:py-12 lg:py-16">
+    <section id="about" className="py-6 sm:py-8 lg:py-10">
       <SectionHeading>How I Work</SectionHeading>
 
       {/* Intro */}

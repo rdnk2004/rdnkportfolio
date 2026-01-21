@@ -38,7 +38,7 @@ const educationData = [
 
 export default function Education() {
   return (
-    <section id="education" className="py-10 sm:py-12 lg:py-16">
+    <section id="education" className="py-6 sm:py-8 lg:py-10">
       <SectionHeading>Education</SectionHeading>
 
       <div className="max-w-2xl mx-auto">

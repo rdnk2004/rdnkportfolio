@@ -28,7 +28,7 @@ export function SectionHeading({ children, className }: SectionHeadingProps) {
             // Title styling
             "text-3xl font-headline font-semibold text-foreground tracking-tight",
             // Container & positioning
-            "text-center relative pb-3 mb-6",
+            "text-center relative pb-2 mb-4",
             // Underline (pseudo-element)
             "after:content-[''] after:absolute after:left-1/2 after:bottom-0",
             "after:w-16 after:h-0.5 after:bg-primary/60 after:-translate-x-1/2 after:rounded-full",

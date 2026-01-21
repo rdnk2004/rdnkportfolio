@@ -10,16 +10,22 @@ import { Analytics } from '@vercel/analytics/next';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+  preload: true,
 });
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair-display',
+  display: 'swap',
+  preload: true,
 });
 
 const cinzel = Cinzel({
   subsets: ['latin'],
   variable: '--font-cinzel',
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {

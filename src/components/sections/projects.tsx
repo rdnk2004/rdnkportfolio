@@ -96,31 +96,28 @@ export default function Projects() {
     }
 
     const header = document.querySelector('header');
+    const body = document.body;
 
     if (selectedProject) {
-      document.body.style.overflow = "hidden";
-      if (header) {
-        header.style.transition = 'transform 0.3s ease-in-out';
-        header.style.transform = 'translateY(-100%)';
-      }
+      body.classList.add('body-scroll-locked');
+      header?.classList.add('header-hidden');
     } else {
-      document.body.style.overflow = "auto";
-      if (header) {
-        header.style.transform = 'translateY(0)';
-      }
+      body.classList.remove('body-scroll-locked');
+      header?.classList.remove('header-hidden');
     }
 
     window.addEventListener("keydown", onKeyDown);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
-      // Ensure header is reset on unmount
-      if (header) header.style.transform = 'translateY(0)';
+      // Ensure classes are removed on unmount
+      body.classList.remove('body-scroll-locked');
+      header?.classList.remove('header-hidden');
     };
   }, [selectedProject]);
 
 
   return (
-    <section id="projects" className="py-10 sm:py-12 lg:py-16 relative">
+    <section id="projects" className="py-6 sm:py-8 lg:py-10 relative">
       <SectionHeading>Projects</SectionHeading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
         {projectData.map((project, index) => (

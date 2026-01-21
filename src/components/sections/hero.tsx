@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { FileText, ArrowUpRight, Github, Linkedin, Mail, Sparkles, Gamepad2, Users } from 'lucide-react';
+import { FileText, ArrowUpRight, Github, Linkedin, Mail, Sparkles, Gamepad2, Users, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ============================================================================
@@ -91,10 +91,10 @@ function SocialLink({ href, icon: Icon, label }: { href: string; icon: any; labe
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center p-2.5 rounded-lg bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
+            className="flex items-center justify-center p-3 sm:p-4 rounded-lg bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
             aria-label={label}
         >
-            <Icon className="h-4 w-4" />
+            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
         </a>
     );
 }
@@ -176,15 +176,15 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="hero" className="h-[calc(100vh-80px)] flex items-center py-4">
+        <section id="hero" className="flex items-center py-8 lg:py-12">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate={isMounted ? "visible" : "hidden"}
-                className="w-full grid grid-cols-1 lg:grid-cols-12 gap-3 auto-rows-fr"
+                className="w-full grid grid-cols-2 lg:grid-cols-12 gap-3"
             >
                 {/* ===== Main Name Card ===== */}
-                <BentoCard className="lg:col-span-8 lg:row-span-2 flex flex-col justify-between" hasGlow>
+                <BentoCard className="col-span-2 lg:col-span-8 lg:row-span-2 flex flex-col justify-between" hasGlow>
                     <div>
                         {/* Status */}
                         <div className="flex items-center gap-2 mb-3">
@@ -221,13 +221,33 @@ export default function Hero() {
                 </BentoCard>
 
                 {/* ===== Currently Card (Rotating) ===== */}
-                <BentoCard className="lg:col-span-4">
+                <BentoCard className="col-span-2 lg:col-span-4 p-3 sm:p-4">
                     <CurrentlyCard />
                 </BentoCard>
 
                 {/* ===== CTA Card ===== */}
-                <BentoCard className="lg:col-span-4 flex flex-col justify-center">
-                    <div className="space-y-2">
+                <BentoCard className="col-span-1 lg:col-span-4 flex flex-col justify-center h-full">
+                    {/* Mobile View: Row of Icons */}
+                    <div className="flex lg:hidden flex-row items-center justify-between gap-2 w-full h-full p-1">
+                        <Button asChild size="icon" className="flex-1 h-full max-h-12 bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity shadow-sm">
+                            <a href="#projects" aria-label="View My Work">
+                                <ArrowUpRight className="h-5 w-5" />
+                            </a>
+                        </Button>
+                        <Button asChild variant="outline" size="icon" className="flex-1 h-full max-h-12 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors">
+                            <a href="#contact" aria-label="Contact">
+                                <MessageSquare className="h-5 w-5" />
+                            </a>
+                        </Button>
+                        <Button asChild variant="outline" size="icon" className="flex-1 h-full max-h-12 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors">
+                            <a href="/resume.pdf" download aria-label="Resume">
+                                <FileText className="h-5 w-5" />
+                            </a>
+                        </Button>
+                    </div>
+
+                    {/* Desktop View: Original Text Layout */}
+                    <div className="hidden lg:flex flex-col gap-2 w-full">
                         <Button asChild size="sm" className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity group">
                             <a href="#projects" className="flex items-center justify-center gap-2">
                                 View My Work
@@ -249,10 +269,10 @@ export default function Hero() {
                 </BentoCard>
 
                 {/* ===== Social Links Card ===== */}
-                <BentoCard className="lg:col-span-4 flex items-center">
+                <BentoCard className="col-span-1 lg:col-span-4 flex items-center">
                     <div className="w-full">
-                        <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Connect</h3>
-                        <div className="flex gap-2">
+                        <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3">Connect</h3>
+                        <div className="flex gap-2 sm:gap-3 justify-between sm:justify-start">
                             <SocialLink href="https://github.com/rdnk2004" icon={Github} label="GitHub" />
                             <SocialLink href="https://linkedin.com/in/nikhil-krishna-r-d-773b84259" icon={Linkedin} label="LinkedIn" />
                             <SocialLink href="mailto:rdnkpersonal2004@gmail.com" icon={Mail} label="Email" />
@@ -261,15 +281,28 @@ export default function Hero() {
                 </BentoCard>
 
                 {/* ===== Quote Card ===== */}
-                <BentoCard className="lg:col-span-4 flex items-center">
-                    <div>
-                        <p className="text-sm sm:text-base font-headline italic text-foreground/80">
+                <BentoCard className="col-span-1 lg:col-span-4 flex items-center">
+                    <div className="w-full">
+                        <p className="text-sm sm:text-lg font-headline italic text-foreground/80 leading-tight">
                             "From complexity to clarity"
                         </p>
-                        <p className="text-xs text-muted-foreground mt-1">— My approach to every project</p>
+                        <p className="text-[10px] sm:text-sm text-muted-foreground mt-1.5">— My approach</p>
                     </div>
                 </BentoCard>
 
+                {/* ===== Working Principles Card ===== */}
+                <BentoCard className="col-span-1 lg:col-span-4 flex items-center">
+                    <div className="w-full">
+                        <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3">Principles</h3>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3 text-sm sm:text-lg font-headline text-foreground/90">
+                            <span>Clarity</span>
+                            <span className="hidden sm:inline text-primary/40">·</span>
+                            <span>Ownership</span>
+                            <span className="hidden sm:inline text-primary/40">·</span>
+                            <span>Reliability</span>
+                        </div>
+                    </div>
+                </BentoCard>
             </motion.div>
         </section>
     );

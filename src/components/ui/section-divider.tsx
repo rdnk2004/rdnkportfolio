@@ -36,7 +36,7 @@ export function SectionDivider({ variant = "gradient", className }: SectionDivid
     return (
         <div
             className={cn(
-                "relative w-full flex items-center justify-center py-2",
+                "relative w-full flex items-center justify-center py-1",
                 className
             )}
             aria-hidden="true"

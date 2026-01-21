@@ -5,7 +5,7 @@ import { BookOpen, FileDown } from "lucide-react";
 
 export default function Publications() {
   return (
-    <section id="publications" className="py-10 sm:py-12 lg:py-16">
+    <section id="publications" className="py-6 sm:py-8 lg:py-10">
       <SectionHeading>Publications</SectionHeading>
       <div className="max-w-3xl mx-auto">
         <Card className="bg-card/50 backdrop-blur-sm border-border/40 shadow-sm">

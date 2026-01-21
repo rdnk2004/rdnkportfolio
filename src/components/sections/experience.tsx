@@ -36,7 +36,7 @@ const experienceData = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-10 sm:py-12 lg:py-16">
+    <section id="experience" className="py-6 sm:py-8 lg:py-10">
       <SectionHeading>Work Experience</SectionHeading>
       <div className="relative pl-6">
         {/* Timeline line */}
