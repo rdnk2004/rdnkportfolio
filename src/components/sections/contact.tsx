@@ -6,8 +6,8 @@ export default function Contact() {
   return (
     <section id="contact" className="py-10 sm:py-12 lg:py-16 text-center">
       <SectionHeading>Get In Touch</SectionHeading>
-      <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-        I'm currently seeking new opportunities and am open to collaboration. Feel free to reach out if you have a project in mind or just want to connect! My location is Coimbatore, Tamil Nadu.
+      <p className="mt-4 mb-8 max-w-2xl mx-auto text-lg text-muted-foreground">
+        I'm currently seeking new opportunities and am open to collaboration. Feel free to reach out if you have a project in mind or just want to connect!
       </p>
       <div className="flex flex-wrap justify-center gap-4">
         <Button asChild size="lg" variant="outline" className="border-primary/20 hover:bg-primary/5 hover:border-primary/40 transition-all text-primary">
