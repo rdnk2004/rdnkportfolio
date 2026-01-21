@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -49,8 +50,25 @@ export default function Header() {
       hasScrolled ? "py-4 bg-background/80 backdrop-blur-md shadow-lg shadow-black/20" : "py-6"
     )}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-        <a href="#hero" className="text-xl font-headline font-bold tracking-widest text-primary hover:text-primary/80 transition-colors">
-          R.D.N.K
+        <a href="#hero" className="flex items-center hover:opacity-80 transition-opacity">
+          <div className="relative h-16 w-16">
+            <Image
+              src="/indigo.png"
+              alt="RDNK Logo"
+              fill
+              className="object-contain block dark:hidden"
+              priority
+              sizes="64px"
+            />
+            <Image
+              src="/electricblue.png"
+              alt="RDNK Logo"
+              fill
+              className="object-contain hidden dark:block"
+              priority
+              sizes="64px"
+            />
+          </div>
         </a>
         <div className="flex items-center space-x-4 md:space-x-8">
           <ul className="hidden md:flex items-center space-x-8">
