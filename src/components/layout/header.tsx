@@ -58,8 +58,10 @@ export default function Header() {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 transition-all duration-300",
-      hasScrolled ? "py-2 bg-background/80 backdrop-blur-md shadow-lg shadow-black/20" : "py-3"
+      "sticky top-0 z-50",
+      // Remove transition when menu is open to prevent background transparency glitch
+      !mobileMenuOpen && "transition-all duration-300",
+      mobileMenuOpen ? "bg-background" : (hasScrolled ? "py-2 bg-background/80 backdrop-blur-md shadow-lg shadow-black/20" : "py-3")
     )}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         <a href="#hero" className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setMobileMenuOpen(false)}>
@@ -122,7 +124,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "fixed inset-0 top-[60px] z-40 bg-background/95 backdrop-blur-md md:hidden transition-all duration-300 ease-in-out",
+        "fixed inset-0 top-[60px] z-40 bg-background md:hidden transition-all duration-300 ease-in-out",
         mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
       )}>
         <ul className="flex flex-col items-center justify-center h-[calc(100vh-80px)] space-y-8 p-8">

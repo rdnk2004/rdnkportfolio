@@ -203,7 +203,7 @@ export default function Hero() {
                             <h1 className="absolute inset-0 flex items-center text-5xl sm:text-6xl lg:text-7xl font-headline tracking-widest transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:scale-95">
                                 R.D.N.K
                             </h1>
-                            <h1 className="absolute inset-0 flex items-center text-5xl sm:text-6xl lg:text-7xl font-headline tracking-normal opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-100">
+                            <h1 className="absolute inset-0 flex items-center text-[2.6rem] sm:text-6xl lg:text-7xl font-headline tracking-tight sm:tracking-normal opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-100">
                                 R.D.Nikhil Krishna
                             </h1>
                         </div>
