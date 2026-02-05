@@ -71,6 +71,23 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  // Check for mobile screen size to conditionally apply styles
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false); // Auto-close on resize to desktop
+      }
+    };
+
+    // Initial check
+    checkMobile();
+
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -82,6 +99,11 @@ export default function Header() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
+  // Determine active styles based on Desktop vs Mobile state
+  // If we are on Desktop, strictly use the scroll-based values.
+  // If we are on Mobile AND the menu is open, use the fixed expanded values.
+  const isMobileOpen = isMobile && mobileMenuOpen;
+
   return (
     <>
       <motion.header
@@ -91,22 +113,23 @@ export default function Header() {
         <motion.nav
           className={cn(
             "pointer-events-auto flex flex-col md:flex-row items-center justify-start md:justify-between px-6 lg:px-8",
-            mobileMenuOpen ? "bg-background/95 backdrop-blur-xl" : ""
+            isMobileOpen ? "bg-background/95 backdrop-blur-xl" : ""
           )}
           style={{
-            width: mobileMenuOpen ? "90%" : widthPercent, // On mobile open, go almost full width but keep it floating
-            maxWidth: mobileMenuOpen ? "500px" : maxWidth, // Cap width on mobile open
-            borderRadius: mobileMenuOpen ? 32 : borderRadius,
-            backgroundColor: mobileMenuOpen ? "hsl(var(--background))" : navBackground,
-            borderWidth: mobileMenuOpen ? 1 : borderWidth,
+            // CONDITIONAL STYLES: Strict separation
+            width: isMobileOpen ? "90%" : widthPercent,
+            maxWidth: isMobileOpen ? "500px" : maxWidth,
+            borderRadius: isMobileOpen ? 32 : borderRadius,
+            backgroundColor: isMobileOpen ? "hsl(var(--background))" : navBackground,
+            borderWidth: isMobileOpen ? 1 : borderWidth,
             borderStyle: 'solid',
-            borderColor: mobileMenuOpen ? 'rgba(var(--foreground), 0.1)' : navBorderColor,
-            backdropFilter: mobileMenuOpen ? 'none' : backdropFilter,
-            boxShadow: mobileMenuOpen ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)' : boxShadow,
-            height: "auto", // Let it grow
-            paddingTop: mobileMenuOpen ? "24px" : "14px",
-            paddingBottom: mobileMenuOpen ? "24px" : "14px",
-            gap: mobileMenuOpen ? "0px" : "0px", // Flex gap control
+            borderColor: isMobileOpen ? 'rgba(var(--foreground), 0.1)' : navBorderColor,
+            backdropFilter: isMobileOpen ? 'none' : backdropFilter,
+            boxShadow: isMobileOpen ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)' : boxShadow,
+            height: "auto",
+            paddingTop: isMobileOpen ? "12px" : "14px",
+            paddingBottom: isMobileOpen ? "12px" : "14px",
+            gap: isMobileOpen ? "8px" : "0px",
           }}
         >
           {/* Top Row: Logo and Toggle */}
@@ -145,14 +168,10 @@ export default function Header() {
 
             {/* Mobile Navigation Toggle */}
             <div className="flex items-center md:hidden gap-4">
-              <AnimatePresence>
-                {/* Theme toggle moves here inside the island when open */}
-                {!mobileMenuOpen && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                    <ThemeToggle />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {/* Theme toggle always visible now */}
+              <div>
+                <ThemeToggle />
+              </div>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 -mr-2 text-foreground hover:text-primary transition-colors focus:outline-none"
@@ -176,10 +195,10 @@ export default function Header() {
                   <a
                     href={link.href}
                     className={cn(
-                      "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200",
+                      "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 flex items-center justify-center",
                       "hover:text-primary hover:bg-primary/10",
                       activeSection === link.href
-                        ? 'text-primary bg-primary/10 md:bg-transparent md:text-primary md:font-semibold'
+                        ? 'text-primary bg-primary/10 md:bg-transparent md:text-primary'
                         : 'text-muted-foreground'
                     )}
                   >
@@ -202,37 +221,41 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Mobile Menu Content - Vertical Expansion */}
+          {/* Mobile Menu Content - Horizontal Scrollable Rail */}
           <AnimatePresence>
             {mobileMenuOpen && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto', marginTop: 24 }}
+                animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
                 exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                className="w-full flex flex-col items-center justify-start space-y-2 md:hidden overflow-hidden"
+                className="w-full md:hidden overflow-hidden"
               >
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0, transition: { delay: i * 0.05 } }}
-                    className={cn(
-                      "w-full text-center py-3 rounded-xl text-lg font-medium tracking-tight hover:bg-primary/5 transition-colors",
-                      activeSection === link.href ? 'text-primary bg-primary/10' : 'text-foreground/80'
-                    )}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </motion.a>
-                ))}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { delay: 0.3 } }}
-                  className="pt-4 pb-2"
+                {/* Scrollable Container with Mask for Fade Effect */}
+                <div
+                  className="flex items-center gap-2 overflow-x-auto snap-x snap-mandatory pb-2 pt-2 px-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                  style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
                 >
-                  <ThemeToggle />
-                </motion.div>
+                  {navLinks.map((link, i) => (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0, transition: { delay: i * 0.05 } }}
+                      className={cn(
+                        "flex-shrink-0 snap-center px-4 py-2 rounded-full text-sm font-medium transition-all",
+                        "border border-transparent",
+                        activeSection === link.href
+                          ? 'bg-primary/10 text-primary border-primary/20 shadow-sm'
+                          : 'bg-secondary/50 text-foreground/80 hover:bg-secondary'
+                      )}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </motion.a>
+                  ))}
+                  {/* Theme toggle as the last chip */}
+
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

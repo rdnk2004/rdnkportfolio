@@ -31,6 +31,9 @@ const cinzel = Cinzel({
 export const metadata: Metadata = {
   title: 'RDNK | Built with Intent',
   description: 'The personal portfolio of Nikhil Krishna R D, a Data Analyst and Automation Specialist.',
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({
