@@ -176,7 +176,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="hero" className="flex items-center py-8 lg:py-12">
+        <section id="hero" className="flex items-center pt-32 pb-8 lg:pt-40 lg:pb-12">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
