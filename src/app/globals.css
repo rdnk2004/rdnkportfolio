@@ -95,11 +95,33 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Optimize for smooth scrolling */
+    overscroll-behavior: none;
   }
 
   html {
-    /* Native smooth scroll removed - causes lag on some systems */
-    /* Scroll with CSS animations optimized for 60fps */
+    /* Disable native smooth scroll - Lenis handles this */
+    scroll-behavior: auto;
+    /* Performance optimization */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Optimize off-screen content */
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -109,15 +131,25 @@
   left: 0;
   width: 100%;
   height: 2000px;
-  /* Reduced height - still creates infinite loop but uses less memory */
   background-repeat: repeat;
   background-position: center;
-  will-change: transform;
   z-index: -10;
-  /* GPU acceleration hints */
+
+  /* GPU acceleration and optimization */
   transform: translateZ(0);
+  will-change: auto;
+  /* Remove constant will-change */
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
   contain: layout style paint;
+
+  /* Apply will-change only during animation */
+  animation-play-state: running;
+}
+
+.star-layer:is(:hover, :focus-within) {
+  will-change: transform;
 }
 
 /* --- Dark Mode: Starry Night --- */

@@ -1,9 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
-import { fadeInUp, staggerContainer } from "@/lib/motion";
+import { useScrollFadeIn, useScrollStagger } from "@/hooks/use-scroll-animations";
 
 const experienceData = [
   {
@@ -35,22 +34,21 @@ const experienceData = [
 ];
 
 export default function Experience() {
+  const titleRef = useScrollFadeIn();
+  const cardsRef = useScrollStagger('.experience-card');
+
   return (
     <section id="experience" className="py-6 sm:py-8 lg:py-10">
-      <SectionHeading>Work Experience</SectionHeading>
+      <div ref={titleRef as any}>
+        <SectionHeading>Work Experience</SectionHeading>
+      </div>
       <div className="relative pl-6">
         {/* Timeline line */}
         <div className="absolute left-6 top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="space-y-8"
-        >
+        <div ref={cardsRef as any} className="space-y-8">
           {experienceData.map((job, index) => (
-            <motion.div key={index} variants={fadeInUp} className="relative pl-8">
+            <div key={index} className="experience-card relative pl-8">
               {/* Timeline dot */}
               <div className="absolute -left-2.5 top-1 h-5 w-5 rounded-full bg-primary border-4 border-background"></div>
 
@@ -85,9 +83,9 @@ export default function Experience() {
                   )}
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

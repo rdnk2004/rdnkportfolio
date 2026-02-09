@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Menu, X } from 'lucide-react';
@@ -16,7 +16,7 @@ const navLinks = [
   { name: 'Certifications', href: '#certifications' },
 ];
 
-export default function Header() {
+function Header() {
   const [activeSection, setActiveSection] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -265,3 +265,6 @@ export default function Header() {
     </>
   );
 }
+
+// Memoize to prevent unnecessary re-renders
+export default memo(Header);

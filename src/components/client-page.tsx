@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useTheme } from "next-themes";
 import { AnimatePresence } from "framer-motion";
 import Loader from '@/components/loader';
@@ -11,16 +11,23 @@ import StarryBackground from '@/components/layout/starry-background';
 import Hero from '@/components/sections/hero';
 import About from '@/components/sections/about';
 import Experience from '@/components/sections/experience';
-import Education from '@/components/sections/education';
-import Skills from '@/components/sections/skills';
-import Projects from '@/components/sections/projects';
-import Publications from '@/components/sections/publications';
-import Contact from '@/components/sections/contact';
-import Certifications from '@/components/sections/certifications';
-import Awards from '@/components/sections/awards';
 import { SectionDivider } from '@/components/ui/section-divider';
+import { usePrefetchResources, useWarmCache } from '@/hooks/use-performance';
+
+// Lazy load below-the-fold sections for better performance
+const Education = lazy(() => import('@/components/sections/education'));
+const Skills = lazy(() => import('@/components/sections/skills'));
+const Projects = lazy(() => import('@/components/sections/projects'));
+const Publications = lazy(() => import('@/components/sections/publications'));
+const Contact = lazy(() => import('@/components/sections/contact'));
+const Certifications = lazy(() => import('@/components/sections/certifications'));
+const Awards = lazy(() => import('@/components/sections/awards'));
 
 function MainContent() {
+  // Warm cache and prefetch resources for better subsequent visits
+  usePrefetchResources();
+  useWarmCache();
+
   return (
     <>
       <StarryBackground />
@@ -32,21 +39,41 @@ function MainContent() {
           <SectionDivider variant="gradient" />
           <About />
           <Experience />
-          <Projects />
+
+          {/* Below-the-fold sections with Suspense */}
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <Projects />
+          </Suspense>
+
           {/* Gradient: Major portfolio boundary → Skills */}
           <SectionDivider variant="gradient" />
-          <Skills />
+
+          <Suspense fallback={<div className="min-h-[300px]" />}>
+            <Skills />
+          </Suspense>
+
           {/* Dot: Transition to credentials section */}
           <SectionDivider variant="dot" />
-          <Education />
+
+          <Suspense fallback={<div className="min-h-[300px]" />}>
+            <Education />
+          </Suspense>
+
           {/* Line: Subtle flow within credentials */}
           <SectionDivider variant="line" />
-          <Certifications />
-          <Awards />
+
+          <Suspense fallback={<div className="min-h-[300px]" />}>
+            <Certifications />
+            <Awards />
+          </Suspense>
+
           {/* Dot: Before publications */}
           <SectionDivider variant="dot" />
-          <Publications />
-          <Contact />
+
+          <Suspense fallback={<div className="min-h-[300px]" />}>
+            <Publications />
+            <Contact />
+          </Suspense>
         </main>
         <Footer />
       </div>

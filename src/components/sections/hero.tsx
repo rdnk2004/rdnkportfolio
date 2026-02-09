@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { FileText, ArrowUpRight, Github, Linkedin, Mail, Sparkles, Gamepad2, Users, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useShouldReduceAnimations } from '@/hooks/use-device-detection';
 
 // ============================================================================
 // BENTO GRID HERO - v4
@@ -15,17 +16,17 @@ const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.08, delayChildren: 0.1 }
+        transition: { staggerChildren: 0.05, delayChildren: 0.05 } // Reduced stagger for faster initial render
     }
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 8 }, // Reduced distance for smoother animation
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.3, // Faster animation
             ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number]
         }
     }
@@ -54,7 +55,22 @@ const currentlyItems = [
 ];
 
 // Bento Card wrapper
-function BentoCard({ children, className, hasGlow = false }: { children: React.ReactNode; className?: string; hasGlow?: boolean }) {
+// hasGlow: shows animated gradient glow on desktop, disabled on mobile for performance
+// reduceAnimations: passed from parent to conditionally disable expensive effects
+function BentoCard({
+    children,
+    className,
+    hasGlow = false,
+    reduceAnimations = false
+}: {
+    children: React.ReactNode;
+    className?: string;
+    hasGlow?: boolean;
+    reduceAnimations?: boolean;
+}) {
+    // Show glow only on desktop (when animations are not reduced)
+    const showGlow = hasGlow && !reduceAnimations;
+
     return (
         <motion.div
             variants={itemVariants}
@@ -65,7 +81,7 @@ function BentoCard({ children, className, hasGlow = false }: { children: React.R
                 className
             )}
         >
-            {hasGlow && (
+            {showGlow && (
                 <div className="absolute inset-0 pointer-events-none">
                     <motion.div
                         className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-full blur-3xl"
@@ -170,6 +186,7 @@ function CurrentlyCard() {
 
 export default function Hero() {
     const [isMounted, setIsMounted] = useState(false);
+    const shouldReduceAnimations = useShouldReduceAnimations();
 
     useEffect(() => {
         setIsMounted(true);
@@ -184,7 +201,7 @@ export default function Hero() {
                 className="w-full grid grid-cols-2 lg:grid-cols-12 gap-3"
             >
                 {/* ===== Main Name Card ===== */}
-                <BentoCard className="col-span-2 lg:col-span-8 lg:row-span-2 flex flex-col justify-between" hasGlow>
+                <BentoCard className="col-span-2 lg:col-span-8 lg:row-span-2 flex flex-col justify-between" hasGlow reduceAnimations={shouldReduceAnimations}>
                     <div>
                         {/* Status */}
                         <div className="flex items-center gap-2 mb-3">

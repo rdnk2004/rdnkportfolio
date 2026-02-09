@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "../ui/section-heading";
 import { fadeInUp, staggerContainer } from "@/lib/motion";
+import { useScrollFadeIn, useScrollStagger } from "@/hooks/use-scroll-animations";
 
 const principles = [
   {
@@ -32,36 +33,33 @@ const principles = [
 ];
 
 export default function About() {
+  const introRef = useScrollFadeIn();
+  const principlesRef = useScrollStagger('.principle-card');
+  const closingRef = useScrollFadeIn({ start: 'top 90%' });
+
   return (
     <section id="about" className="py-6 sm:py-8 lg:py-10">
       <SectionHeading>How I Work</SectionHeading>
 
       {/* Intro */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
+      <div
+        ref={introRef as any}
         className="max-w-3xl mx-auto text-center text-lg text-foreground/90 leading-relaxed"
       >
         <p>
           I build software with the assumption that reality will challenge it.
         </p>
-      </motion.div>
+      </div>
 
       {/* Principles Grid - Staggered Reveal */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
+      <div
+        ref={principlesRef as any}
         className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"
       >
         {principles.map((principle, index) => (
-          <motion.div
+          <div
             key={index}
-            variants={fadeInUp}
-            className="relative rounded-lg border border-border/40 bg-card/50 p-5 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1"
+            className="principle-card relative rounded-lg border border-border/40 bg-card/50 p-5 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1"
           >
             <h3 className="text-base font-semibold text-primary mb-2">
               {principle.title}
@@ -69,22 +67,20 @@ export default function About() {
             <p className="text-foreground/85 leading-snug text-sm">
               {principle.description}
             </p>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* Closing line */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: 0.3 }}
+      <div
+        ref={closingRef as any}
         className="mt-10 max-w-3xl mx-auto text-center text-foreground/80"
       >
         <p>
           This mindset shapes every project I build — from automation pipelines to data systems used in the real world.
         </p>
-      </motion.div>
+      </div>
     </section>
   );
 }
+
