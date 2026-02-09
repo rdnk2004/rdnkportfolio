@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -32,8 +32,14 @@ const MOBILE_BREAKPOINT = 768;
  * - GSAP ScrollTrigger integration
  * - Smooth anchor link navigation
  */
+// Create Context
+import { LenisContext, useLenis } from '@/hooks/use-lenis-context';
+
+export { useLenis };
+
 export default function LenisProvider({ children }: LenisProviderProps) {
     const lenisRef = useRef<Lenis | null>(null);
+    const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
     const [isDesktop, setIsDesktop] = useState(false);
 
     useEffect(() => {
@@ -67,6 +73,7 @@ export default function LenisProvider({ children }: LenisProviderProps) {
         });
 
         lenisRef.current = lenis;
+        setLenisInstance(lenis);
 
         // Integrate Lenis with GSAP ScrollTrigger
         lenis.on('scroll', ScrollTrigger.update);
@@ -106,6 +113,7 @@ export default function LenisProvider({ children }: LenisProviderProps) {
                 // Switched to mobile - destroy Lenis
                 lenisRef.current.destroy();
                 lenisRef.current = null;
+                setLenisInstance(null);
                 setIsDesktop(false);
                 ScrollTrigger.refresh();
             }
@@ -128,5 +136,9 @@ export default function LenisProvider({ children }: LenisProviderProps) {
         };
     }, []);
 
-    return <>{children}</>;
+    return (
+        <LenisContext.Provider value={lenisInstance}>
+            {children}
+        </LenisContext.Provider>
+    );
 }

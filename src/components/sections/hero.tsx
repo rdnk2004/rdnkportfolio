@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { FileText, ArrowUpRight, Github, Linkedin, Mail, Sparkles, Gamepad2, Users, MessageSquare } from 'lucide-react';
+import { FileText, ArrowUpRight, Github, Linkedin, Mail, Sparkles, Gamepad2, MessageSquare, Wallet } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useShouldReduceAnimations } from '@/hooks/use-device-detection';
 
@@ -47,9 +47,9 @@ const currentlyItems = [
         highlight: "cyber" // Special styling for this
     },
     {
-        icon: Users,
-        title: "Developing a team task tracker",
-        subtitle: "A lightweight internal tool to streamline collaboration and workflows",
+        icon: Wallet,
+        title: "Developing a expense tracker app",
+        subtitle: "To learn Svelte framework and to help tracking my monthly expenses",
         highlight: null
     }
 ];
