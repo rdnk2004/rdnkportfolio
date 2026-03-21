@@ -40,7 +40,7 @@ export const slideInOnScroll = (
     direction: 'left' | 'right' | 'bottom' = 'bottom',
     options = {}
 ) => {
-    const fromVars: any = { opacity: 0 };
+    const fromVars: Record<string, number> = { opacity: 0 };
 
     switch (direction) {
         case 'left':

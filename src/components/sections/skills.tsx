@@ -158,7 +158,7 @@ const RoleCard = ({ name, detail, primary, index }: { name: string; detail: stri
     </MotionDiv>
 );
 
-const TechCategory = ({ title, icon: Icon, skills, index }: any) => (
+const TechCategory = ({ title, icon: Icon, skills, index }: { title: string; icon: React.ElementType; skills: string[]; index: number }) => (
     <MotionDiv
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -199,7 +199,7 @@ const CapabilityPill = ({ text, index }: { text: string; index: number }) => (
     </MotionDiv>
 );
 
-const LeadershipCard = ({ metric, title, detail, index }: any) => (
+const LeadershipCard = ({ metric, title, detail, index }: { metric: string; title: string; detail: string; index: number }) => (
     <MotionDiv
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
