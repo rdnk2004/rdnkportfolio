@@ -12,7 +12,7 @@ const awardsData = [
     institution: "Bharathiar University",
     date: "October 2025",
     note: "Awarded for academic excellence across the university",
-    image: null,
+    image: "/awards/SRI_0178.jpeg",
   },
   {
     name: "Mahatma Gandhi Merit Scholarship (3× Recipient)",
