@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
 import { fadeInUp, staggerContainer } from "@/lib/motion";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "../ui/dialog";
+import { Maximize2 } from "lucide-react";
 
 const awardsData = [
   {
@@ -13,6 +15,10 @@ const awardsData = [
     date: "October 2025",
     note: "Awarded for academic excellence across the university",
     image: "/awards/SRI_0178.jpeg",
+    imageProps: {
+      sizes: "100vw",
+      style: { objectPosition: "center 30%" }
+    }
   },
   {
     name: "Mahatma Gandhi Merit Scholarship (3× Recipient)",
@@ -35,6 +41,10 @@ const awardsData = [
     image: "/awards/champ-of-data-science.jpeg",
     link: "https://www.linkedin.com/posts/nikhil-krishna-r-d-773b84259_gratitude-collegejourney-activity-7336019282243239937-RKZf",
     linkText: "Moment behind this recognition →",
+    imageProps: {
+      sizes: "100vw",
+      style: { objectPosition: "center 30%" }
+    }
   },
 ];
 
@@ -102,20 +112,42 @@ export default function Awards() {
 
                 {/* Image Section (Right Side) - Only if image exists */}
                 {award.image && (
-                  <div className="relative h-48 md:h-auto md:col-span-2 overflow-hidden border-b md:border-b-0 md:border-l border-white/10 bg-black/20">
-                    <Image
-                      src={award.image}
-                      alt={award.name}
-                      fill
-                      loading="lazy"
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      // @ts-ignore
-                      {...award.imageProps}
-                    />
-                    {/* Very subtle inner shadow for depth, no dark overlay */}
-                    <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]" />
-                  </div>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="relative h-48 md:h-auto md:col-span-2 overflow-hidden border-b md:border-b-0 md:border-l border-white/10 bg-black/20 focus:outline-none focus:ring-2 focus:ring-primary/50 text-left cursor-zoom-in group/img w-full">
+                        <Image
+                          src={award.image}
+                          alt={award.name}
+                          fill
+                          loading="lazy"
+                          sizes={award.imageProps?.sizes || "(max-width: 768px) 100vw, 40vw"}
+                          className="object-cover transition-transform duration-700 ease-out group-hover/img:scale-105"
+                          style={award.imageProps?.style}
+                        />
+                        {/* Hover Overlay with Zoom Icon */}
+                        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover/img:bg-black/35 flex items-center justify-center">
+                          <div className="opacity-0 scale-90 transition-all duration-300 group-hover/img:opacity-100 group-hover/img:scale-100 p-2.5 rounded-full bg-black/60 text-white backdrop-blur-md border border-white/10 shadow-lg">
+                            <Maximize2 className="h-5 w-5" />
+                          </div>
+                        </div>
+                        {/* Very subtle inner shadow for depth */}
+                        <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] pointer-events-none" />
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl w-[95vw] md:w-[85vw] border-none bg-black/95 p-0 overflow-hidden sm:rounded-lg">
+                      <DialogTitle className="sr-only">{award.name}</DialogTitle>
+                      <div className="relative w-full h-[60vh] md:h-[75vh]">
+                        <Image
+                          src={award.image}
+                          alt={award.name}
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 1024px) 100vw, 1024px"
+                          priority
+                        />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 )}
               </div>
             </Card>

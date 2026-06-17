@@ -99,6 +99,25 @@ function Header() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
+  // React-level Dialog detection to hide header
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  useEffect(() => {
+    const checkDialog = () => {
+      const dialogOpen = !!document.querySelector('[role="dialog"]');
+      setIsDialogOpen(dialogOpen);
+    };
+
+    // Use MutationObserver to detect when portals/dialogs are mounted to body
+    const observer = new MutationObserver(checkDialog);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Initial check
+    checkDialog();
+
+    return () => observer.disconnect();
+  }, []);
+
   // Determine active styles based on Desktop vs Mobile state
   // If we are on Desktop, strictly use the scroll-based values.
   // If we are on Mobile AND the menu is open, use the fixed expanded values.
@@ -107,7 +126,10 @@ function Header() {
   return (
     <>
       <motion.header
-        className="fixed top-0 left-0 right-0 z-[100] flex justify-center pointer-events-none"
+        className={cn(
+          "fixed top-0 left-0 right-0 z-[100] flex justify-center pointer-events-none transition-all duration-300 ease-in-out",
+          isDialogOpen ? "opacity-0 -translate-y-10" : "opacity-100 translate-y-0"
+        )}
         style={{ y }}
       >
         <motion.nav

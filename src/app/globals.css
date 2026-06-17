@@ -272,8 +272,13 @@
 }
 
 /* --- Modal State Utilities --- */
-.header-hidden {
-  transform: translateY(-100%) !important;
+.header-hidden,
+body:has([role="dialog"]) header,
+body:has([data-state="open"]) header {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .body-scroll-locked {
