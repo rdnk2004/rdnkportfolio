@@ -6,6 +6,17 @@ import { useScrollFadeIn, useScrollStagger } from "@/hooks/use-scroll-animations
 
 const experienceData = [
   {
+    role: "Web Developer",
+    company: "RLabZ",
+    duration: "11/2025 - Present",
+    tasks: [
+      "Building the official conference website for an international academic event at Rajagiri College — responsible for frontend architecture, responsive UI, and production deployment.",
+      "Designed and developed a clean, responsive frontend for international conference audience (300+ expected attendees).",
+      "Implementing CI/CD deployment pipeline for iterative updates during pre-conference period.",
+      "Collaborating with design and content team to meet institutional branding standards.",
+    ],
+  },
+  {
     role: "Automation and Platform Developer",
     company: "Kumaraguru College of Liberal Arts and Science",
     duration: "12/2024 - 03/2025",

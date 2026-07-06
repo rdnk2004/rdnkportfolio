@@ -10,7 +10,7 @@ const educationData = [
     degree: "Master of Science in Computer Science (Data Analytics)",
     institution: "Rajagiri College of Social Sciences",
     duration: "2025 - Present",
-    details: "",
+    details: "CGPA: 4/5",
     status: "ongoing",
   },
   {

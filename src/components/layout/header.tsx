@@ -1,11 +1,11 @@
 "use client";
 
 import Image from 'next/image';
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Menu, X } from 'lucide-react';
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate, AnimatePresence, LayoutGroup } from 'framer-motion';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -19,6 +19,21 @@ const navLinks = [
 function Header() {
   const [activeSection, setActiveSection] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isScrolling = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleNavClick = (href: string) => {
+    setActiveSection(href);
+    isScrolling.current = true;
+
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrolling.current = false;
+    }, 1200); // Matches Lenis scroll transition duration (approx 1.2s)
+  };
 
   const { scrollY } = useScroll();
 
@@ -53,23 +68,42 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navLinks.map(link => document.querySelector(link.href)).filter(Boolean);
+      if (isScrolling.current) return;
 
-      let currentSection = '';
+      const targetIds = ['hero', ...navLinks.map(link => link.href.substring(1))];
+      let activeId = '';
 
-      for (const section of sections) {
-        if (section) {
-          const sectionTop = (section as HTMLElement).offsetTop;
-          if (window.scrollY >= sectionTop - 150) {
-            currentSection = `#${section.id}`;
+      // Trigger line at 160px from the top of the viewport (accounts for sticky header)
+      const triggerLine = 160;
+
+      for (const id of targetIds) {
+        const element = document.getElementById(id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= triggerLine && rect.bottom >= triggerLine) {
+            activeId = id;
+            break;
           }
         }
       }
-      setActiveSection(currentSection);
+
+      if (activeId === 'hero') {
+        setActiveSection('');
+      } else if (activeId) {
+        setActiveSection(`#${activeId}`);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Run once on mount to set initial active section
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, []);
   // Check for mobile screen size to conditionally apply styles
   const [isMobile, setIsMobile] = useState(false);
@@ -127,8 +161,8 @@ function Header() {
     <>
       <motion.header
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] flex justify-center pointer-events-none transition-all duration-300 ease-in-out",
-          isDialogOpen ? "opacity-0 -translate-y-10" : "opacity-100 translate-y-0"
+          "fixed top-0 left-0 right-0 z-[100] flex justify-center pointer-events-none transition-opacity duration-300 ease-in-out",
+          isDialogOpen ? "opacity-0" : "opacity-100"
         )}
         style={{ y }}
       >
@@ -211,32 +245,35 @@ function Header() {
 
           {/* Desktop Navigation - Unchanged */}
           <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            <ul className="flex items-center space-x-1 lg:space-x-2 bg-transparent p-1">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className={cn(
-                      "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 flex items-center justify-center",
-                      "hover:text-primary hover:bg-primary/10",
-                      activeSection === link.href
-                        ? 'text-primary bg-primary/10 md:bg-transparent md:text-primary'
-                        : 'text-muted-foreground'
-                    )}
-                  >
-                    {link.name}
-                    {/* Active indicator dot for extra flair */}
-                    {activeSection === link.href && (
-                      <motion.span
-                        layoutId="activeSection"
-                        className="absolute inset-0 rounded-full bg-primary/10 -z-10"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <LayoutGroup id="desktop-nav">
+              <ul className="flex items-center space-x-1 lg:space-x-2 bg-transparent p-1">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={() => handleNavClick(link.href)}
+                      className={cn(
+                        "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 flex items-center justify-center",
+                        "hover:text-primary hover:bg-primary/10",
+                        activeSection === link.href
+                          ? 'text-primary bg-primary/10 md:bg-transparent md:text-primary'
+                          : 'text-muted-foreground'
+                      )}
+                    >
+                      {link.name}
+                      {/* Active indicator dot for extra flair */}
+                      {activeSection === link.href && (
+                        <motion.span
+                          layoutId="activeSection"
+                          className="absolute inset-0 rounded-full bg-primary/10 -z-10"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </LayoutGroup>
 
             <div className="pl-4 ml-4 border-l border-border/40">
               <ThemeToggle />
@@ -270,7 +307,10 @@ function Header() {
                           ? 'bg-primary/10 text-primary border-primary/20 shadow-sm'
                           : 'bg-secondary/50 text-foreground/80 hover:bg-secondary'
                       )}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        handleNavClick(link.href);
+                      }}
                     >
                       {link.name}
                     </motion.a>
