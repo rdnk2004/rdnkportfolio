@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { FileText, ArrowUpRight, Github, Linkedin, Mail, Sparkles, Gamepad2, MessageSquare, Wallet } from 'lucide-react';
+import { FileText, ArrowUpRight, Github, Linkedin, Mail, MessageSquare, Landmark, Clapperboard, Bot } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useShouldReduceAnimations } from '@/hooks/use-device-detection';
 
@@ -35,22 +35,22 @@ const itemVariants = {
 // Currently working on items
 const currentlyItems = [
     {
-        icon: Sparkles,
-        title: "Building NLP systems with LLMs & RAG",
-        subtitle: "Leading a small team on applied NLP and retrieval-augmented projects",
+        icon: Landmark,
+        title: "Exploring FinTech & RBI Data",
+        subtitle: "Analyzing financial and banking datasets to extract valuable insights",
         highlight: null
     },
     {
-        icon: Gamepad2,
-        title: "CyberArcade",
-        subtitle: "A cyberpunk reimagining of classic games like Snake, Tetris, and Pong",
-        highlight: "cyber" // Special styling for this
+        icon: Clapperboard,
+        title: "Screenwriting",
+        subtitle: "Currently working on the script for my third short film",
+        highlight: null
     },
     {
-        icon: Wallet,
-        title: "Developing a expense tracker app",
-        subtitle: "To learn Svelte framework and to help tracking my monthly expenses",
-        highlight: null
+        icon: Bot,
+        title: "Agentic AI Architectures",
+        subtitle: "Planning and designing autonomous agent systems for financial analysis",
+        highlight: "ai"
     }
 ];
 
@@ -146,6 +146,8 @@ function CurrentlyCard() {
                             "p-2 rounded-lg shrink-0",
                             item.highlight === "cyber"
                                 ? "bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 text-cyan-400"
+                                : item.highlight === "ai"
+                                ? "bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 text-violet-400"
                                 : "bg-primary/10 text-primary"
                         )}>
                             <Icon className="h-4 w-4" />
@@ -153,6 +155,10 @@ function CurrentlyCard() {
                         <div className="min-w-0">
                             {item.highlight === "cyber" ? (
                                 <p className="text-sm font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                                    {item.title}
+                                </p>
+                            ) : item.highlight === "ai" ? (
+                                <p className="text-sm font-bold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
                                     {item.title}
                                 </p>
                             ) : (
