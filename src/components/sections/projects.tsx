@@ -14,6 +14,21 @@ import { createPortal } from "react-dom";
 const projectData = [
   {
     id: 1,
+    title: "CPI-MPC: RBI Rate Decision Analytics Pipeline",
+    metadata: "Data Engineering | ML/AI | Economic Analytics",
+    oneLiner: "End-to-end pipeline analyzing 13 years of India's CPI inflation against RBI rate decisions — caught and corrected 3 methodological errors, then extended with an LLM-based comparison of real RBI policy documents against model reasoning.",
+    skills: ["Python", "PostgreSQL", "pandera", "FastAPI", "Streamlit", "MLflow", "XGBoost", "Prophet", "SHAP", "Playwright", "Gemini API", "Docker"],
+    problem: "Naive statistical and ML approaches to correlating inflation data with policy decisions frequently produce misleading results — spurious causality from non-stationary time series, inflated accuracy on imbalanced classifiers — that don't survive proper scrutiny but are easy to report as real findings.",
+    solution: "Built a 5-phase production-style pipeline: validated data ingestion (PostgreSQL + pandera schema checks), stationarity-corrected statistical testing (STL decomposition, ADF, Granger causality), an XGBoost/Prophet forecasting layer tracked via MLflow and served through FastAPI + Streamlit, and a Playwright-based scraper feeding real RBI meeting minutes into a Gemini-powered comparison against the model's SHAP-derived reasoning.",
+    impact: [
+      "Identified and corrected a non-stationarity flaw that had produced a spuriously significant Granger causality result (p=0.0003 → correctly non-significant p=0.53 after differencing)",
+      "Exposed that a headline 86.7% classifier accuracy reflected zero real predictive skill (F1=0.000) once evaluated with walk-forward cross-validation instead of accuracy alone",
+      "Built a Playwright scraper handling a JS-rendered government site to extract 57 real RBI policy documents, then used Gemini to find zero rate hikes with divergent stated-vs-model rationale, versus significant divergence for cuts/holds"
+    ],
+    link: "https://github.com/rdnk2004/cpi-mpc"
+  },
+  {
+    id: 2,
     title: "Nexus Task Tracker",
     metadata: "Project Management | Full Stack | Active",
     oneLiner: "A lightweight project management app for small teams, built to organize projects, track tasks, and share activity updates with clarity and speed.",
@@ -28,7 +43,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/nutmeg-tasktracker"
   },
   {
-    id: 2,
+    id: 3,
     title: "Automated Semester Marklist Processing System",
     metadata: "Controller of Examinations | In-House | Active",
     oneLiner: "Automated semester marklist processing for 1,400+ students, reducing manual effort from 2+ hours to under 2 minutes.",
@@ -43,7 +58,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Mark-Splitting"
   },
   {
-    id: 3,
+    id: 4,
     title: "Smart Academic Documentation & Result Analysis Automation",
     metadata: "University Academic Portal | Capstone Project",
     oneLiner: "Built and led the development of an academic portal enabling real-time result analysis and automated faculty workflows.",
@@ -58,7 +73,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/College-Website"
   },
   {
-    id: 4,
+    id: 5,
     title: "Event Report Automated Generator",
     metadata: "In-House | Actively Used by Faculty",
     oneLiner: "Automated academic event report creation, cutting documentation time from hours to minutes.",
@@ -73,7 +88,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Report"
   },
   {
-    id: 5,
+    id: 6,
     title: "Anomaly Detection System for Industrial Defect Classification",
     metadata: "Deep Learning | ResNet-50",
     oneLiner: "Developed a deep learning–based defect detection system achieving up to 94% classification accuracy.",
@@ -88,7 +103,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/anomaly-detection"
   },
   {
-    id: 6,
+    id: 7,
     title: "Data-Driven Wellness Analysis: Impact of Yoga Practice",
     metadata: "Exploratory Data Analysis",
     oneLiner: "Analyzed wellness survey data to identify measurable mental and physical benefits of yoga practice.",
