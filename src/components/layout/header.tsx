@@ -4,13 +4,14 @@ import Image from 'next/image';
 import { useState, useEffect, useRef, memo } from 'react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { motion, useScroll, useTransform, useSpring, useMotionTemplate, AnimatePresence, LayoutGroup } from 'framer-motion';
 
 const navLinks = [
   { name: 'About', href: '#about' },
   { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
+  { name: 'Writing', href: '#writing' },
   { name: 'Skills', href: '#skills' },
   { name: 'Education', href: '#education' },
   { name: 'Certifications', href: '#certifications' },
@@ -247,31 +248,37 @@ function Header() {
           <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
             <LayoutGroup id="desktop-nav">
               <ul className="flex items-center space-x-1 lg:space-x-2 bg-transparent p-1">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      onClick={() => handleNavClick(link.href)}
-                      className={cn(
-                        "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 flex items-center justify-center",
-                        "hover:text-primary hover:bg-primary/10",
-                        activeSection === link.href
-                          ? 'text-primary bg-primary/10 md:bg-transparent md:text-primary'
-                          : 'text-muted-foreground'
-                      )}
-                    >
-                      {link.name}
-                      {/* Active indicator dot for extra flair */}
-                      {activeSection === link.href && (
-                        <motion.span
-                          layoutId="activeSection"
-                          className="absolute inset-0 rounded-full bg-primary/10 -z-10"
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                        />
-                      )}
-                    </a>
-                  </li>
-                ))}
+                {navLinks.map((link) => {
+                  const isWriting = link.name === 'Writing';
+                  return (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        onClick={() => handleNavClick(link.href)}
+                        className={cn(
+                          "relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-all duration-200 flex items-center justify-center gap-1.5",
+                          isWriting
+                            ? "bg-gradient-to-r from-violet-500/20 via-fuchsia-500/20 to-primary/20 text-violet-400 dark:text-violet-300 border border-violet-500/30 hover:border-violet-500/60 hover:scale-105 shadow-sm"
+                            : "hover:text-primary hover:bg-primary/10 text-muted-foreground",
+                          activeSection === link.href && !isWriting
+                            ? 'text-primary bg-primary/10 md:bg-transparent md:text-primary'
+                            : ''
+                        )}
+                      >
+                        {isWriting && <Sparkles className="h-3.5 w-3.5 text-violet-400 animate-pulse" />}
+                        {link.name}
+                        {/* Active indicator dot for extra flair */}
+                        {activeSection === link.href && !isWriting && (
+                          <motion.span
+                            layoutId="activeSection"
+                            className="absolute inset-0 rounded-full bg-primary/10 -z-10"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </LayoutGroup>
 
@@ -294,27 +301,33 @@ function Header() {
                   className="flex items-center gap-2 overflow-x-auto snap-x snap-mandatory pb-2 pt-2 px-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                   style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
                 >
-                  {navLinks.map((link, i) => (
-                    <motion.a
-                      key={link.href}
-                      href={link.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0, transition: { delay: i * 0.05 } }}
-                      className={cn(
-                        "flex-shrink-0 snap-center px-4 py-2 rounded-full text-sm font-medium transition-all",
-                        "border border-transparent",
-                        activeSection === link.href
-                          ? 'bg-primary/10 text-primary border-primary/20 shadow-sm'
-                          : 'bg-secondary/50 text-foreground/80 hover:bg-secondary'
-                      )}
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        handleNavClick(link.href);
-                      }}
-                    >
-                      {link.name}
-                    </motion.a>
-                  ))}
+                  {navLinks.map((link, i) => {
+                    const isWriting = link.name === 'Writing';
+                    return (
+                      <motion.a
+                        key={link.href}
+                        href={link.href}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0, transition: { delay: i * 0.05 } }}
+                        className={cn(
+                          "flex-shrink-0 snap-center px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5",
+                          "border border-transparent",
+                          isWriting
+                            ? "bg-gradient-to-r from-violet-500/20 via-fuchsia-500/20 to-primary/20 text-violet-400 border-violet-500/30 shadow-sm"
+                            : activeSection === link.href
+                            ? 'bg-primary/10 text-primary border-primary/20 shadow-sm'
+                            : 'bg-secondary/50 text-foreground/80 hover:bg-secondary'
+                        )}
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          handleNavClick(link.href);
+                        }}
+                      >
+                        {isWriting && <Sparkles className="h-3.5 w-3.5 text-violet-400" />}
+                        {link.name}
+                      </motion.a>
+                    );
+                  })}
                   {/* Theme toggle as the last chip */}
 
                 </div>
