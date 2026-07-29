@@ -45,22 +45,24 @@ const CORE_ROLES = [
 const TECH_CATEGORIES = [
     {
         id: "languages",
-        title: "Languages",
+        title: "Languages & Core",
         icon: Terminal,
-        skills: ["Python", "JavaScript", "R", "SQL", "HTML / CSS"],
+        skills: ["Python", "JavaScript / TypeScript", "R", "SQL", "HTML / CSS"],
     },
     {
         id: "ml",
-        title: "Machine Learning & Data",
+        title: "Machine Learning & AI / Data Science",
         icon: BrainCircuit,
         skills: [
+            "XGBoost",
+            "Prophet",
+            "SHAP (XAI)",
+            "scikit-learn",
             "PyTorch",
             "TensorFlow",
-            "scikit-learn",
-            "Pandas",
-            "NumPy",
-            "Streamlit",
-            "Hugging Face"
+            "ResNet-50",
+            "MLflow",
+            "LLM APIs (Gemini & Claude)"
         ],
     },
     {
@@ -72,27 +74,40 @@ const TECH_CATEGORIES = [
             "Flask",
             "Django",
             "Node.js",
-            "Express.js",
             "PostgreSQL",
-            "MongoDB"
+            "MongoDB",
+            "Pydantic",
+            "pandera",
+            "JWT Auth"
         ],
     },
     {
         id: "devops",
-        title: "Cloud & DevOps",
+        title: "DevOps, Tooling & Automation",
         icon: GitBranch,
-        skills: ["Git", "Docker", "Nginx"],
+        skills: [
+            "Docker",
+            "GitHub Actions",
+            "Playwright",
+            "pytest",
+            "Streamlit",
+            "Git",
+            "Render",
+            "Excel & DOCX Automation"
+        ],
     },
 ];
 
 const ENGINEERING_CAPABILITIES = [
-    "REST API Design",
-    "JWT Authentication",
-    "Role-Based Access Control",
-    "Business Rule Enforcement",
-    "Activity Logging",
-    "Data Cleaning & ETL Pipelines",
-    "Workflow Automation",
+    "Stationarity & Time Series Testing",
+    "Walk-Forward Cross-Validation",
+    "LLM Stated-vs-Model Rationale Analysis",
+    "Panel Econometrics & Fixed Effects",
+    "Data Validation (pandera & Pydantic)",
+    "REST API & RBAC Architecture",
+    "Web Scraping (Playwright)",
+    "Bootstrap Risk & Confidence Intervals",
+    "Workflow & Excel Automation",
 ];
 
 const LEADERSHIP_IMPACT = [
@@ -314,7 +329,7 @@ export default function Skills() {
                             </div>
                             <h3 className="text-lg font-bold text-foreground">Leadership Metrics</h3>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {LEADERSHIP_IMPACT.map((item, idx) => (
                                 <LeadershipCard key={item.title} {...item} index={idx} />
                             ))}

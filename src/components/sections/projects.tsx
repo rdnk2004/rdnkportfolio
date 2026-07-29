@@ -5,7 +5,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
-import { Github, ExternalLink, X } from "lucide-react";
+import { Github, ExternalLink, X, AlertTriangle, Lightbulb, TrendingUp, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { useLenis } from "@/hooks/use-lenis-context";
@@ -29,6 +29,21 @@ const projectData = [
   },
   {
     id: 2,
+    title: "NPA-EWS: RBI Bank Asset Quality Early Warning System",
+    metadata: "Data Science | Explainable AI | SupTech",
+    oneLiner: "Panel-econometrics + ML early-warning system for Indian bank NPAs — walk-forward validation revealed the 'sophisticated' model lost to a naive baseline, reframed the whole tool around driver identification and probabilistic risk instead, then shipped it as a tested API with an LLM-generated risk narrative.",
+    skills: ["Python", "FastAPI", "Streamlit", "pandas", "statsmodels", "XGBoost", "SHAP", "scikit-learn", "Pydantic", "pytest", "GitHub Actions", "Claude API"],
+    problem: "A single train/test split and a bare point forecast are easy to report as a working early-warning model, but with only 32 usable bank-group-year observations, neither survives real scrutiny — and the group carrying the most regulatory risk (Public Sector Banks) turned out to have the least data behind its number.",
+    solution: "Refactored a notebook-based analysis into an installable package: fixed-effects panel regression and XGBoost/SHAP as testable classes, walk-forward (expanding-window) cross-validation benchmarked against naive/mean/OLS baselines, block-bootstrap confidence intervals and breach probabilities in place of point forecasts, and automatic low-confidence flagging for underpowered bank groups. Served through a typed FastAPI backend (drivers, validation, stress test, custom scenario endpoints) with a Streamlit frontend consuming it over real HTTP, plus one deliberate LLM integration: a Claude-powered endpoint that turns a stress result and its SHAP drivers into a plain-English supervisory narrative.",
+    impact: [
+      "Walk-forward CV across 3 independent folds showed the fixed-effects model (MAE=1.60) and XGBoost (MAE=1.06) both roughly tied or lost to a naive 'next year = this year' baseline (MAE=1.04) — reframed the project's entire value proposition from forecasting to driver identification and scenario risk before writing the policy brief, not after",
+      "Replaced a bare point estimate ('PSB → 6.29%, marginally breaches threshold') with a bootstrapped 90% CI and explicit breach probability ('64.3% probability of breach, CI [4.40%, 7.07%]'), and traced the width of that uncertainty to a real data gap: PSB has only 4 usable observations vs. 12 for other bank groups, now flagged automatically on every output that touches it",
+      "Shipped as 70 passing tests (leakage checks, walk-forward fold integrity, mocked-LLM API tests requiring no live credentials in CI) and a GitHub Actions pipeline that caught and got a real fix merged for a SHAP/XGBoost version-compatibility bug before it reached anyone using the package"
+    ],
+    link: "https://github.com/rdnk2004/NPA-RBI"
+  },
+  {
+    id: 3,
     title: "Nexus Task Tracker",
     metadata: "Project Management | Full Stack | Active",
     oneLiner: "A lightweight project management app for small teams, built to organize projects, track tasks, and share activity updates with clarity and speed.",
@@ -43,7 +58,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/nutmeg-tasktracker"
   },
   {
-    id: 3,
+    id: 4,
     title: "Automated Semester Marklist Processing System",
     metadata: "Controller of Examinations | In-House | Active",
     oneLiner: "Automated semester marklist processing for 1,400+ students, reducing manual effort from 2+ hours to under 2 minutes.",
@@ -58,7 +73,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Mark-Splitting"
   },
   {
-    id: 4,
+    id: 5,
     title: "Smart Academic Documentation & Result Analysis Automation",
     metadata: "University Academic Portal | Capstone Project",
     oneLiner: "Built and led the development of an academic portal enabling real-time result analysis and automated faculty workflows.",
@@ -73,7 +88,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/College-Website"
   },
   {
-    id: 5,
+    id: 6,
     title: "Event Report Automated Generator",
     metadata: "In-House | Actively Used by Faculty",
     oneLiner: "Automated academic event report creation, cutting documentation time from hours to minutes.",
@@ -88,7 +103,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Report"
   },
   {
-    id: 6,
+    id: 7,
     title: "Anomaly Detection System for Industrial Defect Classification",
     metadata: "Deep Learning | ResNet-50",
     oneLiner: "Developed a deep learning–based defect detection system achieving up to 94% classification accuracy.",
@@ -103,7 +118,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/anomaly-detection"
   },
   {
-    id: 7,
+    id: 8,
     title: "Data-Driven Wellness Analysis: Impact of Yoga Practice",
     metadata: "Exploratory Data Analysis",
     oneLiner: "Analyzed wellness survey data to identify measurable mental and physical benefits of yoga practice.",
@@ -252,37 +267,57 @@ export default function Projects() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="space-y-8"
+                        className="space-y-6"
                       >
-                        <div className="space-y-3">
-                          <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                            ⚠️ Problem
+                        {/* Problem Section */}
+                        <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 sm:p-5 backdrop-blur-sm transition-all">
+                          <h3 className="text-base sm:text-lg font-bold text-amber-600 dark:text-amber-400 flex items-center gap-2 mb-2">
+                            <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0" />
+                            Problem & Challenge
                           </h3>
-                          <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
+                          <p className="text-foreground/80 text-sm sm:text-base leading-relaxed">
                             {selectedProject.problem}
                           </p>
                         </div>
 
-                        <div className="space-y-3">
-                          <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                            💡 Solution
+                        {/* Solution Section */}
+                        <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-4 sm:p-5 backdrop-blur-sm transition-all">
+                          <h3 className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400 flex items-center gap-2 mb-2">
+                            <Lightbulb className="h-5 w-5 text-blue-500 flex-shrink-0" />
+                            Solution & Architecture
                           </h3>
-                          <p className="text-muted-foreground leading-relaxed pl-6 border-l-2 border-primary/20">
+                          <p className="text-foreground/80 text-sm sm:text-base leading-relaxed">
                             {selectedProject.solution}
                           </p>
                         </div>
 
-                        <div className="space-y-3">
-                          <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                            🚀 Impact
-                          </h3>
-                          <ul className="space-y-2 pl-6">
+                        {/* Impact & Key Results Section */}
+                        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 sm:p-5 backdrop-blur-sm transition-all">
+                          <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-base sm:text-lg font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+                              <TrendingUp className="h-5 w-5 text-emerald-500 flex-shrink-0" />
+                              Key Results & Impact
+                            </h3>
+                            <span className="text-xs font-mono font-medium px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                              {selectedProject.impact.length} Highlights
+                            </span>
+                          </div>
+                          
+                          <div className="grid gap-3">
                             {selectedProject.impact.map((item, i) => (
-                              <li key={i} className="text-muted-foreground flex gap-2 text-sm md:text-base">
-                                <span>{item}</span>
-                              </li>
+                              <div 
+                                key={i} 
+                                className="group relative flex items-start gap-3 rounded-lg border border-emerald-500/15 bg-background/60 p-3.5 sm:p-4 text-sm sm:text-base transition-all duration-200 hover:border-emerald-500/40 hover:bg-background/90 hover:shadow-md hover:shadow-emerald-500/5"
+                              >
+                                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 mt-0.5 group-hover:scale-110 transition-transform">
+                                  <CheckCircle2 className="h-3.5 w-3.5" />
+                                </div>
+                                <span className="text-foreground/90 leading-relaxed font-normal">
+                                  {item}
+                                </span>
+                              </div>
                             ))}
-                          </ul>
+                          </div>
                         </div>
 
                         <div className="pt-6 border-t border-border/50">
