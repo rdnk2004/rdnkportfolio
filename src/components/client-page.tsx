@@ -18,7 +18,6 @@ import { usePrefetchResources, useWarmCache } from '@/hooks/use-performance';
 const Education = lazy(() => import('@/components/sections/education'));
 const Skills = lazy(() => import('@/components/sections/skills'));
 const Projects = lazy(() => import('@/components/sections/projects'));
-const WriterProfile = lazy(() => import('@/components/sections/writer-profile'));
 const Publications = lazy(() => import('@/components/sections/publications'));
 const Contact = lazy(() => import('@/components/sections/contact'));
 const Certifications = lazy(() => import('@/components/sections/certifications'));
@@ -44,13 +43,6 @@ function MainContent() {
           {/* Below-the-fold sections with Suspense */}
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <Projects />
-          </Suspense>
-
-          {/* Divider → Writer Profile */}
-          <SectionDivider variant="gradient" />
-
-          <Suspense fallback={<div className="min-h-[400px]" />}>
-            <WriterProfile />
           </Suspense>
 
           {/* Gradient: Major portfolio boundary → Skills */}

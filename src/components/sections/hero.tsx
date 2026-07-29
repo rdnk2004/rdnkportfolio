@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { FileText, ArrowUpRight, ArrowRight, Github, Linkedin, Mail, MessageSquare, Landmark, Clapperboard, Bot, Feather, Sparkles } from 'lucide-react';
+import { FileText, ArrowUpRight, Github, Linkedin, Mail, MessageSquare, Landmark, Clapperboard, Bot } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useShouldReduceAnimations } from '@/hooks/use-device-detection';
 
@@ -43,13 +43,7 @@ const currentlyItems = [
     {
         icon: Clapperboard,
         title: "Screenwriting",
-        subtitle: "Writing short film script #3 after completing two scripts",
-        highlight: "ai"
-    },
-    {
-        icon: Feather,
-        title: "Debut Novel",
-        subtitle: "Kickstarting outline and worldbuilding for a speculative fiction novel",
+        subtitle: "Currently working on the script for my third short film",
         highlight: null
     },
     {
@@ -215,32 +209,13 @@ export default function Hero() {
                 {/* ===== Main Name Card ===== */}
                 <BentoCard className="col-span-2 lg:col-span-8 lg:row-span-2 flex flex-col justify-between" hasGlow reduceAnimations={shouldReduceAnimations}>
                     <div>
-                        {/* Status & Writer Side Quick-Access Pill */}
-                        <div className="flex flex-wrap items-center justify-between sm:justify-start gap-2.5 mb-3">
-                            <div className="flex items-center gap-2">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                </span>
-                                <span className="text-xs text-muted-foreground tracking-wide">Open to opportunities</span>
-                            </div>
-
-                            <span className="hidden sm:inline text-border/60">•</span>
-
-                            {/* Writer Persona Quick-Access Pill */}
-                            <a
-                                href="#writing"
-                                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-violet-500/15 via-fuchsia-500/15 to-primary/15 border border-violet-500/30 text-xs font-medium text-foreground hover:border-violet-500/60 hover:shadow-md hover:shadow-violet-500/10 transition-all group cursor-pointer"
-                            >
-                                <Sparkles className="h-3.5 w-3.5 text-violet-400 animate-pulse" />
-                                <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-primary bg-clip-text text-transparent font-bold">
-                                    Writer Profile
-                                </span>
-                                <span className="text-muted-foreground group-hover:text-foreground transition-colors hidden lg:inline">
-                                    — 2 Scripts Done • Novel In Draft
-                                </span>
-                                <ArrowRight className="h-3 w-3 text-violet-400 group-hover:translate-x-0.5 transition-transform" />
-                            </a>
+                        {/* Status */}
+                        <div className="flex items-center gap-2 mb-3">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span className="text-xs text-muted-foreground tracking-wide">Open to opportunities</span>
                         </div>
 
                         {/* Name - Original CSS hover effect */}
@@ -260,10 +235,10 @@ export default function Hero() {
                     {/* Role & Description */}
                     <div className="mt-3 space-y-2">
                         <h2 className="text-lg sm:text-xl font-medium text-foreground/90">
-                            Data Analyst, Automation Specialist & Screenwriter
+                            Data Analyst & Automation Specialist
                         </h2>
                         <p className="text-muted-foreground leading-relaxed max-w-lg text-sm">
-                            Transforming complex data into actionable insights, building automated systems, and crafting cinematic narratives.
+                            Transforming complex data into actionable insights. Building automated solutions that drive efficiency.
                         </p>
                     </div>
                 </BentoCard>
@@ -275,48 +250,33 @@ export default function Hero() {
 
                 {/* ===== CTA Card ===== */}
                 <BentoCard className="col-span-1 lg:col-span-4 flex flex-col justify-center h-full">
-                    {/* Mobile View: Row of Action Buttons */}
+                    {/* Mobile View: Row of Icons */}
                     <div className="flex lg:hidden flex-row items-center justify-between gap-2 w-full h-full p-1">
-                        <Button asChild size="sm" className="flex-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity text-xs">
-                            <a href="#projects" aria-label="Projects">
-                                Projects
+                        <Button asChild size="icon" className="flex-1 h-full max-h-12 bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity shadow-sm">
+                            <a href="#projects" aria-label="View My Work">
+                                <ArrowUpRight className="h-5 w-5" />
                             </a>
                         </Button>
-                        <Button asChild size="sm" className="flex-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white hover:opacity-90 transition-opacity text-xs font-bold gap-1">
-                            <a href="#writing" aria-label="Writer Profile" className="flex items-center justify-center gap-1">
-                                <Sparkles className="h-3 w-3" />
-                                Writer
-                            </a>
-                        </Button>
-                        <Button asChild variant="outline" size="icon" className="h-9 w-9 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors shrink-0">
+                        <Button asChild variant="outline" size="icon" className="flex-1 h-full max-h-12 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors">
                             <a href="#contact" aria-label="Contact">
-                                <MessageSquare className="h-4 w-4" />
+                                <MessageSquare className="h-5 w-5" />
                             </a>
                         </Button>
-                        <Button asChild variant="outline" size="icon" className="h-9 w-9 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors shrink-0">
+                        <Button asChild variant="outline" size="icon" className="flex-1 h-full max-h-12 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors">
                             <a href="/resume.pdf" download aria-label="Resume">
-                                <FileText className="h-4 w-4" />
+                                <FileText className="h-5 w-5" />
                             </a>
                         </Button>
                     </div>
 
-                    {/* Desktop View: Dedicated Writer Profile & Projects Buttons */}
+                    {/* Desktop View: Original Text Layout */}
                     <div className="hidden lg:flex flex-col gap-2 w-full">
-                        <div className="flex gap-2 w-full">
-                            <Button asChild size="sm" className="flex-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity group">
-                                <a href="#projects" className="flex items-center justify-center gap-1">
-                                    Projects
-                                    <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                                </a>
-                            </Button>
-                            <Button asChild size="sm" className="flex-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white hover:opacity-90 transition-opacity group shadow-sm">
-                                <a href="#writing" className="flex items-center justify-center gap-1 font-bold">
-                                    <Sparkles className="h-3.5 w-3.5 text-violet-200" />
-                                    Writer Profile
-                                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
-                                </a>
-                            </Button>
-                        </div>
+                        <Button asChild size="sm" className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity group">
+                            <a href="#projects" className="flex items-center justify-center gap-2">
+                                View My Work
+                                <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            </a>
+                        </Button>
                         <div className="flex gap-2">
                             <Button asChild variant="outline" size="sm" className="flex-1">
                                 <a href="#contact">Contact</a>
