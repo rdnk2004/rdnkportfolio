@@ -64,7 +64,7 @@ const projectData = [
     title: "Nexus Task Tracker: Lightweight Project & Activity Engine",
     metadata: "Project Management | Full Stack | Microservices",
     oneLiner: "Containerized project management tool built for small teams — featuring secure JWT authentication, multi-project task workflows, live activity audit feeds, and Nginx reverse proxy routing.",
-    skills: ["FastAPI", "SQLModel", "PostgreSQL", "JWT Auth", "Docker Compose", "Nginx", "Vanilla JS", "Railway", "bcrypt"],
+    skills: ["FastAPI", "SQLModel", "PostgreSQL", "JWT Auth", "Docker Compose", "Nginx", "Vanilla JS", "Render", "bcrypt"],
     problem: "Collaboration tools for small teams often introduce unnecessary complexity, heavy enterprise dependencies, or lack transparent activity tracking and strict task lifecycle locking.",
     solution: "Built a lightweight full-stack task tracking system using FastAPI and SQLModel with PostgreSQL persistence and Nginx reverse proxy. Enforced bcrypt-hashed JWT authentication, project-based task organization with state machine rules (locking completed tasks), and real-time team activity logging deployed via Docker Compose.",
     impact: [

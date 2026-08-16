@@ -230,7 +230,7 @@ export default function Hero() {
                     {/* Role Strip */}
                     <div className="mt-4 pt-3 border-t border-border/40">
                         <h2 className="text-base sm:text-lg font-medium text-foreground/90">
-                            AI / ML Engineer & Automation Specialist
+                            ML Engineer & Automation Specialist
                         </h2>
                     </div>
                 </BentoCard>

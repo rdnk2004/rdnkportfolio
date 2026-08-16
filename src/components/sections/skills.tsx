@@ -8,7 +8,6 @@ import {
     Database,
     BarChart3,
     GraduationCap,
-    Sparkles,
     ChevronRight,
     CheckCircle2,
     Layers,
@@ -36,7 +35,6 @@ interface DomainRole {
         borderAccent: string;
         bgActive: string;
         pillBg: string;
-        glow: string;
     };
     skills: SkillCluster[];
     principles: string[];
@@ -45,16 +43,15 @@ interface DomainRole {
 const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "ml",
-        name: "ML / AI Engineer",
-        shortTitle: "ML / AI",
+        name: "ML Engineer",
+        shortTitle: "ML",
         icon: BrainCircuit,
         badge: "Predictive & Explainable AI",
         color: {
             accentText: "text-primary",
             borderAccent: "border-primary/30",
             bgActive: "bg-primary/10",
-            pillBg: "bg-primary/10 text-primary border-primary/20",
-            glow: "from-primary/20 via-primary/5 to-transparent"
+            pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
             { label: "Core ML & XAI", items: ["scikit-learn", "XGBoost", "Prophet", "SHAP", "MLflow"] },
@@ -78,8 +75,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             accentText: "text-primary",
             borderAccent: "border-primary/30",
             bgActive: "bg-primary/10",
-            pillBg: "bg-primary/10 text-primary border-primary/20",
-            glow: "from-primary/20 via-primary/5 to-transparent"
+            pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
             { label: "Orchestration", items: ["n8n", "Docker", "Docker Compose", "GitHub Actions"] },
@@ -103,8 +99,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             accentText: "text-primary",
             borderAccent: "border-primary/30",
             bgActive: "bg-primary/10",
-            pillBg: "bg-primary/10 text-primary border-primary/20",
-            glow: "from-primary/20 via-primary/5 to-transparent"
+            pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
             { label: "Storage & Migrations", items: ["PostgreSQL", "SQLAlchemy (Async)", "Alembic", "asyncpg"] },
@@ -128,8 +123,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             accentText: "text-primary",
             borderAccent: "border-primary/30",
             bgActive: "bg-primary/10",
-            pillBg: "bg-primary/10 text-primary border-primary/20",
-            glow: "from-primary/20 via-primary/5 to-transparent"
+            pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
             { label: "Languages & Querying", items: ["Python", "SQL", "R", "pandas", "NumPy"] },
@@ -153,8 +147,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             accentText: "text-primary",
             borderAccent: "border-primary/30",
             bgActive: "bg-primary/10",
-            pillBg: "bg-primary/10 text-primary border-primary/20",
-            glow: "from-primary/20 via-primary/5 to-transparent"
+            pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
             { label: "Team Leadership", items: ["Hackathon Team Leadership", "Event Ideation & Judging", "Cross-Functional Coordination"] },
@@ -177,11 +170,7 @@ export default function Skills() {
     const activeDomain = DOMAIN_ROLES.find((r) => r.id === selectedRoleId) || DOMAIN_ROLES[0];
 
     return (
-        <section id="skills" className="py-14 sm:py-16 relative overflow-hidden">
-            {/* Ambient Background Glows */}
-            <div className="absolute top-1/3 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10" />
-            <div className="absolute bottom-10 -left-24 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none -z-10" />
-
+        <section id="skills" className="py-14 sm:py-16 relative">
             <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-6xl">
                 <SectionHeading className="mb-8">Competencies & Impact</SectionHeading>
 
@@ -241,8 +230,8 @@ export default function Skills() {
                                     className={cn(
                                         "group relative w-full text-left rounded-2xl p-3 transition-all duration-200 border flex items-center justify-between overflow-hidden",
                                         isSelected
-                                            ? cn("border-primary/30 shadow-md bg-card/90 dark:bg-primary/10", role.color.borderAccent)
-                                            : "bg-card/60 dark:bg-card/30 border-border/60 dark:border-border/40 hover:bg-card/90 dark:hover:bg-card/60 hover:border-border/80"
+                                            ? cn("border-primary/30 shadow-sm bg-card/90 dark:bg-primary/10", role.color.borderAccent)
+                                            : "bg-card/50 dark:bg-card/20 border-border/40 dark:border-border/25 hover:bg-card/80 dark:hover:bg-card/40 hover:border-border/60"
                                     )}
                                 >
                                     {/* Left Floating Accent Indicator on Selected */}
@@ -260,7 +249,7 @@ export default function Skills() {
                                                 "p-2 rounded-lg border transition-colors shrink-0",
                                                 isSelected
                                                     ? cn("bg-background border-primary/30 text-primary shadow-sm", role.color.accentText)
-                                                    : "bg-muted/40 dark:bg-background/40 border-border/50 text-muted-foreground group-hover:text-foreground group-hover:bg-background/70"
+                                                    : "bg-muted/40 dark:bg-background/40 border-border/40 text-muted-foreground group-hover:text-foreground group-hover:bg-background/70"
                                             )}
                                         >
                                             <Icon size={16} />
@@ -293,10 +282,7 @@ export default function Skills() {
 
                     {/* RIGHT: SLIDING DETAIL STAGE (8 COLS ON DESKTOP, FULL WIDTH ON MOBILE) */}
                     <div className="w-full lg:col-span-8 flex">
-                        <div className="relative w-full rounded-3xl border border-border/70 dark:border-border/60 bg-card/80 dark:bg-card/40 backdrop-blur-md shadow-xl shadow-black/5 overflow-hidden flex flex-col justify-between">
-                            {/* Ambient Top Glow Line */}
-                            <div className={cn("h-1 w-full bg-gradient-to-r", activeDomain.color.glow)} />
-
+                        <div className="relative w-full rounded-3xl border border-border/40 dark:border-border/25 bg-card/60 dark:bg-card/25 backdrop-blur-md overflow-hidden flex flex-col justify-between">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeDomain.id}
