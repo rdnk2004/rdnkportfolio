@@ -102,10 +102,10 @@ function SocialLink({ href, icon: Icon, label }: { href: string; icon: React.Ele
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 aspect-square flex items-center justify-center rounded-xl bg-muted/30 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 min-w-0 max-w-[52px]"
+            className="flex items-center justify-center p-2 rounded-lg bg-muted/40 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200 border border-border/40 hover:border-primary/30"
             aria-label={label}
         >
-            <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+            <Icon className="h-4 w-4 shrink-0" />
         </a>
     );
 }
@@ -227,11 +227,17 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    {/* Role Strip */}
-                    <div className="mt-4 pt-3 border-t border-border/40">
+                    {/* Role Strip & Integrated Social Connect */}
+                    <div className="mt-4 pt-3.5 border-t border-border/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                         <h2 className="text-base sm:text-lg font-medium text-foreground/90">
                             ML Engineer & Automation Specialist
                         </h2>
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                            <SocialLink href="https://github.com/rdnk2004" icon={Github} label="GitHub" />
+                            <SocialLink href="https://linkedin.com/in/nikhil-krishna-r-d-773b84259" icon={Linkedin} label="LinkedIn" />
+                            <SocialLink href="https://huggingface.co/rdnk-2004" icon={HuggingFaceIcon} label="Hugging Face" />
+                            <SocialLink href="mailto:rdnkpersonal2004@gmail.com" icon={Mail} label="Email" />
+                        </div>
                     </div>
                 </BentoCard>
 
@@ -241,81 +247,27 @@ export default function Hero() {
                 </BentoCard>
 
                 {/* ===== CTA Card ===== */}
-                <BentoCard className="col-span-1 lg:col-span-4 flex flex-col justify-center h-full">
-                    {/* Mobile View: Row of Icons */}
-                    <div className="flex lg:hidden flex-row items-center justify-between gap-2 w-full h-full p-1">
-                        <Button asChild size="icon" className="flex-1 h-full max-h-12 bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity shadow-sm">
-                            <a href="#projects" aria-label="View My Work">
-                                <ArrowUpRight className="h-5 w-5" />
-                            </a>
-                        </Button>
-                        <Button asChild variant="outline" size="icon" className="flex-1 h-full max-h-12 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors">
-                            <a href="#contact" aria-label="Contact">
-                                <MessageSquare className="h-5 w-5" />
-                            </a>
-                        </Button>
-                        <Button asChild variant="outline" size="icon" className="flex-1 h-full max-h-12 bg-muted/30 border-muted-foreground/20 hover:border-primary hover:text-primary transition-colors">
-                            <a href="/resume.pdf" download aria-label="Resume">
-                                <FileText className="h-5 w-5" />
-                            </a>
-                        </Button>
-                    </div>
-
-                    {/* Desktop View: Original Text Layout */}
-                    <div className="hidden lg:flex flex-col gap-2 w-full">
-                        <Button asChild size="sm" className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity group">
+                <BentoCard className="col-span-2 lg:col-span-4 p-4 flex flex-col justify-center">
+                    <div className="flex flex-col gap-2.5 w-full">
+                        <Button asChild size="default" className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity shadow-sm group font-medium text-sm h-10">
                             <a href="#projects" className="flex items-center justify-center gap-2">
                                 View My Work
-                                <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                             </a>
                         </Button>
                         <div className="flex gap-2">
-                            <Button asChild variant="outline" size="sm" className="flex-1">
-                                <a href="#contact">Contact</a>
+                            <Button asChild variant="outline" size="default" className="flex-1 text-xs sm:text-sm font-medium h-9 bg-muted/20 hover:bg-muted/40 border-border/40">
+                                <a href="#contact" className="flex items-center justify-center gap-1.5">
+                                    <MessageSquare className="h-3.5 w-3.5 text-muted-foreground" />
+                                    Contact
+                                </a>
                             </Button>
-                            <Button asChild variant="outline" size="sm" className="flex-1 hover:border-primary hover:text-primary">
+                            <Button asChild variant="outline" size="default" className="flex-1 text-xs sm:text-sm font-medium h-9 bg-muted/20 hover:bg-muted/40 border-border/40 hover:border-primary hover:text-primary">
                                 <a href="/resume.pdf" download className="flex items-center justify-center gap-1.5">
-                                    <FileText className="h-3.5 w-3.5" />
+                                    <FileText className="h-3.5 w-3.5 text-muted-foreground" />
                                     Resume
                                 </a>
                             </Button>
-                        </div>
-                    </div>
-                </BentoCard>
-
-                {/* ===== Social Links Card ===== */}
-                <BentoCard className="col-span-1 lg:col-span-4 flex items-center p-3 sm:p-4">
-                    <div className="w-full">
-                        <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3">Connect</h3>
-                        <div className="flex flex-row items-center justify-between gap-1.5 sm:gap-2.5 w-full">
-                            <SocialLink href="https://github.com/rdnk2004" icon={Github} label="GitHub" />
-                            <SocialLink href="https://linkedin.com/in/nikhil-krishna-r-d-773b84259" icon={Linkedin} label="LinkedIn" />
-                            <SocialLink href="https://huggingface.co/rdnk-2004" icon={HuggingFaceIcon} label="Hugging Face" />
-                            <SocialLink href="mailto:rdnkpersonal2004@gmail.com" icon={Mail} label="Email" />
-                        </div>
-                    </div>
-                </BentoCard>
-
-                {/* ===== Quote Card ===== */}
-                <BentoCard className="col-span-1 lg:col-span-4 flex items-center p-3 sm:p-4">
-                    <div className="w-full">
-                        <p className="text-xs sm:text-base lg:text-lg font-headline italic text-foreground/80 leading-tight">
-                            "From complexity to clarity"
-                        </p>
-                        <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">— My approach</p>
-                    </div>
-                </BentoCard>
-
-                {/* ===== Working Principles Card ===== */}
-                <BentoCard className="col-span-1 lg:col-span-4 flex items-center p-3 sm:p-4">
-                    <div className="w-full">
-                        <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1.5 sm:mb-3">Principles</h3>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-0.5 sm:gap-2 text-xs sm:text-base lg:text-lg font-headline text-foreground/90">
-                            <span>Clarity</span>
-                            <span className="hidden sm:inline text-primary/40">·</span>
-                            <span>Ownership</span>
-                            <span className="hidden sm:inline text-primary/40">·</span>
-                            <span>Reliability</span>
                         </div>
                     </div>
                 </BentoCard>
