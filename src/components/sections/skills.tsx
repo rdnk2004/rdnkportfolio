@@ -10,9 +10,7 @@ import {
     GraduationCap,
     Sparkles,
     ChevronRight,
-    ArrowUpRight,
     CheckCircle2,
-    Users,
     Layers,
     ShieldCheck
 } from "lucide-react";
@@ -30,10 +28,9 @@ interface SkillCluster {
 interface DomainRole {
     id: string;
     name: string;
-    roleNumber: string;
+    shortTitle: string;
     icon: React.ElementType;
     badge: string;
-    tagline: string;
     color: {
         accentText: string;
         borderAccent: string;
@@ -50,21 +47,20 @@ const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "ml",
         name: "ML / AI Engineer",
-        roleNumber: "01",
+        shortTitle: "ML / AI",
         icon: BrainCircuit,
         badge: "Predictive & Explainable AI",
-        tagline: "Validated machine learning pipelines with explainability and strict evaluation",
         color: {
-            accentText: "text-violet-400 dark:text-violet-400",
-            borderAccent: "border-violet-500/40",
-            bgActive: "bg-violet-500/10 dark:bg-violet-500/15",
-            pillBg: "bg-violet-500/10 text-violet-400 border-violet-500/30",
-            glow: "from-violet-500/20 via-violet-500/5 to-transparent"
+            accentText: "text-primary",
+            borderAccent: "border-primary/30",
+            bgActive: "bg-primary/10",
+            pillBg: "bg-primary/10 text-primary border-primary/20",
+            glow: "from-primary/20 via-primary/5 to-transparent"
         },
         skills: [
             { label: "Core ML & XAI", items: ["scikit-learn", "XGBoost", "Prophet", "SHAP", "MLflow"] },
             { label: "Deep Learning & Vision", items: ["PyTorch", "TensorFlow", "ResNet-50", "Computer Vision"] },
-            { label: "Applied AI & Validation", items: ["Gemini API", "Claude API", "Pydantic", "Walk-Forward CV"] }
+            { label: "Applied AI & Validation", items: ["Gemini API", "Pydantic", "Walk-Forward CV"] }
         ],
         principles: [
             "Walk-forward (expanding-window) CV benchmarked against naive baselines before trusting a result",
@@ -77,16 +73,15 @@ const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "automation",
         name: "Automation Engineer",
-        roleNumber: "02",
+        shortTitle: "Automation",
         icon: Workflow,
         badge: "Workflow Optimization",
-        tagline: "Finding the manual bottleneck, quantifying the time loss, and killing it",
         color: {
-            accentText: "text-emerald-400 dark:text-emerald-400",
-            borderAccent: "border-emerald-500/40",
-            bgActive: "bg-emerald-500/10 dark:bg-emerald-500/15",
-            pillBg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
-            glow: "from-emerald-500/20 via-emerald-500/5 to-transparent"
+            accentText: "text-primary",
+            borderAccent: "border-primary/30",
+            bgActive: "bg-primary/10",
+            pillBg: "bg-primary/10 text-primary border-primary/20",
+            glow: "from-primary/20 via-primary/5 to-transparent"
         },
         skills: [
             { label: "Orchestration", items: ["n8n", "Docker", "Docker Compose", "GitHub Actions"] },
@@ -104,16 +99,15 @@ const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "data-eng",
         name: "Data Engineer",
-        roleNumber: "03",
+        shortTitle: "Data Eng.",
         icon: Database,
         badge: "Data Infrastructure",
-        tagline: "Pipelines that reject bad data at ingestion instead of failing downstream",
         color: {
-            accentText: "text-cyan-400 dark:text-cyan-400",
-            borderAccent: "border-cyan-500/40",
-            bgActive: "bg-cyan-500/10 dark:bg-cyan-500/15",
-            pillBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
-            glow: "from-cyan-500/20 via-cyan-500/5 to-transparent"
+            accentText: "text-primary",
+            borderAccent: "border-primary/30",
+            bgActive: "bg-primary/10",
+            pillBg: "bg-primary/10 text-primary border-primary/20",
+            glow: "from-primary/20 via-primary/5 to-transparent"
         },
         skills: [
             { label: "Storage & Migrations", items: ["PostgreSQL", "SQLAlchemy (Async)", "Alembic", "asyncpg"] },
@@ -131,16 +125,15 @@ const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "data-analyst",
         name: "Data Analyst",
-        roleNumber: "04",
+        shortTitle: "Data Analysis",
         icon: BarChart3,
         badge: "Statistical Rigor",
-        tagline: "Statistical rigor over surface correlations — extracting verified signals from raw data",
         color: {
-            accentText: "text-sky-400 dark:text-sky-400",
-            borderAccent: "border-sky-500/40",
-            bgActive: "bg-sky-500/10 dark:bg-sky-500/15",
-            pillBg: "bg-sky-500/10 text-sky-400 border-sky-500/30",
-            glow: "from-sky-500/20 via-sky-500/5 to-transparent"
+            accentText: "text-primary",
+            borderAccent: "border-primary/30",
+            bgActive: "bg-primary/10",
+            pillBg: "bg-primary/10 text-primary border-primary/20",
+            glow: "from-primary/20 via-primary/5 to-transparent"
         },
         skills: [
             { label: "Languages & Querying", items: ["Python", "SQL", "R", "pandas", "NumPy"] },
@@ -158,20 +151,19 @@ const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "mentor",
         name: "Mentor & Team Lead",
-        roleNumber: "05",
+        shortTitle: "Mentorship",
         icon: GraduationCap,
         badge: "Leadership & Culture",
-        tagline: "Building people and pipelines at the same time",
         color: {
-            accentText: "text-rose-400 dark:text-rose-400",
-            borderAccent: "border-rose-500/40",
-            bgActive: "bg-rose-500/10 dark:bg-rose-500/15",
-            pillBg: "bg-rose-500/10 text-rose-400 border-rose-500/30",
-            glow: "from-rose-500/20 via-rose-500/5 to-transparent"
+            accentText: "text-primary",
+            borderAccent: "border-primary/30",
+            bgActive: "bg-primary/10",
+            pillBg: "bg-primary/10 text-primary border-primary/20",
+            glow: "from-primary/20 via-primary/5 to-transparent"
         },
         skills: [
             { label: "Team Leadership", items: ["Hackathon Team Leadership", "Event Ideation & Judging", "Cross-Functional Coordination"] },
-            { label: "Mentorship & Coaching", items: ["Peer Mentoring", "Excel & Engineering Tooling Coaching", "Onboarding Juniors"] },
+            { label: "Mentorship & Coaching", items: ["Peer Mentoring", "Excel & Tooling Coaching", "Onboarding Juniors"] },
             { label: "Delivery & Rollouts", items: ["Academic Platform Development", "Stakeholder Alignment", "Faculty & Admin Rollouts"] }
         ],
         principles: [
@@ -184,22 +176,14 @@ const DOMAIN_ROLES: DomainRole[] = [
     }
 ];
 
-const LEADERSHIP_METRICS = [
-    { value: "5+", label: "Hackathons Led", detail: "Technical direction & delivery" },
-    { value: "1", label: "Academic Platform Led", detail: "Core developer for university-wide system" },
-    { value: "30+", label: "Peers Mentored", detail: "Advanced Excel & engineering tooling" },
-    { value: "4+", label: "Tech Events Organized", detail: "Ideathons judged & competitions led" }
-];
-
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 
 export default function Skills() {
     const [selectedRoleId, setSelectedRoleId] = useState<string>("ml");
     const activeDomain = DOMAIN_ROLES.find((r) => r.id === selectedRoleId) || DOMAIN_ROLES[0];
-    const ActiveIcon = activeDomain.icon;
 
     return (
-        <section id="skills" className="py-16 sm:py-20 relative overflow-hidden">
+        <section id="skills" className="py-14 sm:py-16 relative overflow-hidden">
             {/* Ambient Background Glows */}
             <div className="absolute top-1/3 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10" />
             <div className="absolute bottom-10 -left-24 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -208,22 +192,57 @@ export default function Skills() {
                 <SectionHeading>Competencies & Impact</SectionHeading>
 
                 <motion.p
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: 6 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-2xl mx-auto text-center text-muted-foreground -mt-2 mb-12 text-base sm:text-lg leading-relaxed font-light"
+                    className="max-w-xl mx-auto text-center text-muted-foreground -mt-2 mb-8 text-sm leading-relaxed font-light"
                 >
-                    Click any domain row to slide through the technical arsenal, applied principles, and verified track record.
+                    Technical proficiencies, applied methodologies, and production-tested deliverables.
                 </motion.p>
 
-                {/* ── FLUID HORIZONTAL MASTER-DETAIL INTERFACE ─────────────────── */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mb-14">
+                {/* ── MOBILE VIEW: HORIZONTAL SCROLLABLE CHIP BAR (lg:hidden) ── */}
+                <div className="block lg:hidden mb-5">
+                    <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-card/60 border border-border/50 backdrop-blur-md overflow-x-auto no-scrollbar">
+                        {DOMAIN_ROLES.map((role) => {
+                            const Icon = role.icon;
+                            const isSelected = role.id === selectedRoleId;
+
+                            return (
+                                <button
+                                    key={role.id}
+                                    onClick={() => setSelectedRoleId(role.id)}
+                                    className={cn(
+                                        "relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-colors duration-200 select-none",
+                                        isSelected
+                                            ? "text-foreground font-semibold"
+                                            : "text-muted-foreground hover:text-foreground hover:bg-secondary/20"
+                                    )}
+                                >
+                                    {isSelected && (
+                                        <motion.div
+                                            layoutId="mobileActivePill"
+                                            className={cn("absolute inset-0 rounded-xl", role.color.bgActive, "border", role.color.borderAccent)}
+                                            transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                                        />
+                                    )}
+                                    <span className="relative z-10 flex items-center gap-1.5">
+                                        <Icon size={14} className={isSelected ? role.color.accentText : "text-muted-foreground"} />
+                                        <span>{role.shortTitle}</span>
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* ── DESKTOP & DETAIL CONTAINER ──────────────────────────────── */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
                     
-                    {/* LEFT: HORIZONTAL ROLE ROWS (4 COLS) */}
-                    <div className="lg:col-span-4 flex flex-col gap-2.5">
-                        <div className="text-xs font-mono font-semibold uppercase tracking-widest text-muted-foreground mb-1 pl-1 flex items-center justify-between">
+                    {/* DESKTOP LEFT: COMPACT ROLE SELECTOR ROWS (4 COLS) */}
+                    <div className="hidden lg:flex lg:col-span-4 flex-col gap-2">
+                        <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-1 pb-1 flex items-center justify-between">
                             <span>Core Domains</span>
-                            <span>{DOMAIN_ROLES.length} Roles</span>
+                            <span className="text-muted-foreground/60">{DOMAIN_ROLES.length} Roles</span>
                         </div>
 
                         {DOMAIN_ROLES.map((role) => {
@@ -231,211 +250,158 @@ export default function Skills() {
                             const isSelected = role.id === selectedRoleId;
 
                             return (
-                                <motion.button
+                                <button
                                     key={role.id}
                                     onClick={() => setSelectedRoleId(role.id)}
-                                    whileHover={{ x: 3 }}
-                                    whileTap={{ scale: 0.99 }}
                                     className={cn(
-                                        "group relative w-full text-left rounded-2xl p-4 transition-all duration-200 border flex items-center justify-between overflow-hidden",
+                                        "group relative w-full text-left rounded-2xl p-3 transition-all duration-200 border flex items-center justify-between overflow-hidden",
                                         isSelected
-                                            ? cn("border-border shadow-lg", role.color.bgActive, role.color.borderAccent)
+                                            ? cn("border-border shadow-md", role.color.bgActive, role.color.borderAccent)
                                             : "bg-card/30 border-border/40 hover:bg-card/60 hover:border-border/60"
                                     )}
                                 >
-                                    {/* Left Accent Bar on Selected */}
+                                    {/* Left Floating Accent Indicator on Selected */}
                                     {isSelected && (
                                         <motion.div
                                             layoutId="activeRowBar"
-                                            className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"
+                                            className="absolute left-1.5 top-2.5 bottom-2.5 w-1 rounded-full bg-primary"
                                             transition={{ type: "spring", stiffness: 450, damping: 35 }}
                                         />
                                     )}
 
-                                    <div className="flex items-center gap-3.5 pl-1.5">
+                                    <div className="flex items-center gap-3 pl-2.5">
                                         <div
                                             className={cn(
-                                                "p-2.5 rounded-xl border transition-colors shrink-0",
+                                                "p-2 rounded-lg border transition-colors shrink-0",
                                                 isSelected
                                                     ? cn("bg-background/80", role.color.borderAccent, role.color.accentText)
                                                     : "bg-background/40 border-border/40 text-muted-foreground group-hover:text-foreground group-hover:bg-background/70"
                                             )}
                                         >
-                                            <Icon size={18} />
+                                            <Icon size={16} />
                                         </div>
 
                                         <div>
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-[11px] font-mono text-muted-foreground/70">
-                                                    {role.roleNumber}
-                                                </span>
-                                                <h4 className={cn(
-                                                    "text-sm font-semibold transition-colors leading-tight",
-                                                    isSelected ? "text-foreground font-bold" : "text-foreground/80 group-hover:text-foreground"
-                                                )}>
-                                                    {role.name}
-                                                </h4>
-                                            </div>
-                                            <span className="text-[11px] text-muted-foreground font-light line-clamp-1 mt-0.5">
+                                            <h4 className={cn(
+                                                "text-sm font-semibold transition-colors leading-tight",
+                                                isSelected ? "text-foreground font-bold" : "text-foreground/85 group-hover:text-foreground"
+                                            )}>
+                                                {role.name}
+                                            </h4>
+                                            <span className="text-xs text-muted-foreground font-light line-clamp-1 mt-0.5">
                                                 {role.badge}
                                             </span>
                                         </div>
                                     </div>
 
                                     <ChevronRight
-                                        size={16}
+                                        size={15}
                                         className={cn(
-                                            "transition-transform duration-200 shrink-0",
+                                            "transition-transform duration-200 shrink-0 pr-1",
                                             isSelected ? "translate-x-0.5 text-primary opacity-100" : "text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 opacity-60"
                                         )}
                                     />
-                                </motion.button>
+                                </button>
                             );
                         })}
                     </div>
 
-                    {/* RIGHT: SLIDING DETAIL STAGE (8 COLS) */}
-                    <div className="lg:col-span-8">
-                        <div className="relative rounded-3xl border border-border/60 bg-card/40 backdrop-blur-md shadow-xl shadow-black/5 overflow-hidden min-h-[500px]">
+                    {/* RIGHT: SLIDING DETAIL STAGE (8 COLS ON DESKTOP, FULL WIDTH ON MOBILE) */}
+                    <div className="w-full lg:col-span-8 flex">
+                        <div className="relative w-full rounded-3xl border border-border/60 bg-card/40 backdrop-blur-md shadow-xl shadow-black/5 overflow-hidden flex flex-col justify-between">
                             {/* Ambient Top Glow Line */}
                             <div className={cn("h-1 w-full bg-gradient-to-r", activeDomain.color.glow)} />
 
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeDomain.id}
-                                    initial={{ opacity: 0, x: -25 }}
+                                    initial={{ opacity: 0, x: -18 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: 25 }}
-                                    transition={{ duration: 0.24, ease: "easeOut" }}
-                                    className="p-6 sm:p-8 space-y-8"
+                                    exit={{ opacity: 0, x: 18 }}
+                                    transition={{ duration: 0.2, ease: "easeOut" }}
+                                    className="p-5 sm:p-6 lg:p-7 flex flex-col justify-between flex-1 gap-5"
                                 >
-                                    {/* ── ROW 1: HEADER & DELIVERABLE PROOF ── */}
-                                    <div className="space-y-3 pb-6 border-b border-border/40">
-                                        <div className="flex flex-wrap items-center justify-between gap-3">
-                                            <div className="flex items-center gap-2.5">
-                                                <div className={cn("p-2 rounded-lg border bg-background/60", activeDomain.color.borderAccent, activeDomain.color.accentText)}>
-                                                    <ActiveIcon size={20} />
-                                                </div>
-                                                <div>
-                                                    <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Domain {activeDomain.roleNumber}</span>
-                                                    <h3 className="text-xl sm:text-2xl font-headline font-bold text-foreground">
-                                                        {activeDomain.name}
-                                                    </h3>
-                                                </div>
+                                    {/* ── HEADER: DOMAIN TITLE & VERIFIED PROOF (NO REDUNDANT STRINGS) ── */}
+                                    <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/40">
+                                        <div>
+                                            <h3 className="text-xl sm:text-2xl font-headline font-bold text-foreground">
+                                                {activeDomain.name}
+                                            </h3>
+                                            <div className="flex items-center gap-2 mt-1.5 text-xs text-muted-foreground">
+                                                <Sparkles size={13} className={cn("shrink-0", activeDomain.color.accentText)} />
+                                                <span>
+                                                    Verified in: <strong className="text-foreground font-medium">{activeDomain.proof}</strong>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <span className={cn("text-xs font-medium px-2.5 py-1 rounded-full border shrink-0", activeDomain.color.pillBg)}>
+                                            {activeDomain.badge}
+                                        </span>
+                                    </div>
+
+                                    {/* ── BODY: SIDE-BY-SIDE SPLIT (TOOLS + PRINCIPLES) ── */}
+                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+                                        
+                                        {/* Left: Technical Arsenal (5 cols) */}
+                                        <div className="md:col-span-5 space-y-2.5">
+                                            <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                                <Layers size={13} className={activeDomain.color.accentText} />
+                                                <span>Technical Arsenal</span>
                                             </div>
 
-                                            <span className={cn("text-xs font-mono font-medium px-3 py-1 rounded-full border", activeDomain.color.pillBg)}>
-                                                {activeDomain.badge}
-                                            </span>
-                                        </div>
-
-                                        <p className="text-base sm:text-lg font-headline italic text-foreground/90 leading-relaxed pt-1">
-                                            &ldquo;{activeDomain.tagline}&rdquo;
-                                        </p>
-
-                                        {/* Proof Pill */}
-                                        <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-background/60 border border-border/40 text-xs text-muted-foreground">
-                                            <Sparkles size={13} className={cn("shrink-0", activeDomain.color.accentText)} />
-                                            <span>
-                                                Verified in: <strong className="text-foreground font-semibold">{activeDomain.proof}</strong>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* ── ROW 2: TECHNICAL ARSENAL (FULL WIDTH ROW FLOW) ── */}
-                                    <div className="space-y-3">
-                                        <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground">
-                                            <Layers size={14} className={activeDomain.color.accentText} />
-                                            <span>Technical Arsenal & Tooling</span>
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            {activeDomain.skills.map((cluster) => (
-                                                <div
-                                                    key={cluster.label}
-                                                    className="rounded-2xl border border-border/40 bg-background/40 p-4 transition-colors hover:bg-background/70 hover:border-border/60"
-                                                >
-                                                    <div className="text-[11px] font-mono text-muted-foreground mb-2 flex items-center justify-between font-medium">
-                                                        <span className="uppercase tracking-wider">{cluster.label}</span>
-                                                        <span className="text-[10px] text-muted-foreground/60">{cluster.items.length} tools</span>
+                                            <div className="space-y-2">
+                                                {activeDomain.skills.map((cluster) => (
+                                                    <div
+                                                        key={cluster.label}
+                                                        className="rounded-xl border border-border/40 bg-background/40 p-2.5 sm:p-3 transition-colors hover:bg-background/70 hover:border-border/60"
+                                                    >
+                                                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70 mb-1.5 block font-medium">
+                                                            {cluster.label}
+                                                        </span>
+                                                        <div className="flex flex-wrap gap-1.5">
+                                                            {cluster.items.map((tool) => (
+                                                                <Badge
+                                                                    key={tool}
+                                                                    variant="secondary"
+                                                                    className="px-2 py-0.5 text-xs font-normal bg-secondary/40 text-secondary-foreground hover:bg-primary/10 hover:text-primary transition-colors border border-transparent hover:border-primary/20"
+                                                                >
+                                                                    {tool}
+                                                                </Badge>
+                                                            ))}
+                                                        </div>
                                                     </div>
-                                                    <div className="flex flex-wrap gap-1.5">
-                                                        {cluster.items.map((tool) => (
-                                                            <Badge
-                                                                key={tool}
-                                                                variant="secondary"
-                                                                className="px-2.5 py-1 text-xs font-normal bg-secondary/40 text-secondary-foreground hover:bg-primary/10 hover:text-primary transition-colors border border-transparent hover:border-primary/20"
-                                                            >
-                                                                {tool}
-                                                            </Badge>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* ── ROW 3: PRINCIPLES & METHODOLOGY (FULL WIDTH ROW FLOW) ── */}
-                                    <div className="space-y-3 pt-2">
-                                        <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground">
-                                            <ShieldCheck size={14} className={activeDomain.color.accentText} />
-                                            <span>{activeDomain.id === "mentor" ? "Track Record & Outcomes" : "Engineering Principles & Execution"}</span>
+                                                ))}
+                                            </div>
                                         </div>
 
-                                        <div className="space-y-2.5">
-                                            {activeDomain.principles.map((principle, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    className="group flex items-start gap-3.5 rounded-2xl border border-border/40 bg-background/40 p-4 text-xs sm:text-sm text-foreground/90 transition-all hover:border-primary/30 hover:bg-background/80 hover:shadow-sm"
-                                                >
-                                                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5 group-hover:scale-110 transition-transform">
-                                                        <span className="text-[10px] font-mono font-bold">0{idx + 1}</span>
+                                        {/* Right: Engineering Principles (7 cols) */}
+                                        <div className="md:col-span-7 space-y-2.5">
+                                            <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                                <ShieldCheck size={13} className={activeDomain.color.accentText} />
+                                                <span>{activeDomain.id === "mentor" ? "Track Record & Outcomes" : "Engineering Principles"}</span>
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                {activeDomain.principles.map((principle, idx) => (
+                                                    <div
+                                                        key={idx}
+                                                        className="group flex items-start gap-2.5 rounded-xl border border-border/40 bg-background/40 p-2.5 sm:p-3 text-xs sm:text-[13px] text-foreground/90 transition-all hover:border-primary/30 hover:bg-background/80 hover:shadow-sm"
+                                                    >
+                                                        <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5 group-hover:scale-110 transition-transform">
+                                                            <CheckCircle2 size={11} />
+                                                        </div>
+                                                        <span className="leading-relaxed font-light">
+                                                            {principle}
+                                                        </span>
                                                     </div>
-                                                    <span className="leading-relaxed font-light">
-                                                        {principle}
-                                                    </span>
-                                                </div>
-                                            ))}
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>
                             </AnimatePresence>
                         </div>
-                    </div>
-                </div>
-
-                {/* ── 3. LEADERSHIP & INITIATIVE METRICS STRIP ─────────────────── */}
-                <div className="border-t border-border/40 pt-10">
-                    <div className="flex items-center gap-2 mb-6">
-                        <Users size={16} className="text-primary" />
-                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground">
-                            Leadership & Initiative Metrics
-                        </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {LEADERSHIP_METRICS.map((metric, idx) => (
-                            <motion.div
-                                key={metric.label}
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.35, delay: idx * 0.08 }}
-                                className="group flex flex-col justify-between rounded-2xl border border-border/40 bg-card/25 p-5 hover:bg-card/50 hover:border-border/70 transition-all duration-300 backdrop-blur-sm"
-                            >
-                                <span className="block text-3xl sm:text-4xl font-headline font-bold text-primary tabular-nums tracking-tight mb-2 group-hover:scale-105 transition-transform origin-left">
-                                    {metric.value}
-                                </span>
-                                <div>
-                                    <span className="block text-xs sm:text-sm font-bold text-foreground mb-1 leading-snug">
-                                        {metric.label}
-                                    </span>
-                                    <span className="block text-[11px] text-muted-foreground font-light leading-relaxed">
-                                        {metric.detail}
-                                    </span>
-                                </div>
-                            </motion.div>
-                        ))}
                     </div>
                 </div>
             </div>
