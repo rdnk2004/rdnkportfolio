@@ -45,6 +45,22 @@ const projectData = [
   },
   {
     id: 3,
+    title: "Career OS: Autonomous Career Automation & Optimization Platform",
+    metadata: "Full Stack | AI Engineering | Workflow Automation",
+    oneLiner: "Self-hosted AI career operating system connecting LinkedIn, GitHub, and live ATS boards (Greenhouse, Lever, Ashby) to automate profile optimization, repository security audits, ATS resume PDF generation, and Gemini 2.5 Pro skill-gap matrix analysis.",
+    skills: ["FastAPI", "React", "TypeScript", "Python", "PostgreSQL", "Docker", "Gemini 3.5 Flash", "n8n", "Zustand", "ReportLab", "Tailwind CSS", "Alembic"],
+    problem: "Managing career materials across LinkedIn profiles, GitHub repositories, and disparate ATS job boards (Greenhouse, Lever, Ashby) is fragmented, repetitive, and manual. Job seekers struggle with keyword gap detection, auditing repository security and documentation, generating ATS-compliant single-page resumes, and identifying high-impact skill gaps systematically.",
+    solution: "Engineered a full-stack, containerized microservices platform with n8n workflow orchestration and an async FastAPI backend. Connects multi-source inputs into PostgreSQL 16 via SQLAlchemy/asyncpg. Integrates Gemini 2.5 Pro for profile scoring and repo health scans, deterministic ReportLab PDF generation for 1-click ATS resumes, and a React + Vite + TypeScript dashboard featuring an interactive skill gap heatmap matrix.",
+    impact: [
+      "Architected multi-source automation pipelines integrating LinkedIn profile data, live ATS job board APIs (Greenhouse/Lever/Ashby), and GitHub repository sync via n8n and Docker",
+      "Built deterministic single-page ATS resume PDF generator using ReportLab with 0.5-inch margins, Helvetica typography, and structured layout for instant job submission",
+      "Developed an interactive 4-dimension skill gap matrix correlating market demand against skills, repositories, experience, and education with Gemini-powered actionable recommendations",
+      "Implemented async FastAPI backend with slowapi rate limiting, asyncpg connection pooling, Alembic migrations, and modular React 18 + Zustand + TanStack Query frontend"
+    ],
+    link: "https://github.com/rdnk2004/automated-career"
+  },
+  {
+    id: 4,
     title: "Nexus Task Tracker",
     metadata: "Project Management | Full Stack | Active",
     oneLiner: "A lightweight project management app for small teams, built to organize projects, track tasks, and share activity updates with clarity and speed.",
@@ -59,7 +75,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/nutmeg-tasktracker"
   },
   {
-    id: 4,
+    id: 5,
     title: "Automated Semester Marklist Processing System",
     metadata: "Controller of Examinations | In-House | Active",
     oneLiner: "Automated semester marklist processing for 1,400+ students, reducing manual effort from 2+ hours to under 2 minutes.",
@@ -74,7 +90,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Mark-Splitting"
   },
   {
-    id: 5,
+    id: 6,
     title: "Smart Academic Documentation & Result Analysis Automation",
     metadata: "University Academic Portal | Capstone Project",
     oneLiner: "Built and led the development of an academic portal enabling real-time result analysis and automated faculty workflows.",
@@ -89,7 +105,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/College-Website"
   },
   {
-    id: 6,
+    id: 7,
     title: "Event Report Automated Generator",
     metadata: "In-House | Actively Used by Faculty",
     oneLiner: "Automated academic event report creation, cutting documentation time from hours to minutes.",
@@ -104,7 +120,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Report"
   },
   {
-    id: 7,
+    id: 8,
     title: "Anomaly Detection System for Industrial Defect Classification",
     metadata: "Deep Learning | ResNet-50",
     oneLiner: "Developed a deep learning–based defect detection system achieving up to 94% classification accuracy.",
@@ -119,7 +135,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/anomaly-detection"
   },
   {
-    id: 8,
+    id: 9,
     title: "Data-Driven Wellness Analysis: Impact of Yoga Practice",
     metadata: "Exploratory Data Analysis",
     oneLiner: "Analyzed wellness survey data to identify measurable mental and physical benefits of yoga practice.",
@@ -303,11 +319,11 @@ export default function Projects() {
                               {selectedProject.impact.length} Highlights
                             </span>
                           </div>
-                          
+
                           <div className="grid gap-3">
                             {selectedProject.impact.map((item, i) => (
-                              <div 
-                                key={i} 
+                              <div
+                                key={i}
                                 className="group relative flex items-start gap-3 rounded-lg border border-emerald-500/15 bg-background/60 p-3.5 sm:p-4 text-sm sm:text-base transition-all duration-200 hover:border-emerald-500/40 hover:bg-background/90 hover:shadow-md hover:shadow-emerald-500/5"
                               >
                                 <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 mt-0.5 group-hover:scale-110 transition-transform">
