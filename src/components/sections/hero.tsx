@@ -102,10 +102,10 @@ function SocialLink({ href, icon: Icon, label }: { href: string; icon: React.Ele
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center p-2.5 sm:p-4 rounded-lg bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
+            className="flex-1 aspect-square flex items-center justify-center rounded-xl bg-muted/30 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 min-w-0 max-w-[52px]"
             aria-label={label}
         >
-            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
         </a>
     );
 }
@@ -284,10 +284,10 @@ export default function Hero() {
                 </BentoCard>
 
                 {/* ===== Social Links Card ===== */}
-                <BentoCard className="col-span-1 lg:col-span-4 flex items-center">
+                <BentoCard className="col-span-1 lg:col-span-4 flex items-center p-3 sm:p-4">
                     <div className="w-full">
                         <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3">Connect</h3>
-                        <div className="flex gap-1.5 sm:gap-3 justify-between sm:justify-start">
+                        <div className="flex flex-row items-center justify-between gap-1.5 sm:gap-2.5 w-full">
                             <SocialLink href="https://github.com/rdnk2004" icon={Github} label="GitHub" />
                             <SocialLink href="https://linkedin.com/in/nikhil-krishna-r-d-773b84259" icon={Linkedin} label="LinkedIn" />
                             <SocialLink href="https://huggingface.co/rdnk-2004" icon={HuggingFaceIcon} label="Hugging Face" />
@@ -297,20 +297,20 @@ export default function Hero() {
                 </BentoCard>
 
                 {/* ===== Quote Card ===== */}
-                <BentoCard className="col-span-1 lg:col-span-4 flex items-center">
+                <BentoCard className="col-span-1 lg:col-span-4 flex items-center p-3 sm:p-4">
                     <div className="w-full">
-                        <p className="text-sm sm:text-lg font-headline italic text-foreground/80 leading-tight">
+                        <p className="text-xs sm:text-base lg:text-lg font-headline italic text-foreground/80 leading-tight">
                             "From complexity to clarity"
                         </p>
-                        <p className="text-[10px] sm:text-sm text-muted-foreground mt-1.5">— My approach</p>
+                        <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">— My approach</p>
                     </div>
                 </BentoCard>
 
                 {/* ===== Working Principles Card ===== */}
-                <BentoCard className="col-span-1 lg:col-span-4 flex items-center">
+                <BentoCard className="col-span-1 lg:col-span-4 flex items-center p-3 sm:p-4">
                     <div className="w-full">
-                        <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3">Principles</h3>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3 text-sm sm:text-lg font-headline text-foreground/90">
+                        <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1.5 sm:mb-3">Principles</h3>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-0.5 sm:gap-2 text-xs sm:text-base lg:text-lg font-headline text-foreground/90">
                             <span>Clarity</span>
                             <span className="hidden sm:inline text-primary/40">·</span>
                             <span>Ownership</span>
