@@ -20,11 +20,11 @@ export default function Loader({ onFinished }: LoaderProps) {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
+    useEffect(() => {
     if (!mounted) return;
 
-    const fadeTimer = setTimeout(() => setFadeout(true), 3500);
-    const finishTimer = setTimeout(() => onFinished(), 4000);
+    const fadeTimer = setTimeout(() => setFadeout(true), 1200);
+    const finishTimer = setTimeout(() => onFinished(), 1500);
 
     return () => {
       clearTimeout(fadeTimer);

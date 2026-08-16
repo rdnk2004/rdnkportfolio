@@ -106,12 +106,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Optimize off-screen content */
-  section {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 500px;
-  }
-
   /* Reduce motion for users who prefer it */
   @media (prefers-reduced-motion: reduce) {
 
