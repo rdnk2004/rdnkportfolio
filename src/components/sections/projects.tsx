@@ -47,30 +47,30 @@ const projectData = [
     id: 3,
     title: "Career OS: Autonomous Career Automation & Optimization Platform",
     metadata: "Full Stack | AI Engineering | Workflow Automation",
-    oneLiner: "Self-hosted AI career operating system connecting LinkedIn, GitHub, and live ATS boards (Greenhouse, Lever, Ashby) to automate profile optimization, repository security audits, ATS resume PDF generation, and Gemini 2.5 Pro skill-gap matrix analysis.",
-    skills: ["FastAPI", "React", "TypeScript", "Python", "PostgreSQL", "Docker", "Gemini 3.5 Flash", "n8n", "Zustand", "ReportLab", "Tailwind CSS", "Alembic"],
+    oneLiner: "Self-hosted AI career operating system connecting LinkedIn, GitHub, and live ATS boards (Greenhouse, Lever, Ashby) to automate profile optimization, repository security audits, ATS resume PDF generation, and Gemini API skill-gap matrix analysis.",
+    skills: ["FastAPI", "React", "TypeScript", "Python", "PostgreSQL", "Docker", "Gemini API", "n8n", "Zustand", "ReportLab", "Tailwind CSS", "Alembic"],
     problem: "Managing career materials across LinkedIn profiles, GitHub repositories, and disparate ATS job boards (Greenhouse, Lever, Ashby) is fragmented, repetitive, and manual. Job seekers struggle with keyword gap detection, auditing repository security and documentation, generating ATS-compliant single-page resumes, and identifying high-impact skill gaps systematically.",
-    solution: "Engineered a full-stack, containerized microservices platform with n8n workflow orchestration and an async FastAPI backend. Connects multi-source inputs into PostgreSQL 16 via SQLAlchemy/asyncpg. Integrates Gemini 2.5 Pro for profile scoring and repo health scans, deterministic ReportLab PDF generation for 1-click ATS resumes, and a React + Vite + TypeScript dashboard featuring an interactive skill gap heatmap matrix.",
+    solution: "Engineered a full-stack, containerized microservices platform with n8n workflow orchestration and an async FastAPI backend. Connects multi-source inputs into PostgreSQL 16 via SQLAlchemy/asyncpg. Integrates Gemini API for profile scoring and repo health scans, deterministic ReportLab PDF generation for 1-click ATS resumes, and a React + Vite + TypeScript dashboard featuring an interactive skill gap heatmap matrix.",
     impact: [
       "Architected multi-source automation pipelines integrating LinkedIn profile data, live ATS job board APIs (Greenhouse/Lever/Ashby), and GitHub repository sync via n8n and Docker",
       "Built deterministic single-page ATS resume PDF generator using ReportLab with 0.5-inch margins, Helvetica typography, and structured layout for instant job submission",
-      "Developed an interactive 4-dimension skill gap matrix correlating market demand against skills, repositories, experience, and education with Gemini-powered actionable recommendations",
+      "Developed an interactive 4-dimension skill gap matrix correlating market demand against skills, repositories, experience, and education with Gemini API-driven actionable recommendations",
       "Implemented async FastAPI backend with slowapi rate limiting, asyncpg connection pooling, Alembic migrations, and modular React 18 + Zustand + TanStack Query frontend"
     ],
     link: "https://github.com/rdnk2004/automated-career"
   },
   {
     id: 4,
-    title: "Nexus Task Tracker",
-    metadata: "Project Management | Full Stack | Active",
-    oneLiner: "A lightweight project management app for small teams, built to organize projects, track tasks, and share activity updates with clarity and speed.",
-    skills: ["FastAPI", "PostgreSQL", "JWT", "Docker", "Vanilla JS", "Render"],
-    problem: "Real collaboration tools need to handle authentication, workflow integrity, and team visibility, but existing solutions often come with unnecessary complexity for small teams.",
-    solution: "Built a full-stack task tracking system with secure authentication, project-based task management, and Kanban-style workflows. The backend is built with FastAPI, and the frontend uses framework-free JavaScript for performance and simplicity.",
+    title: "Nexus Task Tracker: Lightweight Project & Activity Engine",
+    metadata: "Project Management | Full Stack | Microservices",
+    oneLiner: "Containerized project management tool built for small teams — featuring secure JWT authentication, multi-project task workflows, live activity audit feeds, and Nginx reverse proxy routing.",
+    skills: ["FastAPI", "SQLModel", "PostgreSQL", "JWT Auth", "Docker Compose", "Nginx", "Vanilla JS", "Railway", "bcrypt"],
+    problem: "Collaboration tools for small teams often introduce unnecessary complexity, heavy enterprise dependencies, or lack transparent activity tracking and strict task lifecycle locking.",
+    solution: "Built a lightweight full-stack task tracking system using FastAPI and SQLModel with PostgreSQL persistence and Nginx reverse proxy. Enforced bcrypt-hashed JWT authentication, project-based task organization with state machine rules (locking completed tasks), and real-time team activity logging deployed via Docker Compose.",
     impact: [
-      "Implemented secure JWT-based authentication and session handling",
-      "Enforced task state rules (completed tasks are locked) for workflow integrity",
-      "Provided team-wide activity feed and responsive UI for better collaboration"
+      "Implemented secure JWT authentication with bcrypt password hashing and session management",
+      "Enforced task state integrity rules and real-time activity feed for team collaboration",
+      "Packaged full-stack architecture with multi-container Docker Compose and Nginx deployment"
     ],
     link: "https://github.com/rdnk2004/nutmeg-tasktracker"
   },
