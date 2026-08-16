@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { FileText, ArrowUpRight, Github, Linkedin, Mail, MessageSquare, Landmark, Clapperboard, Bot } from 'lucide-react';
+import { FileText, ArrowUpRight, Github, Linkedin, Mail, MessageSquare, Clapperboard, Bot } from 'lucide-react';
 import { HuggingFaceIcon } from '@/components/ui/icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useShouldReduceAnimations } from '@/hooks/use-device-detection';
@@ -36,22 +36,16 @@ const itemVariants = {
 // Currently working on items
 const currentlyItems = [
     {
-        icon: Landmark,
-        title: "Exploring FinTech & RBI Data",
-        subtitle: "Analyzing financial and banking datasets to extract valuable insights",
-        highlight: null
+        icon: Bot,
+        title: "Agentic AI · Indian Law",
+        subtitle: "Working on an Agentic AI system for the Indian Law System",
+        highlight: "ai"
     },
     {
         icon: Clapperboard,
-        title: "Screenwriting",
-        subtitle: "Currently working on the script for my third short film",
+        title: "Screenwriting: \"Hack - A - Thon\"",
+        subtitle: "Working on the script for my third short film",
         highlight: null
-    },
-    {
-        icon: Bot,
-        title: "Agentic AI Architectures",
-        subtitle: "Planning and designing autonomous agent systems for financial analysis",
-        highlight: "ai"
     }
 ];
 
