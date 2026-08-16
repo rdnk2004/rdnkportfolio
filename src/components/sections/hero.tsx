@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { FileText, ArrowUpRight, Github, Linkedin, Mail, MessageSquare, Landmark, Clapperboard, Bot } from 'lucide-react';
+import { HuggingFaceIcon } from '@/components/ui/icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useShouldReduceAnimations } from '@/hooks/use-device-detection';
 
@@ -107,7 +108,7 @@ function SocialLink({ href, icon: Icon, label }: { href: string; icon: React.Ele
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center p-3 sm:p-4 rounded-lg bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
+            className="flex items-center justify-center p-2.5 sm:p-4 rounded-lg bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
             aria-label={label}
         >
             <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -295,9 +296,10 @@ export default function Hero() {
                 <BentoCard className="col-span-1 lg:col-span-4 flex items-center">
                     <div className="w-full">
                         <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3">Connect</h3>
-                        <div className="flex gap-2 sm:gap-3 justify-between sm:justify-start">
+                        <div className="flex gap-1.5 sm:gap-3 justify-between sm:justify-start">
                             <SocialLink href="https://github.com/rdnk2004" icon={Github} label="GitHub" />
                             <SocialLink href="https://linkedin.com/in/nikhil-krishna-r-d-773b84259" icon={Linkedin} label="LinkedIn" />
+                            <SocialLink href="https://huggingface.co/rdnk-2004" icon={HuggingFaceIcon} label="Hugging Face" />
                             <SocialLink href="mailto:rdnkpersonal2004@gmail.com" icon={Mail} label="Email" />
                         </div>
                     </div>

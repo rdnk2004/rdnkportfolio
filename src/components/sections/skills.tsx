@@ -60,6 +60,7 @@ const TECH_CATEGORIES = [
             "scikit-learn",
             "PyTorch",
             "TensorFlow",
+            "Hugging Face",
             "ResNet-50",
             "MLflow",
             "LLM APIs (Gemini & Claude)"

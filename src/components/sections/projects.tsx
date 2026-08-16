@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
 import { Github, ExternalLink, X, AlertTriangle, Lightbulb, TrendingUp, CheckCircle2 } from "lucide-react";
+import { HuggingFaceIcon } from "@/components/ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { useLenis } from "@/hooks/use-lenis-context";
@@ -333,7 +334,13 @@ export default function Projects() {
                           <div className="flex justify-end pt-4">
                             <Button asChild className="gap-2">
                               <a href={selectedProject.link} target="_blank" rel="noopener noreferrer">
-                                {selectedProject.link.includes("github") ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
+                                {selectedProject.link.includes("github") ? (
+                                  <Github className="h-4 w-4" />
+                                ) : selectedProject.link.includes("huggingface") ? (
+                                  <HuggingFaceIcon className="h-4 w-4" />
+                                ) : (
+                                  <ExternalLink className="h-4 w-4" />
+                                )}
                                 View Project
                               </a>
                             </Button>
