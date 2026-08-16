@@ -40,7 +40,6 @@ interface DomainRole {
     };
     skills: SkillCluster[];
     principles: string[];
-    proof: string;
 }
 
 const DOMAIN_ROLES: DomainRole[] = [
@@ -67,8 +66,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             "SHAP attribution used to compare model rationale against documented policy logic",
             "F1 / precision-recall evaluation in place of misleading raw accuracy metrics",
             "Transfer learning with early stopping and learning rate scheduling"
-        ],
-        proof: "NPA Early Warning System · Industrial Defect Classifier · CPI-MPC"
+        ]
     },
     {
         id: "automation",
@@ -93,8 +91,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             "Cleaned unstructured Excel data and auto-split it dept/batch-wise for 1,400+ student marklists",
             "Replaced ad-hoc data requests with a real-time KPI reporting tool for sales & operations",
             "Scheduled multi-source synchronization via containerized n8n workflows"
-        ],
-        proof: "CAI Mahindra Automation · Marklist Processor (2hrs → 2min) · Career OS"
+        ]
     },
     {
         id: "data-eng",
@@ -119,8 +116,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             "Async, connection-pooled Postgres pipelines with version-controlled Alembic migrations",
             "Headless Playwright extraction from JS-rendered sources into structured datasets",
             "Multi-source sync (GitHub, ATS boards, LinkedIn) orchestrated through containerized n8n workflows"
-        ],
-        proof: "CPI-MPC Data Pipeline · Career OS Multi-Source Sync"
+        ]
     },
     {
         id: "data-analyst",
@@ -145,8 +141,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             "Bootstrap confidence intervals and breach probabilities in place of bare point forecasts",
             "Fixed-effects panel econometric modeling across entity-year groups",
             "Built dealership-level conversion metrics from a raw sales funnel at CAI Mahindra"
-        ],
-        proof: "CPI-MPC Analytics · NPA Early Warning System · CAI Mahindra ETBR Funnel"
+        ]
     },
     {
         id: "mentor",
@@ -171,8 +166,7 @@ const DOMAIN_ROLES: DomainRole[] = [
             "Mentored 30+ peers on advanced Excel and engineering tooling",
             "Organized and judged 4+ campus events and ideathons",
             "Drove adoption of an academic automation platform across faculty and administrative staff"
-        ],
-        proof: "5+ Hackathons Led · 30+ Peers Mentored · Academic Platform Led"
+        ]
     }
 ];
 
@@ -189,16 +183,7 @@ export default function Skills() {
             <div className="absolute bottom-10 -left-24 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none -z-10" />
 
             <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-6xl">
-                <SectionHeading>Competencies & Impact</SectionHeading>
-
-                <motion.p
-                    initial={{ opacity: 0, y: 6 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="max-w-xl mx-auto text-center text-muted-foreground -mt-2 mb-8 text-sm leading-relaxed font-light"
-                >
-                    Technical proficiencies, applied methodologies, and production-tested deliverables.
-                </motion.p>
+                <SectionHeading className="mb-8">Competencies & Impact</SectionHeading>
 
                 {/* ── MOBILE VIEW: HORIZONTAL SCROLLABLE CHIP BAR (lg:hidden) ── */}
                 <div className="block lg:hidden mb-5">
@@ -256,8 +241,8 @@ export default function Skills() {
                                     className={cn(
                                         "group relative w-full text-left rounded-2xl p-3 transition-all duration-200 border flex items-center justify-between overflow-hidden",
                                         isSelected
-                                            ? cn("border-border shadow-md", role.color.bgActive, role.color.borderAccent)
-                                            : "bg-card/30 border-border/40 hover:bg-card/60 hover:border-border/60"
+                                            ? cn("border-primary/30 shadow-md bg-card/90 dark:bg-primary/10", role.color.borderAccent)
+                                            : "bg-card/60 dark:bg-card/30 border-border/60 dark:border-border/40 hover:bg-card/90 dark:hover:bg-card/60 hover:border-border/80"
                                     )}
                                 >
                                     {/* Left Floating Accent Indicator on Selected */}
@@ -274,8 +259,8 @@ export default function Skills() {
                                             className={cn(
                                                 "p-2 rounded-lg border transition-colors shrink-0",
                                                 isSelected
-                                                    ? cn("bg-background/80", role.color.borderAccent, role.color.accentText)
-                                                    : "bg-background/40 border-border/40 text-muted-foreground group-hover:text-foreground group-hover:bg-background/70"
+                                                    ? cn("bg-background border-primary/30 text-primary shadow-sm", role.color.accentText)
+                                                    : "bg-muted/40 dark:bg-background/40 border-border/50 text-muted-foreground group-hover:text-foreground group-hover:bg-background/70"
                                             )}
                                         >
                                             <Icon size={16} />
@@ -308,7 +293,7 @@ export default function Skills() {
 
                     {/* RIGHT: SLIDING DETAIL STAGE (8 COLS ON DESKTOP, FULL WIDTH ON MOBILE) */}
                     <div className="w-full lg:col-span-8 flex">
-                        <div className="relative w-full rounded-3xl border border-border/60 bg-card/40 backdrop-blur-md shadow-xl shadow-black/5 overflow-hidden flex flex-col justify-between">
+                        <div className="relative w-full rounded-3xl border border-border/70 dark:border-border/60 bg-card/80 dark:bg-card/40 backdrop-blur-md shadow-xl shadow-black/5 overflow-hidden flex flex-col justify-between">
                             {/* Ambient Top Glow Line */}
                             <div className={cn("h-1 w-full bg-gradient-to-r", activeDomain.color.glow)} />
 
@@ -321,19 +306,11 @@ export default function Skills() {
                                     transition={{ duration: 0.2, ease: "easeOut" }}
                                     className="p-5 sm:p-6 lg:p-7 flex flex-col justify-between flex-1 gap-5"
                                 >
-                                    {/* ── HEADER: DOMAIN TITLE & VERIFIED PROOF (NO REDUNDANT STRINGS) ── */}
+                                    {/* ── HEADER: DOMAIN TITLE ── */}
                                     <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/40">
-                                        <div>
-                                            <h3 className="text-xl sm:text-2xl font-headline font-bold text-foreground">
-                                                {activeDomain.name}
-                                            </h3>
-                                            <div className="flex items-center gap-2 mt-1.5 text-xs text-muted-foreground">
-                                                <Sparkles size={13} className={cn("shrink-0", activeDomain.color.accentText)} />
-                                                <span>
-                                                    Verified in: <strong className="text-foreground font-medium">{activeDomain.proof}</strong>
-                                                </span>
-                                            </div>
-                                        </div>
+                                        <h3 className="text-xl sm:text-2xl font-headline font-bold text-foreground">
+                                            {activeDomain.name}
+                                        </h3>
 
                                         <span className={cn("text-xs font-medium px-2.5 py-1 rounded-full border shrink-0", activeDomain.color.pillBg)}>
                                             {activeDomain.badge}
@@ -354,17 +331,17 @@ export default function Skills() {
                                                 {activeDomain.skills.map((cluster) => (
                                                     <div
                                                         key={cluster.label}
-                                                        className="rounded-xl border border-border/40 bg-background/40 p-2.5 sm:p-3 transition-colors hover:bg-background/70 hover:border-border/60"
+                                                        className="rounded-xl border border-border/60 bg-card/60 dark:bg-background/40 p-2.5 sm:p-3 transition-colors hover:bg-card/90 dark:hover:bg-background/70 hover:border-border/80"
                                                     >
-                                                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70 mb-1.5 block font-medium">
-                                                            {cluster.label}
+                                                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground font-semibold mb-1.5 block">
+                                                             {cluster.label}
                                                         </span>
                                                         <div className="flex flex-wrap gap-1.5">
                                                             {cluster.items.map((tool) => (
                                                                 <Badge
                                                                     key={tool}
-                                                                    variant="secondary"
-                                                                    className="px-2 py-0.5 text-xs font-normal bg-secondary/40 text-secondary-foreground hover:bg-primary/10 hover:text-primary transition-colors border border-transparent hover:border-primary/20"
+                                                                    variant="outline"
+                                                                    className="px-2.5 py-0.5 text-xs font-medium bg-muted/60 text-foreground border-border/60 dark:bg-secondary/15 dark:text-foreground dark:border-border/40 hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-colors"
                                                                 >
                                                                     {tool}
                                                                 </Badge>
@@ -386,7 +363,7 @@ export default function Skills() {
                                                 {activeDomain.principles.map((principle, idx) => (
                                                     <div
                                                         key={idx}
-                                                        className="group flex items-start gap-2.5 rounded-xl border border-border/40 bg-background/40 p-2.5 sm:p-3 text-xs sm:text-[13px] text-foreground/90 transition-all hover:border-primary/30 hover:bg-background/80 hover:shadow-sm"
+                                                        className="group flex items-start gap-2.5 rounded-xl border border-border/60 bg-card/60 dark:bg-background/40 p-2.5 sm:p-3 text-xs sm:text-[13px] text-foreground transition-all hover:border-primary/30 hover:bg-card/90 dark:hover:bg-background/80 hover:shadow-sm"
                                                     >
                                                         <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5 group-hover:scale-110 transition-transform">
                                                             <CheckCircle2 size={11} />

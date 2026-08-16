@@ -202,7 +202,7 @@ export default function Hero() {
                 className="w-full grid grid-cols-2 lg:grid-cols-12 gap-3"
             >
                 {/* ===== Main Name Card ===== */}
-                <BentoCard className="col-span-2 lg:col-span-8 lg:row-span-2 flex flex-col justify-between" hasGlow reduceAnimations={shouldReduceAnimations}>
+                <BentoCard className="col-span-2 lg:col-span-8 lg:row-span-2 flex flex-col justify-between p-5 sm:p-6" hasGlow reduceAnimations={shouldReduceAnimations}>
                     <div>
                         {/* Status */}
                         <div className="flex items-center gap-2 mb-3">
@@ -210,7 +210,7 @@ export default function Hero() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            <span className="text-xs text-muted-foreground tracking-wide">Open to opportunities</span>
+                            <span className="text-xs text-muted-foreground tracking-wide font-medium">Open to opportunities</span>
                         </div>
 
                         {/* Name - Original CSS hover effect */}
@@ -227,14 +227,11 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    {/* Role & Description */}
-                    <div className="mt-3 space-y-2">
-                        <h2 className="text-lg sm:text-xl font-medium text-foreground/90">
-                            Data Analyst & Automation Specialist
+                    {/* Role Strip */}
+                    <div className="mt-4 pt-3 border-t border-border/40">
+                        <h2 className="text-base sm:text-lg font-medium text-foreground/90">
+                            AI / ML Engineer & Automation Specialist
                         </h2>
-                        <p className="text-muted-foreground leading-relaxed max-w-lg text-sm">
-                            Transforming complex data into actionable insights. Building automated solutions that drive efficiency.
-                        </p>
                     </div>
                 </BentoCard>
 

@@ -45,9 +45,6 @@ function MainContent() {
             <Projects />
           </Suspense>
 
-          {/* Gradient: Major portfolio boundary → Skills */}
-          <SectionDivider variant="gradient" />
-
           <Suspense fallback={<div className="min-h-[300px]" />}>
             <Skills />
           </Suspense>
