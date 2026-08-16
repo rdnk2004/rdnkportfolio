@@ -1,340 +1,441 @@
 "use client";
 
-import { useRef } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-    Terminal,
-    Database,
     BrainCircuit,
-    Server,
-    GitBranch,
+    Workflow,
+    Database,
+    BarChart3,
+    GraduationCap,
+    Sparkles,
+    ChevronRight,
+    ArrowUpRight,
+    CheckCircle2,
     Users,
-    Cpu
+    Layers,
+    ShieldCheck
 } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-// -----------------------------------------------------------------------------
-// DATA STRUCTURE
-// -----------------------------------------------------------------------------
+// ─── DOMAIN ROLE DEFINITIONS ──────────────────────────────────────────────────
 
-const CORE_ROLES = [
-    {
-        name: "Automation Engineer",
-        detail: "Designing end-to-end systems that eliminate repetitive manual workflows",
-        primary: true
-    },
-    {
-        name: "Data Analyst",
-        detail: "Transforming raw data into insights through structured analysis and reporting",
-        primary: true
-    },
-    {
-        name: "ML / AI Engineer",
-        detail: "Building applied machine learning pipelines with real-world datasets",
-        primary: true
-    },
-    {
-        name: "Backend Engineer",
-        detail: "APIs, authentication, and system logic powering automation and data products",
-        primary: false
-    }
-];
+interface SkillCluster {
+    label: string;
+    items: string[];
+}
 
-const TECH_CATEGORIES = [
-    {
-        id: "languages",
-        title: "Languages & Core",
-        icon: Terminal,
-        skills: ["Python", "JavaScript / TypeScript", "R", "SQL", "HTML / CSS"],
-    },
+interface DomainRole {
+    id: string;
+    name: string;
+    roleNumber: string;
+    icon: React.ElementType;
+    badge: string;
+    tagline: string;
+    color: {
+        accentText: string;
+        borderAccent: string;
+        bgActive: string;
+        pillBg: string;
+        glow: string;
+    };
+    skills: SkillCluster[];
+    principles: string[];
+    proof: string;
+}
+
+const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "ml",
-        title: "Machine Learning & AI / Data Science",
+        name: "ML / AI Engineer",
+        roleNumber: "01",
         icon: BrainCircuit,
+        badge: "Predictive & Explainable AI",
+        tagline: "Validated machine learning pipelines with explainability and strict evaluation",
+        color: {
+            accentText: "text-violet-400 dark:text-violet-400",
+            borderAccent: "border-violet-500/40",
+            bgActive: "bg-violet-500/10 dark:bg-violet-500/15",
+            pillBg: "bg-violet-500/10 text-violet-400 border-violet-500/30",
+            glow: "from-violet-500/20 via-violet-500/5 to-transparent"
+        },
         skills: [
-            "XGBoost",
-            "Prophet",
-            "SHAP (XAI)",
-            "scikit-learn",
-            "PyTorch",
-            "TensorFlow",
-            "Hugging Face",
-            "ResNet-50",
-            "MLflow",
-            "LLM APIs (Gemini & Claude)"
+            { label: "Core ML & XAI", items: ["scikit-learn", "XGBoost", "Prophet", "SHAP", "MLflow"] },
+            { label: "Deep Learning & Vision", items: ["PyTorch", "TensorFlow", "ResNet-50", "Computer Vision"] },
+            { label: "Applied AI & Validation", items: ["Gemini API", "Claude API", "Pydantic", "Walk-Forward CV"] }
         ],
+        principles: [
+            "Walk-forward (expanding-window) CV benchmarked against naive baselines before trusting a result",
+            "SHAP attribution used to compare model rationale against documented policy logic",
+            "F1 / precision-recall evaluation in place of misleading raw accuracy metrics",
+            "Transfer learning with early stopping and learning rate scheduling"
+        ],
+        proof: "NPA Early Warning System · Industrial Defect Classifier · CPI-MPC"
     },
     {
-        id: "backend",
-        title: "Web & Databases",
-        icon: Server,
+        id: "automation",
+        name: "Automation Engineer",
+        roleNumber: "02",
+        icon: Workflow,
+        badge: "Workflow Optimization",
+        tagline: "Finding the manual bottleneck, quantifying the time loss, and killing it",
+        color: {
+            accentText: "text-emerald-400 dark:text-emerald-400",
+            borderAccent: "border-emerald-500/40",
+            bgActive: "bg-emerald-500/10 dark:bg-emerald-500/15",
+            pillBg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+            glow: "from-emerald-500/20 via-emerald-500/5 to-transparent"
+        },
         skills: [
-            "FastAPI",
-            "Flask",
-            "Django",
-            "Node.js",
-            "PostgreSQL",
-            "MongoDB",
-            "Pydantic",
-            "pandera",
-            "JWT Auth"
+            { label: "Orchestration", items: ["n8n", "Docker", "Docker Compose", "GitHub Actions"] },
+            { label: "Scripting & Extraction", items: ["Playwright", "Python", "Pandas", "Streamlit"] },
+            { label: "Document Output", items: ["Excel & DOCX Automation", "ReportLab PDF", "FastAPI", "Gemini API"] }
         ],
+        principles: [
+            "Automated 15+ operational Excel reports at CAI Mahindra, cutting reporting turnaround by 97%",
+            "Cleaned unstructured Excel data and auto-split it dept/batch-wise for 1,400+ student marklists",
+            "Replaced ad-hoc data requests with a real-time KPI reporting tool for sales & operations",
+            "Scheduled multi-source synchronization via containerized n8n workflows"
+        ],
+        proof: "CAI Mahindra Automation · Marklist Processor (2hrs → 2min) · Career OS"
     },
     {
-        id: "devops",
-        title: "DevOps, Tooling & Automation",
-        icon: GitBranch,
+        id: "data-eng",
+        name: "Data Engineer",
+        roleNumber: "03",
+        icon: Database,
+        badge: "Data Infrastructure",
+        tagline: "Pipelines that reject bad data at ingestion instead of failing downstream",
+        color: {
+            accentText: "text-cyan-400 dark:text-cyan-400",
+            borderAccent: "border-cyan-500/40",
+            bgActive: "bg-cyan-500/10 dark:bg-cyan-500/15",
+            pillBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
+            glow: "from-cyan-500/20 via-cyan-500/5 to-transparent"
+        },
         skills: [
-            "Docker",
-            "GitHub Actions",
-            "Playwright",
-            "pytest",
-            "Streamlit",
-            "Git",
-            "Render",
-            "Excel & DOCX Automation"
+            { label: "Storage & Migrations", items: ["PostgreSQL", "SQLAlchemy (Async)", "Alembic", "asyncpg"] },
+            { label: "Validation & Ingestion", items: ["pandera", "Pydantic", "Playwright", "Docker"] },
+            { label: "Orchestration & Serving", items: ["n8n", "FastAPI", "GitHub Actions"] }
         ],
-    },
-];
-
-const ENGINEERING_CAPABILITIES = [
-    "Stationarity & Time Series Testing",
-    "Walk-Forward Cross-Validation",
-    "LLM Stated-vs-Model Rationale Analysis",
-    "Panel Econometrics & Fixed Effects",
-    "Data Validation (pandera & Pydantic)",
-    "REST API & RBAC Architecture",
-    "Web Scraping (Playwright)",
-    "Bootstrap Risk & Confidence Intervals",
-    "Workflow & Excel Automation",
-];
-
-const LEADERSHIP_IMPACT = [
-    {
-        metric: "5+",
-        title: "Hackathons Led",
-        detail: "Owned technical direction and delivery"
+        principles: [
+            "Schema-enforced data contracts (pandera) that isolate ingestion errors instead of hiding them",
+            "Async, connection-pooled Postgres pipelines with version-controlled Alembic migrations",
+            "Headless Playwright extraction from JS-rendered sources into structured datasets",
+            "Multi-source sync (GitHub, ATS boards, LinkedIn) orchestrated through containerized n8n workflows"
+        ],
+        proof: "CPI-MPC Data Pipeline · Career OS Multi-Source Sync"
     },
     {
-        metric: "1",
-        title: "Academic System Led",
-        detail: "Core developer for college automation platform"
+        id: "data-analyst",
+        name: "Data Analyst",
+        roleNumber: "04",
+        icon: BarChart3,
+        badge: "Statistical Rigor",
+        tagline: "Statistical rigor over surface correlations — extracting verified signals from raw data",
+        color: {
+            accentText: "text-sky-400 dark:text-sky-400",
+            borderAccent: "border-sky-500/40",
+            bgActive: "bg-sky-500/10 dark:bg-sky-500/15",
+            pillBg: "bg-sky-500/10 text-sky-400 border-sky-500/30",
+            glow: "from-sky-500/20 via-sky-500/5 to-transparent"
+        },
+        skills: [
+            { label: "Languages & Querying", items: ["Python", "SQL", "R", "pandas", "NumPy"] },
+            { label: "Statistics & Econometrics", items: ["statsmodels", "ADF / STL Tests", "Bootstrap CIs", "Granger Causality"] },
+            { label: "Visualization & EDA", items: ["Streamlit", "Matplotlib", "Seaborn", "Exploratory Analysis"] }
+        ],
+        principles: [
+            "Stationarity testing (ADF + differencing) to catch spurious causality before reporting it",
+            "Bootstrap confidence intervals and breach probabilities in place of bare point forecasts",
+            "Fixed-effects panel econometric modeling across entity-year groups",
+            "Built dealership-level conversion metrics from a raw sales funnel at CAI Mahindra"
+        ],
+        proof: "CPI-MPC Analytics · NPA Early Warning System · CAI Mahindra ETBR Funnel"
     },
     {
-        metric: "30+",
-        title: "Peers Mentored",
-        detail: "Guided students in Advanced Excel and tooling"
-    },
-    {
-        metric: "4+",
-        title: "Events Organized",
-        detail: "Led ideathons and judged tech competitions"
+        id: "mentor",
+        name: "Mentor & Team Lead",
+        roleNumber: "05",
+        icon: GraduationCap,
+        badge: "Leadership & Culture",
+        tagline: "Building people and pipelines at the same time",
+        color: {
+            accentText: "text-rose-400 dark:text-rose-400",
+            borderAccent: "border-rose-500/40",
+            bgActive: "bg-rose-500/10 dark:bg-rose-500/15",
+            pillBg: "bg-rose-500/10 text-rose-400 border-rose-500/30",
+            glow: "from-rose-500/20 via-rose-500/5 to-transparent"
+        },
+        skills: [
+            { label: "Team Leadership", items: ["Hackathon Team Leadership", "Event Ideation & Judging", "Cross-Functional Coordination"] },
+            { label: "Mentorship & Coaching", items: ["Peer Mentoring", "Excel & Engineering Tooling Coaching", "Onboarding Juniors"] },
+            { label: "Delivery & Rollouts", items: ["Academic Platform Development", "Stakeholder Alignment", "Faculty & Admin Rollouts"] }
+        ],
+        principles: [
+            "Led 5+ hackathon teams from ideation through technical delivery under time pressure",
+            "Mentored 30+ peers on advanced Excel and engineering tooling",
+            "Organized and judged 4+ campus events and ideathons",
+            "Drove adoption of an academic automation platform across faculty and administrative staff"
+        ],
+        proof: "5+ Hackathons Led · 30+ Peers Mentored · Academic Platform Led"
     }
 ];
 
-// -----------------------------------------------------------------------------
-// COMPONENTS
-// -----------------------------------------------------------------------------
+const LEADERSHIP_METRICS = [
+    { value: "5+", label: "Hackathons Led", detail: "Technical direction & delivery" },
+    { value: "1", label: "Academic Platform Led", detail: "Core developer for university-wide system" },
+    { value: "30+", label: "Peers Mentored", detail: "Advanced Excel & engineering tooling" },
+    { value: "4+", label: "Tech Events Organized", detail: "Ideathons judged & competitions led" }
+];
 
-const MotionDiv = motion.div;
-
-const RoleCard = ({ name, detail, primary, index }: { name: string; detail: string; primary: boolean; index: number }) => (
-    <MotionDiv
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className={cn(
-            "group relative overflow-hidden rounded-2xl border p-6 backdrop-blur-sm transition-all duration-500",
-            primary
-                ? "border-primary/20 bg-primary/5 hover:border-primary/40 hover:bg-primary/10 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5"
-                : "border-border/40 bg-card/40 hover:border-border/60 hover:bg-card/60 hover:-translate-y-1"
-        )}
-    >
-        {/* Subtle Gradient Glow */}
-        {primary && (
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        )}
-
-        <div className="relative z-10 flex flex-col justify-between h-full">
-            <div>
-                <h3 className={cn(
-                    "text-lg font-bold tracking-tight mb-2 transition-colors",
-                    primary ? "text-foreground group-hover:text-primary" : "text-muted-foreground group-hover:text-foreground"
-                )}>
-                    {name}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                    {detail}
-                </p>
-            </div>
-        </div>
-    </MotionDiv>
-);
-
-const TechCategory = ({ title, icon: Icon, skills, index }: { title: string; icon: React.ElementType; skills: string[]; index: number }) => (
-    <MotionDiv
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
-        className="flex flex-col space-y-4 rounded-2xl border border-border/40 bg-card/30 p-6 backdrop-blur-sm hover:bg-card/50 transition-colors hover:border-border/60"
-    >
-        <div className="flex items-center gap-3 border-b border-border/40 pb-3">
-            <div className="p-2 rounded-xl bg-primary/10 text-primary">
-                <Icon size={18} />
-            </div>
-            <h4 className="text-base font-semibold tracking-wide text-foreground">{title}</h4>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-            {skills.map((skill: string) => (
-                <Badge
-                    key={skill}
-                    variant="secondary"
-                    className="px-2.5 py-1 font-medium bg-secondary/40 text-secondary-foreground/80 hover:bg-secondary/60 hover:text-secondary-foreground transition-colors cursor-default border-transparent hover:border-border/50"
-                >
-                    {skill}
-                </Badge>
-            ))}
-        </div>
-    </MotionDiv>
-);
-
-const CapabilityPill = ({ text, index }: { text: string; index: number }) => (
-    <MotionDiv
-        initial={{ opacity: 0, x: -10 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.3, delay: 0.4 + (index * 0.05) }}
-        className="px-3 py-1.5 rounded-full border border-border/40 bg-background/50 text-xs text-muted-foreground font-medium hover:text-foreground hover:border-primary/30 hover:bg-primary/5 transition-all cursor-default"
-    >
-        {text}
-    </MotionDiv>
-);
-
-const LeadershipCard = ({ metric, title, detail, index }: { metric: string; title: string; detail: string; index: number }) => (
-    <MotionDiv
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: 0.5 + (index * 0.1) }}
-        className="flex flex-col gap-2 rounded-2xl border border-border/30 bg-card/20 p-5 hover:bg-card/40 transition-colors backdrop-blur-sm"
-    >
-        <span className="text-4xl sm:text-5xl font-headline font-bold text-primary/90 tabular-nums tracking-tight">
-            {metric}
-        </span>
-        <div>
-            <span className="block text-sm font-bold text-foreground mb-1">{title}</span>
-            <span className="text-xs text-muted-foreground leading-snug block font-light">{detail}</span>
-        </div>
-    </MotionDiv>
-);
-
-// -----------------------------------------------------------------------------
-// MAIN SECTION
-// -----------------------------------------------------------------------------
+// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 
 export default function Skills() {
-    const containerRef = useRef(null);
+    const [selectedRoleId, setSelectedRoleId] = useState<string>("ml");
+    const activeDomain = DOMAIN_ROLES.find((r) => r.id === selectedRoleId) || DOMAIN_ROLES[0];
+    const ActiveIcon = activeDomain.icon;
 
     return (
-        <section id="skills" className="py-16 relative overflow-hidden">
-            {/* Subtle decorative background gradient */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-30 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 opacity-30 pointer-events-none" />
+        <section id="skills" className="py-16 sm:py-20 relative overflow-hidden">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-1/3 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute bottom-10 -left-24 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none -z-10" />
 
-            {/* Icon Decoration */}
-            <div className="absolute top-10 right-10 p-12 opacity-[0.03] pointer-events-none select-none rotate-12">
-                <Cpu size={300} />
-            </div>
-
-            <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-6xl" ref={containerRef}>
+            <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-6xl">
                 <SectionHeading>Competencies & Impact</SectionHeading>
 
                 <motion.p
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-2xl text-muted-foreground -mt-4 mb-12 text-lg leading-relaxed font-light"
+                    className="max-w-2xl mx-auto text-center text-muted-foreground -mt-2 mb-12 text-base sm:text-lg leading-relaxed font-light"
                 >
-                    My engineering approach is defined by <span className="text-foreground font-medium">automation</span>,
-                    <span className="text-foreground font-medium"> data-driven decisions</span>, and
-                    <span className="text-foreground font-medium"> measurable impact</span>.
+                    Click any domain row to slide through the technical arsenal, applied principles, and verified track record.
                 </motion.p>
 
-                {/* 1. IDENTITY: Target Roles */}
-                <div className="mb-14">
-                    <motion.h3
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-6 pl-1 flex items-center gap-2"
-                    >
-                        <span className="w-8 h-[1px] bg-primary/50 inline-block" />
-                        Core Roles
-                    </motion.h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {CORE_ROLES.map((role, idx) => (
-                            <RoleCard key={role.name} {...role} index={idx} />
-                        ))}
+                {/* ── FLUID HORIZONTAL MASTER-DETAIL INTERFACE ─────────────────── */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mb-14">
+                    
+                    {/* LEFT: HORIZONTAL ROLE ROWS (4 COLS) */}
+                    <div className="lg:col-span-4 flex flex-col gap-2.5">
+                        <div className="text-xs font-mono font-semibold uppercase tracking-widest text-muted-foreground mb-1 pl-1 flex items-center justify-between">
+                            <span>Core Domains</span>
+                            <span>{DOMAIN_ROLES.length} Roles</span>
+                        </div>
+
+                        {DOMAIN_ROLES.map((role) => {
+                            const Icon = role.icon;
+                            const isSelected = role.id === selectedRoleId;
+
+                            return (
+                                <motion.button
+                                    key={role.id}
+                                    onClick={() => setSelectedRoleId(role.id)}
+                                    whileHover={{ x: 3 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    className={cn(
+                                        "group relative w-full text-left rounded-2xl p-4 transition-all duration-200 border flex items-center justify-between overflow-hidden",
+                                        isSelected
+                                            ? cn("border-border shadow-lg", role.color.bgActive, role.color.borderAccent)
+                                            : "bg-card/30 border-border/40 hover:bg-card/60 hover:border-border/60"
+                                    )}
+                                >
+                                    {/* Left Accent Bar on Selected */}
+                                    {isSelected && (
+                                        <motion.div
+                                            layoutId="activeRowBar"
+                                            className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"
+                                            transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                                        />
+                                    )}
+
+                                    <div className="flex items-center gap-3.5 pl-1.5">
+                                        <div
+                                            className={cn(
+                                                "p-2.5 rounded-xl border transition-colors shrink-0",
+                                                isSelected
+                                                    ? cn("bg-background/80", role.color.borderAccent, role.color.accentText)
+                                                    : "bg-background/40 border-border/40 text-muted-foreground group-hover:text-foreground group-hover:bg-background/70"
+                                            )}
+                                        >
+                                            <Icon size={18} />
+                                        </div>
+
+                                        <div>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[11px] font-mono text-muted-foreground/70">
+                                                    {role.roleNumber}
+                                                </span>
+                                                <h4 className={cn(
+                                                    "text-sm font-semibold transition-colors leading-tight",
+                                                    isSelected ? "text-foreground font-bold" : "text-foreground/80 group-hover:text-foreground"
+                                                )}>
+                                                    {role.name}
+                                                </h4>
+                                            </div>
+                                            <span className="text-[11px] text-muted-foreground font-light line-clamp-1 mt-0.5">
+                                                {role.badge}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <ChevronRight
+                                        size={16}
+                                        className={cn(
+                                            "transition-transform duration-200 shrink-0",
+                                            isSelected ? "translate-x-0.5 text-primary opacity-100" : "text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 opacity-60"
+                                        )}
+                                    />
+                                </motion.button>
+                            );
+                        })}
+                    </div>
+
+                    {/* RIGHT: SLIDING DETAIL STAGE (8 COLS) */}
+                    <div className="lg:col-span-8">
+                        <div className="relative rounded-3xl border border-border/60 bg-card/40 backdrop-blur-md shadow-xl shadow-black/5 overflow-hidden min-h-[500px]">
+                            {/* Ambient Top Glow Line */}
+                            <div className={cn("h-1 w-full bg-gradient-to-r", activeDomain.color.glow)} />
+
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeDomain.id}
+                                    initial={{ opacity: 0, x: -25 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 25 }}
+                                    transition={{ duration: 0.24, ease: "easeOut" }}
+                                    className="p-6 sm:p-8 space-y-8"
+                                >
+                                    {/* ── ROW 1: HEADER & DELIVERABLE PROOF ── */}
+                                    <div className="space-y-3 pb-6 border-b border-border/40">
+                                        <div className="flex flex-wrap items-center justify-between gap-3">
+                                            <div className="flex items-center gap-2.5">
+                                                <div className={cn("p-2 rounded-lg border bg-background/60", activeDomain.color.borderAccent, activeDomain.color.accentText)}>
+                                                    <ActiveIcon size={20} />
+                                                </div>
+                                                <div>
+                                                    <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Domain {activeDomain.roleNumber}</span>
+                                                    <h3 className="text-xl sm:text-2xl font-headline font-bold text-foreground">
+                                                        {activeDomain.name}
+                                                    </h3>
+                                                </div>
+                                            </div>
+
+                                            <span className={cn("text-xs font-mono font-medium px-3 py-1 rounded-full border", activeDomain.color.pillBg)}>
+                                                {activeDomain.badge}
+                                            </span>
+                                        </div>
+
+                                        <p className="text-base sm:text-lg font-headline italic text-foreground/90 leading-relaxed pt-1">
+                                            &ldquo;{activeDomain.tagline}&rdquo;
+                                        </p>
+
+                                        {/* Proof Pill */}
+                                        <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-background/60 border border-border/40 text-xs text-muted-foreground">
+                                            <Sparkles size={13} className={cn("shrink-0", activeDomain.color.accentText)} />
+                                            <span>
+                                                Verified in: <strong className="text-foreground font-semibold">{activeDomain.proof}</strong>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* ── ROW 2: TECHNICAL ARSENAL (FULL WIDTH ROW FLOW) ── */}
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground">
+                                            <Layers size={14} className={activeDomain.color.accentText} />
+                                            <span>Technical Arsenal & Tooling</span>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            {activeDomain.skills.map((cluster) => (
+                                                <div
+                                                    key={cluster.label}
+                                                    className="rounded-2xl border border-border/40 bg-background/40 p-4 transition-colors hover:bg-background/70 hover:border-border/60"
+                                                >
+                                                    <div className="text-[11px] font-mono text-muted-foreground mb-2 flex items-center justify-between font-medium">
+                                                        <span className="uppercase tracking-wider">{cluster.label}</span>
+                                                        <span className="text-[10px] text-muted-foreground/60">{cluster.items.length} tools</span>
+                                                    </div>
+                                                    <div className="flex flex-wrap gap-1.5">
+                                                        {cluster.items.map((tool) => (
+                                                            <Badge
+                                                                key={tool}
+                                                                variant="secondary"
+                                                                className="px-2.5 py-1 text-xs font-normal bg-secondary/40 text-secondary-foreground hover:bg-primary/10 hover:text-primary transition-colors border border-transparent hover:border-primary/20"
+                                                            >
+                                                                {tool}
+                                                            </Badge>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* ── ROW 3: PRINCIPLES & METHODOLOGY (FULL WIDTH ROW FLOW) ── */}
+                                    <div className="space-y-3 pt-2">
+                                        <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground">
+                                            <ShieldCheck size={14} className={activeDomain.color.accentText} />
+                                            <span>{activeDomain.id === "mentor" ? "Track Record & Outcomes" : "Engineering Principles & Execution"}</span>
+                                        </div>
+
+                                        <div className="space-y-2.5">
+                                            {activeDomain.principles.map((principle, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="group flex items-start gap-3.5 rounded-2xl border border-border/40 bg-background/40 p-4 text-xs sm:text-sm text-foreground/90 transition-all hover:border-primary/30 hover:bg-background/80 hover:shadow-sm"
+                                                >
+                                                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5 group-hover:scale-110 transition-transform">
+                                                        <span className="text-[10px] font-mono font-bold">0{idx + 1}</span>
+                                                    </div>
+                                                    <span className="leading-relaxed font-light">
+                                                        {principle}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
                     </div>
                 </div>
 
-                {/* 2. TOOLBOX: Technical Skills */}
-                <div className="mb-14">
-                    <motion.h3
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-6 pl-1 flex items-center gap-2"
-                    >
-                        <span className="w-8 h-[1px] bg-primary/50 inline-block" />
-                        Technical Arsenal
-                    </motion.h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {TECH_CATEGORIES.map((cat, idx) => (
-                            <TechCategory key={cat.id} {...cat} index={idx} />
+                {/* ── 3. LEADERSHIP & INITIATIVE METRICS STRIP ─────────────────── */}
+                <div className="border-t border-border/40 pt-10">
+                    <div className="flex items-center gap-2 mb-6">
+                        <Users size={16} className="text-primary" />
+                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground">
+                            Leadership & Initiative Metrics
+                        </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {LEADERSHIP_METRICS.map((metric, idx) => (
+                            <motion.div
+                                key={metric.label}
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.35, delay: idx * 0.08 }}
+                                className="group flex flex-col justify-between rounded-2xl border border-border/40 bg-card/25 p-5 hover:bg-card/50 hover:border-border/70 transition-all duration-300 backdrop-blur-sm"
+                            >
+                                <span className="block text-3xl sm:text-4xl font-headline font-bold text-primary tabular-nums tracking-tight mb-2 group-hover:scale-105 transition-transform origin-left">
+                                    {metric.value}
+                                </span>
+                                <div>
+                                    <span className="block text-xs sm:text-sm font-bold text-foreground mb-1 leading-snug">
+                                        {metric.label}
+                                    </span>
+                                    <span className="block text-[11px] text-muted-foreground font-light leading-relaxed">
+                                        {metric.detail}
+                                    </span>
+                                </div>
+                            </motion.div>
                         ))}
-                    </div>
-                </div>
-
-                {/* 3. METHODOLOGY + PROOF: Split Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 border-t border-border/40 pt-12">
-
-                    {/* Methodology (Left - 4 cols) */}
-                    <div className="col-span-1 lg:col-span-4">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                <BrainCircuit size={20} />
-                            </div>
-                            <h3 className="text-lg font-bold text-foreground">Engineering Principles</h3>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-8 leading-relaxed font-light">
-                            Practical concepts I apply to build robust, scalable, and maintainable systems.
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                            {ENGINEERING_CAPABILITIES.map((cap, idx) => (
-                                <CapabilityPill key={cap} text={cap} index={idx} />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Proof (Right - 8 cols) */}
-                    <div className="col-span-1 lg:col-span-8">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                <Users size={20} />
-                            </div>
-                            <h3 className="text-lg font-bold text-foreground">Leadership Metrics</h3>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {LEADERSHIP_IMPACT.map((item, idx) => (
-                                <LeadershipCard key={item.title} {...item} index={idx} />
-                            ))}
-                        </div>
                     </div>
                 </div>
             </div>
