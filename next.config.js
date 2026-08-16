@@ -20,6 +20,18 @@ const nextConfig = {
     // optimizeCss requires 'critters' package - disabled to avoid build errors
     // CSS is already optimized through Tailwind and Next.js defaults
     scrollRestoration: true,
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      'date-fns',
+      'recharts',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-tooltip',
+      'clsx',
+      'tailwind-merge'
+    ],
   },
 
   // Turbopack configuration
