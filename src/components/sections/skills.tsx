@@ -43,8 +43,8 @@ interface DomainRole {
 const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "ml",
-        name: "ML / AI Engineer",
-        shortTitle: "ML / AI",
+        name: "ML Engineer",
+        shortTitle: "ML",
         icon: BrainCircuit,
         badge: "Predictive & Explainable AI",
         color: {
