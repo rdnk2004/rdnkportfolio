@@ -5,16 +5,25 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../ui/card";
 import { SectionHeading } from "../ui/section-heading";
-import { Github, ExternalLink, X, AlertTriangle, Lightbulb, TrendingUp, CheckCircle2 } from "lucide-react";
+import { Github, ExternalLink, X, AlertTriangle, Lightbulb, TrendingUp, CheckCircle2, BrainCircuit, Workflow, Database, Layers } from "lucide-react";
 import { HuggingFaceIcon } from "@/components/ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { useLenis } from "@/hooks/use-lenis-context";
 import { createPortal } from "react-dom";
+import { cn } from "@/lib/utils";
+
+const CATEGORIES = [
+  { id: "all", label: "All Projects", icon: Layers, count: 9 },
+  { id: "ml", label: "Machine Learning & AI", icon: BrainCircuit, count: 3 },
+  { id: "automation", label: "Workflow Automation", icon: Workflow, count: 3 },
+  { id: "systems", label: "Data & Systems", icon: Database, count: 3 },
+] as const;
 
 const projectData = [
   {
     id: 1,
+    category: "ml",
     title: "CPI-MPC: RBI Rate Decision Analytics Pipeline",
     metadata: "Data Engineering | ML/AI | Economic Analytics",
     oneLiner: "End-to-end pipeline analyzing 13 years of India's CPI inflation against RBI rate decisions — caught and corrected 3 methodological errors, then extended with an LLM-based comparison of real RBI policy documents against model reasoning.",
@@ -30,6 +39,7 @@ const projectData = [
   },
   {
     id: 2,
+    category: "ml",
     title: "NPA-EWS: RBI Bank Asset Quality Early Warning System",
     metadata: "Data Science | Explainable AI | SupTech",
     oneLiner: "Panel-econometrics + ML early-warning system for Indian bank NPAs — walk-forward validation revealed the 'sophisticated' model lost to a naive baseline, reframed the whole tool around driver identification and probabilistic risk instead, then shipped it as a tested API with an LLM-generated risk narrative.",
@@ -45,6 +55,7 @@ const projectData = [
   },
   {
     id: 3,
+    category: "automation",
     title: "Career OS: Autonomous Career Automation & Optimization Platform",
     metadata: "Full Stack | AI Engineering | Workflow Automation",
     oneLiner: "Self-hosted AI career operating system connecting LinkedIn, GitHub, and live ATS boards (Greenhouse, Lever, Ashby) to automate profile optimization, repository security audits, ATS resume PDF generation, and Gemini API skill-gap matrix analysis.",
@@ -61,6 +72,7 @@ const projectData = [
   },
   {
     id: 4,
+    category: "systems",
     title: "Nexus Task Tracker: Lightweight Project & Activity Engine",
     metadata: "Project Management | Full Stack | Microservices",
     oneLiner: "Containerized project management tool built for small teams — featuring secure JWT authentication, multi-project task workflows, live activity audit feeds, and Nginx reverse proxy routing.",
@@ -76,6 +88,7 @@ const projectData = [
   },
   {
     id: 5,
+    category: "automation",
     title: "Automated Semester Marklist Processing System",
     metadata: "Controller of Examinations | In-House | Active",
     oneLiner: "Automated semester marklist processing for 1,400+ students, reducing manual effort from 2+ hours to under 2 minutes.",
@@ -91,6 +104,7 @@ const projectData = [
   },
   {
     id: 6,
+    category: "systems",
     title: "Smart Academic Documentation & Result Analysis Automation",
     metadata: "University Academic Portal | Capstone Project",
     oneLiner: "Built and led the development of an academic portal enabling real-time result analysis and automated faculty workflows.",
@@ -106,6 +120,7 @@ const projectData = [
   },
   {
     id: 7,
+    category: "automation",
     title: "Event Report Automated Generator",
     metadata: "In-House | Actively Used by Faculty",
     oneLiner: "Automated academic event report creation, cutting documentation time from hours to minutes.",
@@ -121,6 +136,7 @@ const projectData = [
   },
   {
     id: 8,
+    category: "ml",
     title: "Anomaly Detection System for Industrial Defect Classification",
     metadata: "Deep Learning | ResNet-50",
     oneLiner: "Developed a deep learning–based defect detection system achieving up to 94% classification accuracy.",
@@ -136,6 +152,7 @@ const projectData = [
   },
   {
     id: 9,
+    category: "systems",
     title: "Data-Driven Wellness Analysis: Impact of Yoga Practice",
     metadata: "Exploratory Data Analysis",
     oneLiner: "Analyzed wellness survey data to identify measurable mental and physical benefits of yoga practice.",
@@ -154,6 +171,7 @@ const projectData = [
 export default function Projects() {
   const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projectData[0] | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const ref = useRef<HTMLDivElement>(null);
 
   const lenis = useLenis();
@@ -196,41 +214,85 @@ export default function Projects() {
     };
   }, [selectedProject, lenis]);
 
+  const filteredProjects = activeCategory === "all"
+    ? projectData
+    : projectData.filter((p) => p.category === activeCategory);
 
   return (
     <>
       <section id="projects" className="py-6 sm:py-8 lg:py-10 relative">
         <SectionHeading>Projects</SectionHeading>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-          {projectData.map((project) => (
-            <motion.div
-              key={project.id}
-              layoutId={`proj-card-${project.id}`}
-              onClick={() => setSelectedProject(project)}
-              className="cursor-pointer"
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            >
-              <Card className="bg-card/50 border border-border/40 h-full shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 flex flex-col justify-between">
-                <div>
-                  <CardHeader>
-                    <motion.div layoutId={`metadata-${project.id}`} className="text-xs font-mono text-muted-foreground mb-3 tracking-wide border-l-2 border-primary/20 pl-2">{project.metadata}</motion.div>
-                    <motion.div layoutId={`title-${project.id}`} className="font-bold text-xl mb-1 text-foreground group-hover:text-primary transition-colors">{project.title}</motion.div>
-                  </CardHeader>
-                  <CardContent>
-                    <motion.p layoutId={`oneliner-${project.id}`} className="text-muted-foreground text-sm leading-relaxed">{project.oneLiner}</motion.p>
-                  </CardContent>
-                </div>
-                <CardFooter>
-                  <div className="flex flex-wrap gap-2">
-                    {project.skills.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs font-normal text-muted-foreground border-white/10 bg-transparent">{tag}</Badge>
-                    ))}
-                  </div>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
+
+        {/* Category Filter Segmented Control */}
+        <div className="flex justify-center mb-8 sm:mb-10 px-2">
+          <div className="inline-flex p-1 sm:p-1.5 rounded-2xl bg-card/60 dark:bg-card/30 backdrop-blur-md border border-border/40 dark:border-border/25 shadow-sm gap-1 overflow-x-auto max-w-full">
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat.id;
+              const Icon = cat.icon;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={cn(
+                    "relative flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors duration-200 shrink-0 cursor-pointer select-none",
+                    isActive
+                      ? "text-primary font-semibold"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                  )}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeProjectTab"
+                      className="absolute inset-0 rounded-xl bg-primary/10 border border-primary/25 shadow-sm"
+                      transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Icon className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0", isActive ? "text-primary" : "text-muted-foreground")} />
+                    <span className="whitespace-nowrap">{cat.label}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
+
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25 }}
+                onClick={() => setSelectedProject(project)}
+                className="cursor-pointer"
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              >
+                <Card className="bg-card/50 border border-border/40 h-full shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 flex flex-col justify-between">
+                  <div>
+                    <CardHeader>
+                      <div className="text-xs font-mono text-muted-foreground mb-3 tracking-wide border-l-2 border-primary/20 pl-2">{project.metadata}</div>
+                      <div className="font-bold text-xl mb-1 text-foreground group-hover:text-primary transition-colors">{project.title}</div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{project.oneLiner}</p>
+                    </CardContent>
+                  </div>
+                  <CardFooter>
+                    <div className="flex flex-wrap gap-2">
+                      {project.skills.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs font-normal text-muted-foreground border-white/10 bg-transparent">{tag}</Badge>
+                      ))}
+                    </div>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </section>
 
       {/* Modal rendered via Portal to escape parent stacking contexts and ensure true viewport centering */}
