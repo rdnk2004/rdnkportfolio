@@ -10,6 +10,19 @@ import { Maximize2 } from "lucide-react";
 
 const awardsData = [
   {
+    name: "Second Prize – Nexyra 24H Hackathon",
+    institution: "Nirmala College, Muvattupuzha",
+    date: "September 2026",
+    note: "Secured 2nd prize in the 24-hour hackathon, building an AI-powered prototype for skill gap analysis, job matching, and personalized learning paths",
+    image: "/awards/nexyra-hackathon.png",
+    link: "https://lnkd.in/p/emGcx_3M",
+    linkText: "Story behind this recognition →",
+    imageProps: {
+      sizes: "100vw",
+      style: { objectPosition: "center 25%" }
+    }
+  },
+  {
     name: "University 3rd Rank",
     institution: "Bharathiar University",
     date: "October 2025",
