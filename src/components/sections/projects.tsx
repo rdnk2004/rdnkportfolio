@@ -14,15 +14,65 @@ import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = [
-  { id: "all", label: "All Projects", icon: Layers, count: 9 },
-  { id: "ml", label: "Machine Learning & AI", icon: BrainCircuit, count: 3 },
+  { id: "all", label: "All Projects", icon: Layers, count: 11 },
+  { id: "ml", label: "Machine Learning & AI", icon: BrainCircuit, count: 4 },
   { id: "automation", label: "Workflow Automation", icon: Workflow, count: 3 },
-  { id: "systems", label: "Data & Systems", icon: Database, count: 3 },
+  { id: "systems", label: "Data & Systems", icon: Database, count: 4 },
 ] as const;
 
-const projectData = [
+interface ProjectItem {
+  id: number;
+  category: "ml" | "automation" | "systems";
+  status?: string;
+  title: string;
+  metadata: string;
+  oneLiner: string;
+  skills: string[];
+  problem: string;
+  solution: string;
+  impact: string[];
+  link: string;
+}
+
+const projectData: ProjectItem[] = [
   {
     id: 1,
+    category: "ml",
+    status: "Ongoing",
+    title: "NyayaSetu: Multi-Agent Legal Reasoning & Verification Engine",
+    metadata: "Multi-Agent Systems | Legal NLP | Zero-Hallucination AI",
+    oneLiner: "10-agent autonomous legal intelligence pipeline for Indian law enforcing zero-hallucination statutory grounding, adversarial debate mechanisms, and automatic citation reverification fallbacks.",
+    skills: ["Python", "Multi-Agent Systems", "RAG", "ChromaDB", "Pydantic", "State Machines", "PII Redaction", "pytest", "GitHub Actions"],
+    problem: "Citizens struggle to interpret complex legal rights, while general-purpose LLMs routinely hallucinate non-existent statutory sections, misattribute precedent, or pull generic statutory provisions when presented with free-form consumer disputes.",
+    solution: "Engineered a stateful 10-agent pipeline with a resumable multi-turn orchestrator. Incorporated an Adversarial Debate Mechanism to evaluate statutory grey zones, isolated specific legal questions during intake to prevent retrieval dilution, and built an automated citation verifier with fail-safe discarding that reverts ungrounded critic rewrites to verified baselines.",
+    impact: [
+      "Architected 10 specialized agents coordinated via a state-machine orchestrator with typed Pydantic contracts and PII redaction",
+      "Eliminated retrieval dilution by decomposing intake into transaction facts and isolated legal questions, focusing retrieval to exact statutory clauses (e.g., Section 39(1))",
+      "Engineered fail-safe citation re-verification (reverify_answer_citations) detecting ungrounded section leaks in adversarial critic outputs and safely falling back to verified text",
+      "Established an evaluation suite distinguishing unit-tested skeletons from real-API validated agent runs with zero-hallucination invariants"
+    ],
+    link: "https://github.com/rdnk2004/NyayaSetu-Multi-Agent"
+  },
+  {
+    id: 2,
+    category: "systems",
+    status: "Ongoing",
+    title: "Aspire AI: Enterprise Multi-Tenant Talent Engine & Code Sandbox",
+    metadata: "Lead Platform Architect | Next.js 15 | FastAPI | Distributed Systems",
+    oneLiner: "Production SaaS platform spanning 17 Next.js 15 routes, dual-engine PostgreSQL persistence, an AST-hardened code execution sandbox, SHA-256 cryptographic credentialing, and live WebSocket collaboration.",
+    skills: ["Next.js 15", "TypeScript", "FastAPI", "SQLAlchemy 2.0", "Alembic", "PostgreSQL", "WebSockets", "Stripe & Razorpay", "Docker"],
+    problem: "Traditional hiring platforms lack verifiable proof-of-work, rely on vulnerable client-side evaluations, and lack multi-tenant data isolation, real-time recruiter collaboration, and enterprise billing infrastructure.",
+    solution: "Architected a hardened multi-tenant SaaS platform across 4 roles (Student, Employer, Admin, Public). Engineered an isolated code execution sandbox with AST security inspection and EXPLAIN QUERY PLAN telemetry, an immutable SHA-256 credential ledger, dual payment gateways (Stripe + Razorpay) with HMAC-SHA256 webhook listeners, and tenant-isolated WebSockets for collaborative hiring.",
+    impact: [
+      "Shipped 17 Next.js 15 App Router routes with a responsive dark-mode design system and public zero-auth verification portal (/verify/[hash])",
+      "Engineered isolated Python/SQL execution sandbox with custom AST security analyzer blocking dangerous syscalls and running 50k-row benchmarks",
+      "Implemented dual-gateway billing (Razorpay + Stripe) with HMAC signature validation, webhook idempotency, and automated HTTP 402 tenant quota enforcement",
+      "Built tenant-isolated WebSocket connection manager for live peer presence, Kanban board transitions, and multi-reviewer consensus scorecards backed by 117/117 passing tests"
+    ],
+    link: "https://github.com/annampaul27/Aspire"
+  },
+  {
+    id: 3,
     category: "ml",
     title: "CPI-MPC: RBI Rate Decision Analytics Pipeline",
     metadata: "Data Engineering | ML/AI | Economic Analytics",
@@ -38,7 +88,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/cpi-mpc"
   },
   {
-    id: 2,
+    id: 4,
     category: "ml",
     title: "NPA-EWS: RBI Bank Asset Quality Early Warning System",
     metadata: "Data Science | Explainable AI | SupTech",
@@ -54,7 +104,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/NPA-RBI"
   },
   {
-    id: 3,
+    id: 5,
     category: "automation",
     title: "Career OS: Autonomous Career Automation & Optimization Platform",
     metadata: "Full Stack | AI Engineering | Workflow Automation",
@@ -71,7 +121,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/automated-career"
   },
   {
-    id: 4,
+    id: 6,
     category: "systems",
     title: "Nexus Task Tracker: Lightweight Project & Activity Engine",
     metadata: "Project Management | Full Stack | Microservices",
@@ -87,7 +137,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/nutmeg-tasktracker"
   },
   {
-    id: 5,
+    id: 7,
     category: "automation",
     title: "Automated Semester Marklist Processing System",
     metadata: "Controller of Examinations | In-House | Active",
@@ -103,7 +153,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Mark-Splitting"
   },
   {
-    id: 6,
+    id: 8,
     category: "systems",
     title: "Smart Academic Documentation & Result Analysis Automation",
     metadata: "University Academic Portal | Capstone Project",
@@ -119,7 +169,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/College-Website"
   },
   {
-    id: 7,
+    id: 9,
     category: "automation",
     title: "Event Report Automated Generator",
     metadata: "In-House | Actively Used by Faculty",
@@ -135,7 +185,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/Report"
   },
   {
-    id: 8,
+    id: 10,
     category: "ml",
     title: "Anomaly Detection System for Industrial Defect Classification",
     metadata: "Deep Learning | ResNet-50",
@@ -151,7 +201,7 @@ const projectData = [
     link: "https://github.com/rdnk2004/anomaly-detection"
   },
   {
-    id: 9,
+    id: 11,
     category: "systems",
     title: "Data-Driven Wellness Analysis: Impact of Yoga Practice",
     metadata: "Exploratory Data Analysis",
@@ -170,7 +220,7 @@ const projectData = [
 
 export default function Projects() {
   const [mounted, setMounted] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<typeof projectData[0] | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const ref = useRef<HTMLDivElement>(null);
 
@@ -274,7 +324,15 @@ export default function Projects() {
                 <Card className="bg-card/50 border border-border/40 h-full shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 flex flex-col justify-between">
                   <div>
                     <CardHeader>
-                      <div className="text-xs font-mono text-muted-foreground mb-3 tracking-wide border-l-2 border-primary/20 pl-2">{project.metadata}</div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="text-xs font-mono text-muted-foreground tracking-wide border-l-2 border-primary/20 pl-2">{project.metadata}</div>
+                        {project.status && (
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 font-medium shrink-0">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            {project.status}
+                          </span>
+                        )}
+                      </div>
                       <div className="font-bold text-xl mb-1 text-foreground group-hover:text-primary transition-colors">{project.title}</div>
                     </CardHeader>
                     <CardContent>
@@ -336,7 +394,15 @@ export default function Projects() {
                       </motion.button>
 
                       {/* layoutId ensures these elements morph smoothly from their card position */}
-                      <motion.div layoutId={`metadata-${selectedProject.id}`} className="text-sm font-mono text-primary mb-2">{selectedProject.metadata}</motion.div>
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <motion.div layoutId={`metadata-${selectedProject.id}`} className="text-sm font-mono text-primary">{selectedProject.metadata}</motion.div>
+                        {selectedProject.status && (
+                          <span className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 font-medium shrink-0">
+                            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                            {selectedProject.status}
+                          </span>
+                        )}
+                      </div>
                       <motion.h2 layoutId={`title-${selectedProject.id}`} className="text-2xl md:text-3xl font-bold mb-4">{selectedProject.title}</motion.h2>
                       <motion.p layoutId={`oneliner-${selectedProject.id}`} className="text-lg text-foreground/80 mb-8 border-b border-border/50 pb-6">
                         {selectedProject.oneLiner}
