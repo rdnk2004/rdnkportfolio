@@ -43,10 +43,10 @@ interface DomainRole {
 const DOMAIN_ROLES: DomainRole[] = [
     {
         id: "ml",
-        name: "ML Engineer",
-        shortTitle: "ML",
+        name: "ML & AI Engineer",
+        shortTitle: "AI / ML",
         icon: BrainCircuit,
-        badge: "Predictive & Explainable AI",
+        badge: "Multi-Agent & Explainable AI",
         color: {
             accentText: "text-primary",
             borderAccent: "border-primary/30",
@@ -54,15 +54,16 @@ const DOMAIN_ROLES: DomainRole[] = [
             pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
+            { label: "Multi-Agent & Applied AI", items: ["Multi-Agent Systems", "State Machines", "RAG", "ChromaDB", "Gemini API", "PII Redaction"] },
             { label: "Core ML & XAI", items: ["scikit-learn", "XGBoost", "Prophet", "SHAP", "MLflow"] },
-            { label: "Deep Learning & Vision", items: ["PyTorch", "TensorFlow", "ResNet-50", "Computer Vision"] },
-            { label: "Applied AI & Validation", items: ["Gemini API", "Pydantic", "Walk-Forward CV"] }
+            { label: "Deep Learning & Vision", items: ["PyTorch", "TensorFlow", "ResNet-50", "Computer Vision"] }
         ],
         principles: [
+            "Zero-hallucination multi-agent pipelines with fail-safe citation reverification and statutory grounding",
+            "Decomposed query intake into transaction facts and isolated legal questions to prevent retrieval dilution",
             "Walk-forward (expanding-window) CV benchmarked against naive baselines before trusting a result",
             "SHAP attribution used to compare model rationale against documented policy logic",
-            "F1 / precision-recall evaluation in place of misleading raw accuracy metrics",
-            "Transfer learning with early stopping and learning rate scheduling"
+            "F1 / precision-recall evaluation in place of misleading raw accuracy metrics"
         ]
     },
     {
@@ -78,9 +79,9 @@ const DOMAIN_ROLES: DomainRole[] = [
             pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
-            { label: "Orchestration", items: ["n8n", "Docker", "Docker Compose", "GitHub Actions"] },
+            { label: "Orchestration & DevOps", items: ["n8n", "Docker", "Docker Compose", "GitHub Actions", "CI/CD"] },
             { label: "Scripting & Extraction", items: ["Playwright", "Python", "Pandas", "Streamlit"] },
-            { label: "Document Output", items: ["Excel & DOCX Automation", "ReportLab PDF", "FastAPI", "Gemini API"] }
+            { label: "Document & SaaS Workflows", items: ["FastAPI", "ReportLab PDF", "Excel & DOCX Automation", "Stripe & Razorpay"] }
         ],
         principles: [
             "Automated 15+ operational Excel reports at CAI Mahindra, cutting reporting turnaround by 97%",
@@ -94,7 +95,7 @@ const DOMAIN_ROLES: DomainRole[] = [
         name: "Data Engineer",
         shortTitle: "Data Eng.",
         icon: Database,
-        badge: "Data Infrastructure",
+        badge: "Data Infrastructure & Security",
         color: {
             accentText: "text-primary",
             borderAccent: "border-primary/30",
@@ -102,15 +103,15 @@ const DOMAIN_ROLES: DomainRole[] = [
             pillBg: "bg-primary/10 text-primary border-primary/20"
         },
         skills: [
-            { label: "Storage & Migrations", items: ["PostgreSQL", "SQLAlchemy (Async)", "Alembic", "asyncpg"] },
-            { label: "Validation & Ingestion", items: ["pandera", "Pydantic", "Playwright", "Docker"] },
-            { label: "Orchestration & Serving", items: ["n8n", "FastAPI", "GitHub Actions"] }
+            { label: "Storage & Migrations", items: ["PostgreSQL", "SQLAlchemy 2.0", "Alembic", "asyncpg", "SQLite"] },
+            { label: "Infrastructure & Security", items: ["AST Security Analysis", "Isolated Sandboxes", "WebSockets", "pandera", "Pydantic"] },
+            { label: "Orchestration & Serving", items: ["n8n", "FastAPI", "GitHub Actions", "Docker"] }
         ],
         principles: [
+            "Process-isolated execution sandboxes guarded by static AST security analyzers and execution timeouts",
+            "Tenant-isolated WebSockets for real-time peer presence and collaborative recruitment pipelines",
             "Schema-enforced data contracts (pandera) that isolate ingestion errors instead of hiding them",
-            "Async, connection-pooled Postgres pipelines with version-controlled Alembic migrations",
-            "Headless Playwright extraction from JS-rendered sources into structured datasets",
-            "Multi-source sync (GitHub, ATS boards, LinkedIn) orchestrated through containerized n8n workflows"
+            "Async, connection-pooled Postgres pipelines with version-controlled Alembic migrations"
         ]
     },
     {
@@ -155,7 +156,8 @@ const DOMAIN_ROLES: DomainRole[] = [
             { label: "Delivery & Rollouts", items: ["Academic Platform Development", "Stakeholder Alignment", "Faculty & Admin Rollouts"] }
         ],
         principles: [
-            "Led 5+ hackathon teams from ideation through technical delivery under time pressure",
+            "Served as Lead Platform Architect on Aspire AI across 7 architectural sprints, delivering 117/117 passing integration tests",
+            "Led 5+ hackathon teams (including 2nd Prize at Nexyra 24H Hackathon) emphasizing 2-hour planning before execution",
             "Mentored 30+ peers on advanced Excel and engineering tooling",
             "Organized and judged 4+ campus events and ideathons",
             "Drove adoption of an academic automation platform across faculty and administrative staff"
